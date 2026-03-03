@@ -11,7 +11,7 @@ from engine.transcript import load_transcript, validate_grades, resolve_retakes
 from engine.program_loader import load_program, load_equivalences
 from engine.waivers import get_waivers
 from engine.audit import run_audit
-from display.formatter import print_audit_report
+from display.formatter import print_audit_report, print_banner
 
 DEFAULT_KNOWLEDGE = str(Path(__file__).resolve().parent / "data" / "program_knowledge.md")
 
@@ -36,6 +36,8 @@ def main():
                         help="Declare a minor (MATH or PHYSICS)")
     parser.add_argument("-o", "--output", help="Save output to file")
     args = parser.parse_args()
+
+    print_banner()
 
     records = load_transcript(args.transcript)
 

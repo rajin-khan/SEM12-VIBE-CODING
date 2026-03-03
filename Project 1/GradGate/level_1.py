@@ -10,7 +10,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from engine.transcript import load_transcript, validate_grades, validate_courses, resolve_retakes
 from engine.credits import tally_credits
 from engine.program_loader import load_program, load_nsu_course_list, load_equivalences, resolve_program_name
-from display.formatter import print_credit_tally
+from display.formatter import print_credit_tally, print_banner
 
 DEFAULT_KNOWLEDGE = str(Path(__file__).resolve().parent / "data" / "program_knowledge.md")
 
@@ -27,6 +27,8 @@ def main():
                         help="Path to program knowledge markdown file")
     parser.add_argument("-o", "--output", help="Save output to file")
     args = parser.parse_args()
+
+    print_banner()
 
     records = load_transcript(args.transcript)
 

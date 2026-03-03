@@ -11,7 +11,7 @@ from engine.transcript import load_transcript, validate_grades, validate_courses
 from engine.program_loader import load_program, load_nsu_course_list, load_equivalences, resolve_program_name
 from engine.waivers import get_waivers
 from engine.cgpa import compute_semester_progression, compute_grade_distribution
-from display.formatter import print_semester_progression
+from display.formatter import print_semester_progression, print_banner
 
 DEFAULT_KNOWLEDGE = str(Path(__file__).resolve().parent / "data" / "program_knowledge.md")
 
@@ -29,6 +29,8 @@ def main():
     parser.add_argument("--waivers", default=None,
                         help="Comma-separated course codes to waive (e.g., ENG102,MAT112)")
     args = parser.parse_args()
+
+    print_banner()
 
     records = load_transcript(args.transcript)
 

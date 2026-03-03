@@ -18,6 +18,22 @@ from engine.prerequisites import PrereqViolation
 
 console = Console()
 
+BANNER = r"""
+   ____               _  ____       _
+  / ___|_ __ __ _  __| |/ ___| __ _| |_ ___
+ | |  _| '__/ _` |/ _` | |  _ / _` | __/ _ \
+ | |_| | | | (_| | (_| | |_| | (_| | ||  __/
+  \____|_|  \__,_|\__,_|\____|\__,_|\__\___|
+
+  NSU Graduation Audit Engine v1.0
+"""
+
+
+def print_banner() -> None:
+    """Print the GradGate ASCII banner."""
+    console.print(BANNER, style="bold cyan")
+
+
 STATUS_STYLES = {
     "Counted": ("bold green", "✓"),
     "Retake (Ignored)": ("yellow", "↻"),
@@ -203,23 +219,105 @@ def print_semester_progression(snapshots: List[SemesterSnapshot],
         ))
 
     if grade_distribution:
-        dist_table = Table(
-            title="Grade Distribution",
-            box=box.SIMPLE,
-            show_header=True,
-            header_style="bold",
-        )
-        dist_table.add_column("Grade", justify="center")
-        dist_table.add_column("Count", justify="right")
-        for grade, count in grade_distribution.items():
-            dist_table.add_row(
-                Text(grade, style=_grade_color(grade)),
-                str(count)
-            )
         console.print()
-        console.print(dist_table)
+        print_grade_distribution(grade_distribution)
 
     console.print()
+
+
+GRADE_TIERS = {
+    "A-range": ("bold green", {"A", "A-"}),
+    "B-range": ("green", {"B+", "B", "B-"}),
+    "C-range": ("yellow", {"C+", "C", "C-"}),
+    "D-range": ("red", {"D+", "D"}),
+    "F": ("bold red", {"F"}),
+    "Other": ("dim", {"W", "I", "T", "P"}),
+}
+
+BAR_CHAR = "█"
+BAR_WIDTH = 25
+
+
+def print_grade_distribution(grade_distribution: Dict[str, int],
+                             transcript_path: str = "") -> None:
+    """Print a rich grade distribution panel with visual bars and statistics."""
+    if not grade_distribution:
+        return
+
+    total = sum(grade_distribution.values())
+
+    table = Table(
+        title="GRADE DISTRIBUTION",
+        box=box.ROUNDED,
+        show_header=True,
+        header_style="bold cyan",
+        title_style="bold white on blue",
+        padding=(0, 1),
+    )
+    table.add_column("Grade", justify="center", min_width=5)
+    table.add_column("Count", justify="right", min_width=5)
+    table.add_column("  %", justify="right", min_width=6)
+    table.add_column("", min_width=BAR_WIDTH + 2)
+
+    for grade, count in grade_distribution.items():
+        pct = (count / total * 100) if total else 0
+        filled = round(pct / 100 * BAR_WIDTH)
+        bar = BAR_CHAR * filled
+        color = _grade_color(grade)
+        bar_text = Text(bar, style=color)
+        table.add_row(
+            Text(grade, style=color),
+            str(count),
+            f"{pct:5.1f}%",
+            bar_text,
+        )
+
+    console.print(table)
+
+    tier_counts: Dict[str, int] = {}
+    for tier_name, (_, grade_set) in GRADE_TIERS.items():
+        tier_counts[tier_name] = sum(
+            grade_distribution.get(g, 0) for g in grade_set
+        )
+
+    stats = Table(box=None, show_header=False, padding=(0, 2))
+    stats.add_column("Label", style="bold")
+    stats.add_column("Value", justify="right")
+
+    stats.add_row("Total Grades", f"[bold]{total}[/]")
+
+    a_count = tier_counts.get("A-range", 0)
+    b_count = tier_counts.get("B-range", 0)
+    c_count = tier_counts.get("C-range", 0)
+    d_count = tier_counts.get("D-range", 0)
+    f_count = tier_counts.get("F", 0)
+
+    if a_count:
+        stats.add_row("A-range (A, A-)", f"[bold green]{a_count}[/]")
+    if b_count:
+        stats.add_row("B-range (B+, B, B-)", f"[green]{b_count}[/]")
+    if c_count:
+        stats.add_row("C-range (C+, C, C-)", f"[yellow]{c_count}[/]")
+    if d_count:
+        stats.add_row("D-range (D+, D)", f"[red]{d_count}[/]")
+    if f_count:
+        stats.add_row("Failed (F)", f"[bold red]{f_count}[/]")
+
+    other = tier_counts.get("Other", 0)
+    if other:
+        stats.add_row("Other (W/I/T/P)", f"[dim]{other}[/]")
+
+    gpa_grades = total - tier_counts.get("Other", 0)
+    if gpa_grades > 0:
+        pass_count = a_count + b_count + c_count + d_count
+        pass_rate = pass_count / gpa_grades * 100
+        color = "green" if pass_rate >= 80 else ("yellow" if pass_rate >= 60 else "red")
+        stats.add_row("Pass Rate", f"[{color}]{pass_rate:.0f}%[/]")
+
+    console.print(Panel(stats, title="Summary", border_style="green", expand=False))
+
+    if transcript_path:
+        console.print(f"  [dim]Transcript: {transcript_path}[/]")
 
 
 def print_audit_report(result: AuditResult, full_report: bool = False) -> None:
