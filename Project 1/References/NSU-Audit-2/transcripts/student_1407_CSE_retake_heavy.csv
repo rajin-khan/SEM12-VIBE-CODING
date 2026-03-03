@@ -1,0 +1,13 @@
+course_code,course_name,credits,grade,semester
+MAT120,Calculus I,3,F,Fall2021
+CSE115,Programming Language I,3,W,Fall2021
+MAT120,Calculus I,3,D,Spring2022
+CSE115,Programming Language I,3,C,Spring2022
+CSE115L,Programming Language I Lab,1,D+,Spring2022
+CSE173,Discrete Mathematics,3,F,Summer2022
+MAT130,Calculus II,3,C,Summer2022
+BIO103,Biology I,3,C,Summer2022
+CSE101,Introduction to Python Programming,3,C-,Summer2022
+CSE173,Discrete Mathematics,3,C,Fall2022
+MAT250,Calculus III,3,F,Fall2022
+ENV203,Environmental Studies,3,F,Fall2022

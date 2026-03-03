@@ -1,0 +1,261 @@
+BATCH REPORT FOR: BBA_probation_P1.csv
+============================================================
+
+LEVEL 1 — CREDIT TALLY
+------------------------------
+
+==================================================
+  LEVEL 1 � CREDIT TALLY REPORT
+==================================================
+  Transcript File  : BBA_probation_P1.csv
+  Credits Attempted: 9
+  Credits Earned   : 0
+
+CODE       COURSE NAME                    CR   GRADE      STATUS
+---------------------------------------------------------------------------
+ECO101     Intro to Microeconomics        3    F          FAILED
+ENG103     Intermediate Composition       3    F          FAILED
+MIS107     Introduction to Computers      3    F          FAILED
+---------------------------------------------------------------------------
+  Total Credits Earned: 0
+===========================================================================
+
+
+
+LEVEL 2 — CGPA & STANDING
+------------------------------
+
+──────────────────────────────────────────────────
+  WAIVER INPUT
+──────────────────────────────────────────────────
+  Is ENG102 (Introduction to Composition (3cr)) waived? (y/n):   Is BUS112 (Intro to Business Mathematics (3cr)) waived? (y/n): 
+==================================================
+  LEVEL 2 — CGPA & STANDING REPORT (BBA)
+==================================================
+  Transcript File  : BBA_probation_P1.csv
+  Program          : BBA
+  Credits Attempted: 9
+  Credits Earned   : 0
+
+──────────────────────────────────────────────────
+  CGPA CALCULATION
+──────────────────────────────────────────────────
+  GPA Credits (denominator) : 9
+  Quality Points (numerator): 0.00
+  Cumulative GPA            : 0.00 / 4.00
+  Academic Standing         : PROBATION (P1)
+
+──────────────────────────────────────────────────
+  GPA COURSE DETAIL
+──────────────────────────────────────────────────
++------+-------------+----+-------+----+----+
+| Code | Course Name | Cr | Grade | GP | QP |
++------+-------------+----+-------+----+----+
++------+-------------+----+-------+----+----+
+  Total GPA Credits: 0   Total QP: 0.00   CGPA: 0.00
+
+──────────────────────────────────────────────────
+  ACADEMIC STANDING
+──────────────────────────────────────────────────
+  Status: PROBATION (P1)
+
+──────────────────────────────────────────────────
+  WAIVER STATUS
+──────────────────────────────────────────────────
+  ENG102: NOT WAIVED
+  BUS112: NOT WAIVED
+
+──────────────────────────────────────────────────
+  GRADE DISTRIBUTION
+──────────────────────────────────────────────────
+
+==================================================
+
+
+LEVEL 3 — GRADUATION AUDIT
+------------------------------
+
+==================================================
+  LEVEL 3 — AUDIT REPORT (BBA)
+==================================================
+  Transcript File  : BBA_probation_P1.csv
+  Program          : BBA
+  Credits Earned   : 0 / 130
+  CGPA             : 0.00 / 4.00
+  School & Core CGPA: 0.00 / 4.00
+  [UNDECLARED] CGPA  : 0.00 / 4.00
+  Academic Standing: PROBATION (P1)
+
+  ✗ NOT ELIGIBLE FOR GRADUATION
+    ✗ Major/Concentration not yet declared
+    ✗ Credits earned (0) < 130 required
+    ✗ Overall CGPA (0.00) < 2.00
+    ✗ School & BBA Core CGPA (0.00) < 2.00
+    ✗ Concentration CGPA (0.00) < 2.50
+    ✗ 51 required course(s) still missing
+==================================================
+
+──────────────────────────────────────────────────
+  MISSING COURSES / REQUIREMENTS
+──────────────────────────────────────────────────
+
+  [School Core] — 7 course(s), 21 credits
+    ○ ECO101 (3 credits)
+    ○ ECO104 (3 credits)
+    ○ MIS107 (3 credits)
+    ○ BUS251 (3 credits)
+    ○ BUS172 (3 credits)
+    ○ BUS173 (3 credits)
+    ○ BUS135 (3 credits)
+
+  [BBA Core] — 12 course(s), 36 credits
+    ○ ACT201 (3 credits)
+    ○ ACT202 (3 credits)
+    ○ FIN254 (3 credits)
+    ○ LAW200 (3 credits)
+    ○ INB372 (3 credits)
+    ○ MKT202 (3 credits)
+    ○ MIS207 (3 credits)
+    ○ MGT212 (3 credits)
+    ○ MGT351 (3 credits)
+    ○ MGT314 (3 credits)
+    ○ MGT368 (3 credits)
+    ○ MGT489 (3 credits)
+
+  [GED] — 3 course(s), 9 credits
+    ○ ENG103 (3 credits)
+    ○ ENG105 (3 credits)
+    ○ PHI401 (3 credits)
+
+  [GED Choice (Language)] — 3 course(s), 9 credits
+    ○ BEN205 (3 credits)
+    ○ ENG115 (3 credits)
+    ○ CHN101 (3 credits)
+
+  [GED Choice (History, pick 2)] — 4 course(s), 12 credits
+    ○ HIS101 (3 credits)
+    ○ HIS102 (3 credits)
+    ○ HIS103 (3 credits)
+    ○ HIS205 (3 credits)
+
+  [GED Choice (Political Science)] — 3 course(s), 9 credits
+    ○ POL101 (3 credits)
+    ○ POL104 (3 credits)
+    ○ PAD201 (3 credits)
+
+  [GED Choice (Social Science)] — 3 course(s), 9 credits
+    ○ SOC101 (3 credits)
+    ○ GEO205 (3 credits)
+    ○ ANT101 (3 credits)
+
+  [GED Choice (Science, pick 3)] — 6 course(s), 18 credits
+    ○ BIO103 (3 credits)
+    ○ ENV107 (3 credits)
+    ○ PBH101 (3 credits)
+    ○ PSY101 (3 credits)
+    ○ PHY107 (3 credits)
+    ○ CHE101 (3 credits)
+
+  [GED Choice (Lab)] — 6 course(s), 6 credits
+    ○ BIO103L (1 credits)
+    ○ ENV107L (1 credits)
+    ○ PBH101L (1 credits)
+    ○ PSY101L (1 credits)
+    ○ PHY107L (1 credits)
+    ○ CHE101L (1 credits)
+
+  [GED Waivable] — 2 course(s), 6 credits
+    ○ ENG102 (3 credits)
+    ○ BUS112 (3 credits)
+
+  [Internship] — 1 course(s), 4 credits
+    ○ BUS498 (4 credits)
+
+  [Free Electives] — 1 course(s), 9 credits
+    ○ Any courses (9 credits needed) (9 credits)
+
+  Total Missing: 51 course(s), 148 credits
+==================================================
+
+──────────────────────────────────────────────────
+  PATH TO GRADUATION
+──────────────────────────────────────────────────
+
+  Summary:
+    Credits still needed  : 130
+    Courses to complete   : 51
+    Estimated semesters   : ~10 (at 15 credits/semester)
+
+  Action Items:
+
+    1. [HIGH] CREDITS
+       Earn 130 more credits to reach the 130-credit requirement
+       Currently at 0/130 credits.
+
+    2. [CRITICAL] CGPA
+       Raise overall CGPA from 0.00 to at least 2.00
+       You are on PROBATION (P1). Focus on higher grades in remaining courses. Retaking low-grade courses may help.
+
+    3. [HIGH] MAJOR GPA
+       Raise Core GPA from 0.00 to at least 2.00
+       Consider retaking core courses where you scored D/D+ to improve this.
+
+    4. [LOW] DECLARE MAJOR
+       Select and declare your Concentration/Major area
+       You have 0 credits. You should focus on core credits
+       but start thinking about your major.
+
+    5. [HIGH] SCHOOL CORE
+       Complete 7 course(s) (21 credits)
+       ECO101 (3cr), ECO104 (3cr), MIS107 (3cr), BUS251 (3cr)
+       BUS172 (3cr), BUS173 (3cr), BUS135 (3cr)
+
+    6. [HIGH] BBA CORE
+       Complete 12 course(s) (36 credits)
+       ACT201 (3cr), ACT202 (3cr), FIN254 (3cr), LAW200 (3cr)
+       INB372 (3cr), MKT202 (3cr), MIS207 (3cr), MGT212 (3cr)
+       MGT351 (3cr), MGT314 (3cr), MGT368 (3cr), MGT489 (3cr)
+
+    7. [HIGH] GED
+       Complete 3 course(s) (9 credits)
+       ENG103 (3cr), ENG105 (3cr), PHI401 (3cr)
+
+    8. [MEDIUM] GED CHOICE (LANGUAGE)
+       Complete 1 course from: BEN205 or ENG115 or CHN101
+       Pick any one (9 credits each).
+
+    9. [MEDIUM] GED CHOICE (HISTORY, PICK 2)
+       Complete 1 course from: HIS101 or HIS102 or HIS103 or HIS205
+       Pick any one (12 credits each).
+
+    10. [MEDIUM] GED CHOICE (POLITICAL SCIENCE)
+       Complete 1 course from: POL101 or POL104 or PAD201
+       Pick any one (9 credits each).
+
+    11. [MEDIUM] GED CHOICE (SOCIAL SCIENCE)
+       Complete 1 course from: SOC101 or GEO205 or ANT101
+       Pick any one (9 credits each).
+
+    12. [MEDIUM] GED CHOICE (SCIENCE, PICK 3)
+       Complete 1 course from: BIO103 or ENV107 or PBH101 or PSY101 or PHY107 or CHE101
+       Pick any one (18 credits each).
+
+    13. [MEDIUM] GED CHOICE (LAB)
+       Complete 1 course from: BIO103L or ENV107L or PBH101L or PSY101L or PHY107L or CHE101L
+       Pick any one (6 credits each).
+
+    14. [LOW] GED WAIVABLE
+       Pass or get waiver for: ENG102, BUS112
+       0-credit course - does not affect CGPA or credit total
+       but is required.
+
+    15. [HIGH] INTERNSHIP
+       Complete 1 course(s) (4 credits)
+       BUS498 (4cr)
+
+    16. [MEDIUM] FREE ELECTIVES
+       Complete 9 credits of electives
+       Any courses (9 credits needed) (9cr)
+
+==================================================
+

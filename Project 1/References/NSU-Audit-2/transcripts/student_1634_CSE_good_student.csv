@@ -1,0 +1,11 @@
+course_code,course_name,credits,grade,semester
+MAT120,Calculus I,3,A-,Spring2019
+CSE115,Programming Language I,3,C+,Spring2019
+BIO103,Biology I,3,B,Spring2019
+CSE145,Introduction to Artificial Intelligence,3,A,Spring2019
+CSE101,Introduction to Python Programming,3,B+,Spring2019
+CSE173,Discrete Mathematics,3,C,Summer2019
+MAT130,Calculus II,3,B-,Summer2019
+ENG103,Intermediate Composition,3,B+,Summer2019
+ENV203,Environmental Studies,3,B+,Summer2019
+BIO103L,Biology I Lab,1,B,Summer2019

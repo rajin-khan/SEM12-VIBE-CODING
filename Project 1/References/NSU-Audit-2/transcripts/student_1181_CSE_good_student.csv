@@ -1,0 +1,13 @@
+course_code,course_name,credits,grade,semester
+CSE115,Programming Language I,3,A-,Fall2023
+CSE115L,Programming Language I Lab,1,B-,Fall2023
+MAT116,Pre-Calculus,3,A-,Fall2023
+EEE452,Engineering Economics,3,B-,Fall2023
+ECO101,Intro to Microeconomics,3,B-,Fall2023
+EEE111L,Analog Electronics I Lab,1,B-,Fall2023
+CSE173,Discrete Mathematics,3,C-,Spring2024
+MAT120,Calculus I,3,C+,Spring2024
+ENG103,Intermediate Composition,3,A,Spring2024
+HIS101,Bangladesh History,3,B+,Spring2024
+PHY108,Physics II,3,B+,Spring2024
+PHY108L,Physics II Lab,1,A-,Spring2024

@@ -1,0 +1,12 @@
+course_code,course_name,credits,grade,semester
+MAT120,Calculus I,3,C-,Spring2023
+CSE115,Programming Language I,3,D+,Spring2023
+CSE215L,Programming Language II Lab,1,W,Spring2023
+CSE173,Discrete Mathematics,3,D+,Summer2023
+MAT130,Calculus II,3,F,Summer2023
+PHY108L,Physics II Lab,1,C-,Summer2023
+MAT125,Linear Algebra,3,F,Summer2023
+CSE215,Programming Language II,3,W,Fall2023
+MAT130,Calculus II,3,F,Fall2023
+ENV203,Environmental Studies,3,D+,Fall2023
+CSE225L,Data Structures & Algorithms Lab,1,F,Fall2023

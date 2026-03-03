@@ -1,0 +1,212 @@
+BATCH REPORT FOR: CSE_eligible.csv
+============================================================
+
+LEVEL 1 — CREDIT TALLY
+------------------------------
+
+==================================================
+  LEVEL 1 � CREDIT TALLY REPORT
+==================================================
+  Transcript File  : CSE_eligible.csv
+  Credits Attempted: 141
+  Credits Earned   : 144
+
+CODE       COURSE NAME                    CR   GRADE      STATUS
+---------------------------------------------------------------------------
+BIO103     Biology I                      3    B+         BEST
+BIO103L    Biology I Lab                  1    B+         BEST
+CEE110     Engineering Drawing            1    A          BEST
+CHE101     Chemistry I                    3    B+         BEST
+CHE101L    Chemistry I Lab                1    B+         BEST
+CSE101     Introduction to Python Progr   3    A          BEST
+CSE115     Programming Language I         3    A          BEST
+CSE115L    Programming Language I Lab     1    A          BEST
+CSE145     Introduction to Artificial I   3    A          BEST
+CSE173     Discrete Mathematics           3    A          BEST
+CSE215     Programming Language II        3    B+         BEST
+CSE215L    Programming Language II Lab    1    A          BEST
+CSE225     Data Structures & Algorithms   3    A          BEST
+CSE225L    Data Structures & Algorithms   1    A          BEST
+CSE226     Fundamentals of Vibe Coding    3    B+         BEST
+CSE231     Digital Logic Design           3    A-         BEST
+CSE231L    Digital Logic Design Lab       1    A          BEST
+CSE299     Junior Design Project          1    A          BEST
+CSE311     Database Management Systems    3    A          BEST
+CSE311L    Database Management Systems    1    A          BEST
+CSE323     Operating Systems Design       3    B+         BEST
+CSE327     Software Engineering           3    A          BEST
+CSE331     Microprocessor Interfacing     3    B+         BEST
+CSE331L    Microprocessor Interfacing L   1    A          BEST
+CSE332     Computer Organization & Arch   3    A          BEST
+CSE373     Design & Analysis of Algorit   3    A          BEST
+CSE421     Machine Learning               3    A          BEST
+CSE423     Data Mining                    3    A          BEST
+CSE425     Concepts of Programming Lang   3    A-         BEST
+CSE445     Computer Vision                3    A          BEST
+CSE499A    Senior Capstone Design I       2    A          BEST
+CSE499B    Senior Capstone Design II      2    A          BEST
+ECO101     Intro to Microeconomics        3    A          BEST
+EEE111     Analog Electronics I           3    B+         BEST
+EEE111L    Analog Electronics I Lab       1    A          BEST
+EEE141     Electrical Circuits I          3    A-         BEST
+EEE141L    Electrical Circuits I Lab      1    A          BEST
+EEE452     Engineering Economics          3    B+         BEST
+ENG102     Introduction to Composition    3    T          WAIVED
+ENG103     Intermediate Composition       3    A          BEST
+ENG105     Advanced Writing Skills        3    A          BEST
+ENG111     Public Speaking                3    A-         BEST
+HIS101     Bangladesh History & Culture   3    A          BEST
+HIS102     World Civilization             3    A-         BEST
+MAT116     Pre-Calculus                   0    T          WAIVED
+MAT120     Calculus I                     3    A          BEST
+MAT125     Linear Algebra                 3    A-         BEST
+MAT130     Calculus II                    3    B          BEST
+MAT250     Calculus III                   3    B+         BEST
+MAT350     Probability & Statistics       3    A-         BEST
+MAT361     Differential Equations         3    B+         BEST
+PHI104     Introduction to Ethics         3    B+         BEST
+PHY107     Physics I                      3    B+         BEST
+PHY107L    Physics I Lab                  1    B+         BEST
+PHY108     Physics II                     3    B          BEST
+PHY108L    Physics II Lab                 1    B          BEST
+POL101     Intro to Political Science     3    A          BEST
+SOC101     Intro to Sociology             3    A          BEST
+SOC201     Social Theory                  3    A          BEST
+---------------------------------------------------------------------------
+  Total Credits Earned: 144
+===========================================================================
+
+
+
+LEVEL 2 — CGPA & STANDING
+------------------------------
+
+──────────────────────────────────────────────────
+  WAIVER INPUT
+──────────────────────────────────────────────────
+  ENG102: Already in transcript (skipped)
+  MAT116: Already in transcript (skipped)
+
+==================================================
+  LEVEL 2 — CGPA & STANDING REPORT (CSE)
+==================================================
+  Transcript File  : CSE_eligible.csv
+  Program          : CSE
+  Credits Attempted: 141
+  Credits Earned   : 144
+
+──────────────────────────────────────────────────
+  CGPA CALCULATION
+──────────────────────────────────────────────────
+  GPA Credits (denominator) : 141
+  Quality Points (numerator): 523.40
+  Cumulative GPA            : 3.71 / 4.00
+  Academic Standing         : NORMAL
+
+──────────────────────────────────────────────────
+  GPA COURSE DETAIL
+──────────────────────────────────────────────────
++---------+------------------------------+----+-------+-----+------+
+| Code    | Course Name                  | Cr | Grade | GP  | QP   |
++---------+------------------------------+----+-------+-----+------+
+| BIO103  | Biology I                    | 3  | B+    | 3.3 | 9.9  |
+| BIO103L | Biology I Lab                | 1  | B+    | 3.3 | 3.3  |
+| CEE110  | Engineering Drawing          | 1  | A     | 4.0 | 4.0  |
+| CHE101  | Chemistry I                  | 3  | B+    | 3.3 | 9.9  |
+| CHE101L | Chemistry I Lab              | 1  | B+    | 3.3 | 3.3  |
+| CSE101  | Introduction to Python Progr | 3  | A     | 4.0 | 12.0 |
+| CSE115  | Programming Language I       | 3  | A     | 4.0 | 12.0 |
+| CSE115L | Programming Language I Lab   | 1  | A     | 4.0 | 4.0  |
+| CSE145  | Introduction to Artificial I | 3  | A     | 4.0 | 12.0 |
+| CSE173  | Discrete Mathematics         | 3  | A     | 4.0 | 12.0 |
+| CSE215  | Programming Language II      | 3  | B+    | 3.3 | 9.9  |
+| CSE215L | Programming Language II Lab  | 1  | A     | 4.0 | 4.0  |
+| CSE225  | Data Structures & Algorithms | 3  | A     | 4.0 | 12.0 |
+| CSE225L | Data Structures & Algorithms | 1  | A     | 4.0 | 4.0  |
+| CSE226  | Fundamentals of Vibe Coding  | 3  | B+    | 3.3 | 9.9  |
+| CSE231  | Digital Logic Design         | 3  | A-    | 3.7 | 11.1 |
+| CSE231L | Digital Logic Design Lab     | 1  | A     | 4.0 | 4.0  |
+| CSE299  | Junior Design Project        | 1  | A     | 4.0 | 4.0  |
+| CSE311  | Database Management Systems  | 3  | A     | 4.0 | 12.0 |
+| CSE311L | Database Management Systems  | 1  | A     | 4.0 | 4.0  |
+| CSE323  | Operating Systems Design     | 3  | B+    | 3.3 | 9.9  |
+| CSE327  | Software Engineering         | 3  | A     | 4.0 | 12.0 |
+| CSE331  | Microprocessor Interfacing   | 3  | B+    | 3.3 | 9.9  |
+| CSE331L | Microprocessor Interfacing L | 1  | A     | 4.0 | 4.0  |
+| CSE332  | Computer Organization & Arch | 3  | A     | 4.0 | 12.0 |
+| CSE373  | Design & Analysis of Algorit | 3  | A     | 4.0 | 12.0 |
+| CSE421  | Machine Learning             | 3  | A     | 4.0 | 12.0 |
+| CSE423  | Data Mining                  | 3  | A     | 4.0 | 12.0 |
+| CSE425  | Concepts of Programming Lang | 3  | A-    | 3.7 | 11.1 |
+| CSE445  | Computer Vision              | 3  | A     | 4.0 | 12.0 |
+| CSE499A | Senior Capstone Design I     | 2  | A     | 4.0 | 8.0  |
+| CSE499B | Senior Capstone Design II    | 2  | A     | 4.0 | 8.0  |
+| ECO101  | Intro to Microeconomics      | 3  | A     | 4.0 | 12.0 |
+| EEE111  | Analog Electronics I         | 3  | B+    | 3.3 | 9.9  |
+| EEE111L | Analog Electronics I Lab     | 1  | A     | 4.0 | 4.0  |
+| EEE141  | Electrical Circuits I        | 3  | A-    | 3.7 | 11.1 |
+| EEE141L | Electrical Circuits I Lab    | 1  | A     | 4.0 | 4.0  |
+| EEE452  | Engineering Economics        | 3  | B+    | 3.3 | 9.9  |
+| ENG103  | Intermediate Composition     | 3  | A     | 4.0 | 12.0 |
+| ENG105  | Advanced Writing Skills      | 3  | A     | 4.0 | 12.0 |
+| ENG111  | Public Speaking              | 3  | A-    | 3.7 | 11.1 |
+| HIS101  | Bangladesh History & Culture | 3  | A     | 4.0 | 12.0 |
+| HIS102  | World Civilization           | 3  | A-    | 3.7 | 11.1 |
+| MAT120  | Calculus I                   | 3  | A     | 4.0 | 12.0 |
+| MAT125  | Linear Algebra               | 3  | A-    | 3.7 | 11.1 |
+| MAT130  | Calculus II                  | 3  | B     | 3.0 | 9.0  |
+| MAT250  | Calculus III                 | 3  | B+    | 3.3 | 9.9  |
+| MAT350  | Probability & Statistics     | 3  | A-    | 3.7 | 11.1 |
+| MAT361  | Differential Equations       | 3  | B+    | 3.3 | 9.9  |
+| PHI104  | Introduction to Ethics       | 3  | B+    | 3.3 | 9.9  |
+| PHY107  | Physics I                    | 3  | B+    | 3.3 | 9.9  |
+| PHY107L | Physics I Lab                | 1  | B+    | 3.3 | 3.3  |
+| PHY108  | Physics II                   | 3  | B     | 3.0 | 9.0  |
+| PHY108L | Physics II Lab               | 1  | B     | 3.0 | 3.0  |
+| POL101  | Intro to Political Science   | 3  | A     | 4.0 | 12.0 |
+| SOC101  | Intro to Sociology           | 3  | A     | 4.0 | 12.0 |
+| SOC201  | Social Theory                | 3  | A     | 4.0 | 12.0 |
++---------+------------------------------+----+-------+-----+------+
+  Total GPA Credits: 141   Total QP: 523.40   CGPA: 3.71
+
+──────────────────────────────────────────────────
+  WAIVER STATUS
+──────────────────────────────────────────────────
+  ENG102: WAIVED
+  MAT116: WAIVED
+
+  Credit Reduction from Waivers: 3 credits
+
+──────────────────────────────────────────────────
+  GRADE DISTRIBUTION
+──────────────────────────────────────────────────
+  A:  32  ████████████████████████████████
+  A-:   7  ███████
+  B+:  15  ███████████████
+  B:   3  ███
+
+==================================================
+
+
+LEVEL 3 — GRADUATION AUDIT
+------------------------------
+
+==================================================
+  LEVEL 3 — AUDIT REPORT (CSE)
+==================================================
+  Transcript File  : CSE_eligible.csv
+  Program          : CSE
+  Credits Earned   : 144 / 127
+  CGPA             : 3.71 / 4.00
+  Major Core CGPA  : 3.76 / 4.00
+  Major Elec CGPA  : 4.00 / 4.00
+
+  ★ GRADUATION ELIGIBLE ★
+==================================================
+
+──────────────────────────────────────────────────
+  MISSING COURSES / REQUIREMENTS
+──────────────────────────────────────────────────
+  All required courses satisfied!
+==================================================
+

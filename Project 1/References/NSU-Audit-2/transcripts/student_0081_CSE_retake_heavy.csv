@@ -1,0 +1,8 @@
+course_code,course_name,credits,grade,semester
+CSE115,Programming Language I,3,C,Spring2022
+CSE115L,Programming Language I Lab,1,C,Spring2022
+MAT116,Pre-Calculus,3,F,Spring2022
+EEE141L,Electrical Circuits I Lab,1,D,Spring2022
+CSE173,Discrete Mathematics,3,F,Summer2022
+MAT116,Pre-Calculus,3,D,Summer2022
+CSE311L,Database Management Systems Lab,1,W,Summer2022

@@ -1,0 +1,248 @@
+BATCH REPORT FOR: BBA_credit_transfer.csv
+============================================================
+
+LEVEL 1 — CREDIT TALLY
+------------------------------
+
+==================================================
+  LEVEL 1 � CREDIT TALLY REPORT
+==================================================
+  Transcript File  : BBA_credit_transfer.csv
+  Credits Attempted: 27
+  Credits Earned   : 54
+
+CODE       COURSE NAME                    CR   GRADE      STATUS
+---------------------------------------------------------------------------
+ACT201     Intro to Financial Accountin   3    T          WAIVED
+ACT202     Intro to Managerial Accounti   3    B          BEST
+BUS112     Intro to Business Mathematic   3    T          WAIVED
+BUS135     Business Mathematics           3    T          WAIVED
+BUS172     Introduction to Statistics     3    T          WAIVED
+BUS173     Applied Statistics             3    A          BEST
+ECO101     Intro to Microeconomics        3    T          WAIVED
+ENG102     Introduction to Composition    3    T          WAIVED
+ENG103     Intermediate Composition       3    T          WAIVED
+FIN254     Intro to Financial Managemen   3    B+         BEST
+INB372     International Business         3    A-         BEST
+LAW200     Legal Environment of Busines   3    B+         BEST
+MGT212     Principles of Management       3    A          BEST
+MGT351     Human Resource Management      3    A          BEST
+MGT489     Strategic Management           3    A          BEST
+MIS107     Introduction to Computers      3    T          WAIVED
+MKT202     Introduction to Marketing      3    A-         BEST
+PHI401     Ethics / Philosophy            3    T          WAIVED
+---------------------------------------------------------------------------
+  Total Credits Earned: 54
+===========================================================================
+
+
+
+LEVEL 2 — CGPA & STANDING
+------------------------------
+
+──────────────────────────────────────────────────
+  WAIVER INPUT
+──────────────────────────────────────────────────
+  ENG102: Already in transcript (skipped)
+  BUS112: Already in transcript (skipped)
+
+==================================================
+  LEVEL 2 — CGPA & STANDING REPORT (BBA)
+==================================================
+  Transcript File  : BBA_credit_transfer.csv
+  Program          : BBA
+  Credits Attempted: 27
+  Credits Earned   : 54
+
+──────────────────────────────────────────────────
+  CGPA CALCULATION
+──────────────────────────────────────────────────
+  GPA Credits (denominator) : 27
+  Quality Points (numerator): 99.00
+  Cumulative GPA            : 3.67 / 4.00
+  Academic Standing         : NORMAL
+
+──────────────────────────────────────────────────
+  GPA COURSE DETAIL
+──────────────────────────────────────────────────
++--------+------------------------------+----+-------+-----+------+
+| Code   | Course Name                  | Cr | Grade | GP  | QP   |
++--------+------------------------------+----+-------+-----+------+
+| ACT202 | Intro to Managerial Accounti | 3  | B     | 3.0 | 9.0  |
+| BUS173 | Applied Statistics           | 3  | A     | 4.0 | 12.0 |
+| FIN254 | Intro to Financial Managemen | 3  | B+    | 3.3 | 9.9  |
+| INB372 | International Business       | 3  | A-    | 3.7 | 11.1 |
+| LAW200 | Legal Environment of Busines | 3  | B+    | 3.3 | 9.9  |
+| MGT212 | Principles of Management     | 3  | A     | 4.0 | 12.0 |
+| MGT351 | Human Resource Management    | 3  | A     | 4.0 | 12.0 |
+| MGT489 | Strategic Management         | 3  | A     | 4.0 | 12.0 |
+| MKT202 | Introduction to Marketing    | 3  | A-    | 3.7 | 11.1 |
++--------+------------------------------+----+-------+-----+------+
+  Total GPA Credits: 27   Total QP: 99.00   CGPA: 3.67
+
+──────────────────────────────────────────────────
+  WAIVER STATUS
+──────────────────────────────────────────────────
+  ENG102: WAIVED
+  BUS112: WAIVED
+
+  Credit Reduction from Waivers: 6 credits
+
+──────────────────────────────────────────────────
+  GRADE DISTRIBUTION
+──────────────────────────────────────────────────
+  A:   4  ████
+  A-:   2  ██
+  B+:   2  ██
+  B:   1  █
+
+==================================================
+
+
+LEVEL 3 — GRADUATION AUDIT
+------------------------------
+
+==================================================
+  LEVEL 3 — AUDIT REPORT (BBA)
+==================================================
+  Transcript File  : BBA_credit_transfer.csv
+  Program          : BBA
+  Credits Earned   : 54 / 124
+  CGPA             : 3.67 / 4.00
+  School & Core CGPA: 3.67 / 4.00
+  [UNDECLARED] CGPA  : 3.67 / 4.00
+
+  ✗ NOT ELIGIBLE FOR GRADUATION
+    ✗ Major/Concentration not yet declared
+    ✗ Credits earned (54) < 124 required
+    ✗ 33 required course(s) still missing
+==================================================
+
+──────────────────────────────────────────────────
+  MISSING COURSES / REQUIREMENTS
+──────────────────────────────────────────────────
+
+  [School Core] — 2 course(s), 6 credits
+    ○ ECO104 (3 credits)
+    ○ BUS251 (3 credits)
+
+  [BBA Core] — 3 course(s), 9 credits
+    ○ MIS207 (3 credits)
+    ○ MGT314 (3 credits)
+    ○ MGT368 (3 credits)
+
+  [GED] — 1 course(s), 3 credits
+    ○ ENG105 (3 credits)
+
+  [GED Choice (Language)] — 3 course(s), 9 credits
+    ○ BEN205 (3 credits)
+    ○ ENG115 (3 credits)
+    ○ CHN101 (3 credits)
+
+  [GED Choice (History, pick 2)] — 4 course(s), 12 credits
+    ○ HIS101 (3 credits)
+    ○ HIS102 (3 credits)
+    ○ HIS103 (3 credits)
+    ○ HIS205 (3 credits)
+
+  [GED Choice (Political Science)] — 3 course(s), 9 credits
+    ○ POL101 (3 credits)
+    ○ POL104 (3 credits)
+    ○ PAD201 (3 credits)
+
+  [GED Choice (Social Science)] — 3 course(s), 9 credits
+    ○ SOC101 (3 credits)
+    ○ GEO205 (3 credits)
+    ○ ANT101 (3 credits)
+
+  [GED Choice (Science, pick 3)] — 6 course(s), 18 credits
+    ○ BIO103 (3 credits)
+    ○ ENV107 (3 credits)
+    ○ PBH101 (3 credits)
+    ○ PSY101 (3 credits)
+    ○ PHY107 (3 credits)
+    ○ CHE101 (3 credits)
+
+  [GED Choice (Lab)] — 6 course(s), 6 credits
+    ○ BIO103L (1 credits)
+    ○ ENV107L (1 credits)
+    ○ PBH101L (1 credits)
+    ○ PSY101L (1 credits)
+    ○ PHY107L (1 credits)
+    ○ CHE101L (1 credits)
+
+  [Internship] — 1 course(s), 4 credits
+    ○ BUS498 (4 credits)
+
+  [Free Electives] — 1 course(s), 9 credits
+    ○ Any courses (9 credits needed) (9 credits)
+
+  Total Missing: 33 course(s), 94 credits
+==================================================
+
+──────────────────────────────────────────────────
+  PATH TO GRADUATION
+──────────────────────────────────────────────────
+
+  Summary:
+    Credits still needed  : 70
+    Courses to complete   : 33
+    Estimated semesters   : ~7 (at 15 credits/semester)
+
+  Action Items:
+
+    1. [HIGH] CREDITS
+       Earn 70 more credits to reach the 124-credit requirement
+       Currently at 54/124 credits.
+
+    2. [LOW] DECLARE MAJOR
+       Select and declare your Concentration/Major area
+       You have 54 credits. You should focus on core credits
+       but start thinking about your major.
+
+    3. [HIGH] SCHOOL CORE
+       Complete 2 course(s) (6 credits)
+       ECO104 (3cr), BUS251 (3cr)
+
+    4. [HIGH] BBA CORE
+       Complete 3 course(s) (9 credits)
+       MIS207 (3cr), MGT314 (3cr), MGT368 (3cr)
+
+    5. [HIGH] GED
+       Complete 1 course(s) (3 credits)
+       ENG105 (3cr)
+
+    6. [MEDIUM] GED CHOICE (LANGUAGE)
+       Complete 1 course from: BEN205 or ENG115 or CHN101
+       Pick any one (9 credits each).
+
+    7. [MEDIUM] GED CHOICE (HISTORY, PICK 2)
+       Complete 1 course from: HIS101 or HIS102 or HIS103 or HIS205
+       Pick any one (12 credits each).
+
+    8. [MEDIUM] GED CHOICE (POLITICAL SCIENCE)
+       Complete 1 course from: POL101 or POL104 or PAD201
+       Pick any one (9 credits each).
+
+    9. [MEDIUM] GED CHOICE (SOCIAL SCIENCE)
+       Complete 1 course from: SOC101 or GEO205 or ANT101
+       Pick any one (9 credits each).
+
+    10. [MEDIUM] GED CHOICE (SCIENCE, PICK 3)
+       Complete 1 course from: BIO103 or ENV107 or PBH101 or PSY101 or PHY107 or CHE101
+       Pick any one (18 credits each).
+
+    11. [MEDIUM] GED CHOICE (LAB)
+       Complete 1 course from: BIO103L or ENV107L or PBH101L or PSY101L or PHY107L or CHE101L
+       Pick any one (6 credits each).
+
+    12. [HIGH] INTERNSHIP
+       Complete 1 course(s) (4 credits)
+       BUS498 (4cr)
+
+    13. [MEDIUM] FREE ELECTIVES
+       Complete 9 credits of electives
+       Any courses (9 credits needed) (9cr)
+
+==================================================
+

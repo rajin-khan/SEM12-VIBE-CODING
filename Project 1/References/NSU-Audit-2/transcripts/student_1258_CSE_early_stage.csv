@@ -1,0 +1,12 @@
+course_code,course_name,credits,grade,semester
+MAT120,Calculus I,3,B+,Spring2019
+CSE115,Programming Language I,3,W,Spring2019
+CEE110,Engineering Drawing,1,C-,Spring2019
+BIO103,Biology I,3,D+,Spring2019
+BIO103L,Biology I Lab,1,B-,Spring2019
+CSE115,Programming Language I,3,D+,Summer2019
+CSE115L,Programming Language I Lab,1,C,Summer2019
+MAT130,Calculus II,3,B+,Summer2019
+CSE173,Discrete Mathematics,3,D,Fall2019
+MAT250,Calculus III,3,C-,Fall2019
+SOC101,Intro to Sociology,3,C+,Fall2019

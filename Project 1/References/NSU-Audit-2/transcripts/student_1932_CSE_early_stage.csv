@@ -1,0 +1,10 @@
+course_code,course_name,credits,grade,semester
+MAT120,Calculus I,3,B+,Spring2023
+CSE115,Programming Language I,3,A,Spring2023
+CSE115L,Programming Language I Lab,1,B,Spring2023
+POL104,Political Science,3,B-,Spring2023
+EEE111L,Analog Electronics I Lab,1,A,Spring2023
+CSE173,Discrete Mathematics,3,C+,Summer2023
+MAT130,Calculus II,3,C-,Summer2023
+ANT101,Anthropology,3,A-,Summer2023
+PHI104,Introduction to Ethics,3,C+,Summer2023

@@ -1,0 +1,9 @@
+course_code,course_name,credits,grade,semester
+CSE115,Programming Language I,3,D,Summer2020
+MAT116,Pre-Calculus,3,B,Summer2020
+CSE115L,Programming Language I Lab,1,D+,Summer2020
+EEE452,Engineering Economics,3,B-,Summer2020
+CSE173,Discrete Mathematics,3,W,Fall2020
+MAT120,Calculus I,3,B,Fall2020
+CSE101,Introduction to Python Programming,3,D+,Fall2020
+SOC101,Intro to Sociology,3,F,Fall2020

@@ -1,0 +1,285 @@
+[92m───────────────────────────────────────────────────────────────────── [0m[1;34mLevel [0m[1;34m1[0m[1;34m: Credit Tally Engine[0m[92m ─────────────────────────────────────────────────────────────────────[0m
+
+[1;37;44m                          CREDIT TALLY REPORT                          [0m
+╭────────────┬─────────┬───────┬──────────────┬───────────────────────╮
+│[1;36m [0m[1;36mCourse    [0m[1;36m [0m│[1;36m [0m[1;36mCredits[0m[1;36m [0m│[1;36m [0m[1;36mGrade[0m[1;36m [0m│[1;36m [0m[1;36mSemester    [0m[1;36m [0m│[1;36m [0m[1;36mStatus               [0m[1;36m [0m│
+├────────────┼─────────┼───────┼──────────────┼───────────────────────┤
+│[1m [0m[1mENG102    [0m[1m [0m│     3.0 │ [1;32m  A  [0m │ Spring 2019  │ [36m⊘ Waived             [0m │
+│[1m [0m[1mENG103    [0m[1m [0m│     3.0 │ [1;32m A-  [0m │ Spring 2019  │ [1;32m✓ Counted            [0m │
+│[1m [0m[1mENG111    [0m[1m [0m│     3.0 │ [32m B+  [0m │ Spring 2019  │ [1;32m✓ Counted            [0m │
+│[1m [0m[1mBEN205    [0m[1m [0m│     3.0 │ [32m  B  [0m │ Summer 2019  │ [1;33m⚠ Retake (Ineligible)[0m │
+│[1m [0m[1mHIS102    [0m[1m [0m│     3.0 │ [1;32m  A  [0m │ Summer 2019  │ [1;32m✓ Counted            [0m │
+│[1m [0m[1mHIS103    [0m[1m [0m│     3.0 │ [32m B+  [0m │ Fall 2019    │ [1;32m✓ Counted            [0m │
+│[1m [0m[1mPHI104    [0m[1m [0m│     3.0 │ [32m  B  [0m │ Fall 2019    │ [1;32m✓ Counted            [0m │
+│[1m [0m[1mBIO103    [0m[1m [0m│     3.0 │ [32m B+  [0m │ Fall 2019    │ [1;32m✓ Counted            [0m │
+│[1m [0m[1mBIO103L   [0m[1m [0m│       0 │ [1;32m  A  [0m │ Fall 2019    │ [1;32m✓ Counted            [0m │
+│[1m [0m[1mPOL101    [0m[1m [0m│     3.0 │ [1;32m A-  [0m │ Spring 2020  │ [1;32m✓ Counted            [0m │
+│[1m [0m[1mECO101    [0m[1m [0m│     3.0 │ [32m  B  [0m │ Spring 2020  │ [1;32m✓ Counted            [0m │
+│[1m [0m[1mSOC101    [0m[1m [0m│     3.0 │ [32m B+  [0m │ Spring 2020  │ [1;32m✓ Counted            [0m │
+│[1m [0m[1mMAT112    [0m[1m [0m│     3.0 │ [32m  B  [0m │ Spring 2019  │ [1;32m✓ Counted            [0m │
+│[1m [0m[1mMAT116    [0m[1m [0m│       0 │ [32m  B  [0m │ Spring 2019  │ [1;32m✓ Counted            [0m │
+│[1m [0m[1mMAT120    [0m[1m [0m│     3.0 │ [32m B+  [0m │ Summer 2019  │ [1;32m✓ Counted            [0m │
+│[1m [0m[1mMAT125    [0m[1m [0m│     3.0 │ [32m  B  [0m │ Summer 2019  │ [1;32m✓ Counted            [0m │
+│[1m [0m[1mMAT130    [0m[1m [0m│     3.0 │ [1;32m A-  [0m │ Fall 2019    │ [1;32m✓ Counted            [0m │
+│[1m [0m[1mMAT250    [0m[1m [0m│     3.0 │ [32m  B  [0m │ Spring 2020  │ [1;32m✓ Counted            [0m │
+│[1m [0m[1mMAT350    [0m[1m [0m│     3.0 │ [32m B-  [0m │ Summer 2020  │ [1;32m✓ Counted            [0m │
+│[1m [0m[1mMAT361    [0m[1m [0m│     3.0 │ [33m C+  [0m │ Summer 2020  │ [1;32m✓ Counted            [0m │
+│[1m [0m[1mPHY107    [0m[1m [0m│     3.0 │ [32m  B  [0m │ Fall 2019    │ [1;32m✓ Counted            [0m │
+│[1m [0m[1mPHY107L   [0m[1m [0m│     1.0 │ [32m B+  [0m │ Fall 2019    │ [1;32m✓ Counted            [0m │
+│[1m [0m[1mPHY108    [0m[1m [0m│     3.0 │ [32m B-  [0m │ Spring 2020  │ [1;32m✓ Counted            [0m │
+│[1m [0m[1mPHY108L   [0m[1m [0m│     1.0 │ [32m  B  [0m │ Spring 2020  │ [1;32m✓ Counted            [0m │
+│[1m [0m[1mCHE101    [0m[1m [0m│     3.0 │ [33m C+  [0m │ Summer 2020  │ [1;32m✓ Counted            [0m │
+│[1m [0m[1mCHE101L   [0m[1m [0m│     1.0 │ [32m  B  [0m │ Summer 2020  │ [1;32m✓ Counted            [0m │
+│[1m [0m[1mEEE452    [0m[1m [0m│     3.0 │ [32m  B  [0m │ Fall 2020    │ [1;32m✓ Counted            [0m │
+│[1m [0m[1mEEE154    [0m[1m [0m│     1.0 │ [1;32m  A  [0m │ Fall 2020    │ [1;32m✓ Counted            [0m │
+│[1m [0m[1mCSE115    [0m[1m [0m│     3.0 │ [1;32m  A  [0m │ Spring 2019  │ [1;32m✓ Counted            [0m │
+│[1m [0m[1mCSE115L   [0m[1m [0m│     1.0 │ [1;32m  A  [0m │ Spring 2019  │ [1;32m✓ Counted            [0m │
+│[1m [0m[1mCSE173    [0m[1m [0m│     3.0 │ [1;32m A-  [0m │ Summer 2019  │ [1;32m✓ Counted            [0m │
+│[1m [0m[1mCSE215    [0m[1m [0m│     3.0 │ [1;32m  A  [0m │ Fall 2019    │ [1;32m✓ Counted            [0m │
+│[1m [0m[1mCSE215L   [0m[1m [0m│     1.0 │ [1;32m  A  [0m │ Fall 2019    │ [1;32m✓ Counted            [0m │
+│[1m [0m[1mCSE225    [0m[1m [0m│     3.0 │ [32m B+  [0m │ Spring 2020  │ [1;32m✓ Counted            [0m │
+│[1m [0m[1mCSE225L   [0m[1m [0m│       0 │ [1;32m  A  [0m │ Spring 2020  │ [1;32m✓ Counted            [0m │
+│[1m [0m[1mCSE231    [0m[1m [0m│     3.0 │ [32m  B  [0m │ Spring 2020  │ [1;32m✓ Counted            [0m │
+│[1m [0m[1mCSE231L   [0m[1m [0m│       0 │ [32m B+  [0m │ Spring 2020  │ [1;32m✓ Counted            [0m │
+│[1m [0m[1mEEE141    [0m[1m [0m│     3.0 │ [32m  B  [0m │ Summer 2020  │ [1;32m✓ Counted            [0m │
+│[1m [0m[1mEEE141L   [0m[1m [0m│     1.0 │ [32m B+  [0m │ Summer 2020  │ [1;32m✓ Counted            [0m │
+│[1m [0m[1mEEE111    [0m[1m [0m│     3.0 │ [32m B-  [0m │ Fall 2020    │ [1;32m✓ Counted            [0m │
+│[1m [0m[1mEEE111L   [0m[1m [0m│     1.0 │ [32m  B  [0m │ Fall 2020    │ [1;32m✓ Counted            [0m │
+│[1m [0m[1mCSE311    [0m[1m [0m│     3.0 │ [1;32m A-  [0m │ Fall 2020    │ [1;32m✓ Counted            [0m │
+│[1m [0m[1mCSE311L   [0m[1m [0m│       0 │ [1;32m  A  [0m │ Fall 2020    │ [1;32m✓ Counted            [0m │
+│[1m [0m[1mCSE332    [0m[1m [0m│     3.0 │ [32m B+  [0m │ Spring 2021  │ [1;32m✓ Counted            [0m │
+│[1m [0m[1mCSE332L   [0m[1m [0m│       0 │ [32m  B  [0m │ Spring 2021  │ [1;32m✓ Counted            [0m │
+│[1m [0m[1mCSE323    [0m[1m [0m│     3.0 │ [32m  B  [0m │ Summer 2021  │ [1;32m✓ Counted            [0m │
+│[1m [0m[1mCSE327    [0m[1m [0m│     3.0 │ [1;32m A-  [0m │ Summer 2021  │ [1;32m✓ Counted            [0m │
+│[1m [0m[1mCSE331    [0m[1m [0m│     3.0 │ [32m  B  [0m │ Fall 2021    │ [1;32m✓ Counted            [0m │
+│[1m [0m[1mCSE331L   [0m[1m [0m│       0 │ [32m B+  [0m │ Fall 2021    │ [1;32m✓ Counted            [0m │
+│[1m [0m[1mCSE373    [0m[1m [0m│     3.0 │ [32m B+  [0m │ Fall 2021    │ [1;32m✓ Counted            [0m │
+│[1m [0m[1mCSE425    [0m[1m [0m│     3.0 │ [1;32m  A  [0m │ Spring 2022  │ [1;32m✓ Counted            [0m │
+│[1m [0m[1mCSE299    [0m[1m [0m│     1.0 │ [1;32m  A  [0m │ Spring 2021  │ [1;32m✓ Counted            [0m │
+│[1m [0m[1mCSE499A   [0m[1m [0m│     1.5 │ [1;32m  A  [0m │ Fall 2022    │ [1;32m✓ Counted            [0m │
+│[1m [0m[1mCSE499B   [0m[1m [0m│     1.5 │ [1;32m  A  [0m │ Spring 2023  │ [1;32m✓ Counted            [0m │
+│[1m [0m[1mCSE498R   [0m[1m [0m│     1.0 │ [1;32m  A  [0m │ Spring 2023  │ [1;32m✓ Counted            [0m │
+│[1m [0m[1mCSE440    [0m[1m [0m│     3.0 │ [32m B+  [0m │ Fall 2022    │ [1;32m✓ Counted            [0m │
+│[1m [0m[1mCSE445    [0m[1m [0m│     3.0 │ [1;32m A-  [0m │ Spring 2023  │ [1;32m✓ Counted            [0m │
+│[1m [0m[1mCSE422    [0m[1m [0m│     3.0 │ [32m  B  [0m │ Spring 2022  │ [1;32m✓ Counted            [0m │
+│[1m [0m[1mPSY101    [0m[1m [0m│     3.0 │ [32m  B  [0m │ Spring 2022  │ [1;32m✓ Counted            [0m │
+│[1m [0m[1mSOC201    [0m[1m [0m│     3.0 │ [1;32m A-  [0m │ Summer 2022  │ [1;32m✓ Counted            [0m │
+╰────────────┴─────────┴───────┴──────────────┴───────────────────────╯
+[2mTranscript: tests/tc01_cse_all_pass.csv  |  Program: Computer Science &[0m
+[2m                              Engineering                              [0m
+[32m╭─[0m[32m───────────[0m[32m Summary [0m[32m────────────[0m[32m─╮[0m
+[32m│[0m [1m  [0m[1mTotal Valid Credits[0m[1m  [0m  [1;32m130.0[0m   [32m│[0m
+[32m│[0m [1m  [0m[1mWaived Credits     [0m[1m  [0m    [36m3.0[0m   [32m│[0m
+[32m│[0m [1m  [0m[1mCredits Attempted  [0m[1m  [0m  130.0   [32m│[0m
+[32m│[0m [1m  [0m[1mProgram Credits    [0m[1m  [0m  114.0   [32m│[0m
+[32m│[0m [1m  [0m[1mElective Credits   [0m[1m  [0m   16.0   [32m│[0m
+[32m╰──────────────────────────────────╯[0m
+
+[92m───────────────────────────────────────────────────────────────── [0m[1;34mLevel [0m[1;34m2[0m[1;34m: Logic Gate & Waiver Handler[0m[92m ─────────────────────────────────────────────────────────────────[0m
+
+╭──────────────────────────────────╮
+│ [1;37;44mSEMESTER-BY-SEMESTER CGPA REPORT[0m │
+╰──────────────────────────────────╯
+  [2mTranscript: tests/tc01_cse_all_pass.csv[0m
+  [2mWaivers: ENG102[0m
+
+[3m                     [0m[1;3mSpring 2019[0m[3m                     [0m
+                                                     
+ [1;36m [0m[1;36mCourse    [0m[1;36m [0m [1;36m [0m[1;36mCredits[0m[1;36m [0m [1;36m [0m[1;36mGrade[0m[1;36m [0m [1;36m [0m[1;36mStatus            [0m[1;36m [0m 
+ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 
+ [1m [0m[1mENG102    [0m[1m [0m      3.0   [1;32m  A  [0m   [36m⊘ Waived          [0m  
+ [1m [0m[1mENG103    [0m[1m [0m      3.0   [1;32m A-  [0m   [1;32m✓ Counted         [0m  
+ [1m [0m[1mENG111    [0m[1m [0m      3.0   [32m B+  [0m   [1;32m✓ Counted         [0m  
+ [1m [0m[1mMAT112    [0m[1m [0m      3.0   [32m  B  [0m   [1;32m✓ Counted         [0m  
+ [1m [0m[1mMAT116    [0m[1m [0m        0   [32m  B  [0m   [1;32m✓ Counted         [0m  
+ [1m [0m[1mCSE115    [0m[1m [0m      3.0   [1;32m  A  [0m   [1;32m✓ Counted         [0m  
+ [1m [0m[1mCSE115L   [0m[1m [0m      1.0   [1;32m  A  [0m   [1;32m✓ Counted         [0m  
+                                                     
+  Sem Credits: [1;36m13.0[0m  |  TGPA: [1;32m3.54[0m  |  Cumulative CGPA: [1;32m3.54[0m
+  [32m✓ Good Standing[0m
+
+[3m                      [0m[1;3mSummer 2019[0m[3m                       [0m
+                                                        
+ [1;36m [0m[1;36mCourse    [0m[1;36m [0m [1;36m [0m[1;36mCredits[0m[1;36m [0m [1;36m [0m[1;36mGrade[0m[1;36m [0m [1;36m [0m[1;36mStatus               [0m[1;36m [0m 
+ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 
+ [1m [0m[1mBEN205    [0m[1m [0m      3.0   [32m  B  [0m   [1;33m⚠ Retake (Ineligible)[0m  
+ [1m [0m[1mHIS102    [0m[1m [0m      3.0   [1;32m  A  [0m   [1;32m✓ Counted            [0m  
+ [1m [0m[1mMAT120    [0m[1m [0m      3.0   [32m B+  [0m   [1;32m✓ Counted            [0m  
+ [1m [0m[1mMAT125    [0m[1m [0m      3.0   [32m  B  [0m   [1;32m✓ Counted            [0m  
+ [1m [0m[1mCSE173    [0m[1m [0m      3.0   [1;32m A-  [0m   [1;32m✓ Counted            [0m  
+                                                        
+  Sem Credits: [1;36m15.0[0m  |  TGPA: [1;32m3.40[0m  |  Cumulative CGPA: [1;32m3.46[0m
+  [32m✓ Good Standing[0m
+
+[3m                      [0m[1;3mFall 2019[0m[3m                      [0m
+                                                     
+ [1;36m [0m[1;36mCourse    [0m[1;36m [0m [1;36m [0m[1;36mCredits[0m[1;36m [0m [1;36m [0m[1;36mGrade[0m[1;36m [0m [1;36m [0m[1;36mStatus            [0m[1;36m [0m 
+ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 
+ [1m [0m[1mHIS103    [0m[1m [0m      3.0   [32m B+  [0m   [1;32m✓ Counted         [0m  
+ [1m [0m[1mPHI104    [0m[1m [0m      3.0   [32m  B  [0m   [1;32m✓ Counted         [0m  
+ [1m [0m[1mBIO103    [0m[1m [0m      3.0   [32m B+  [0m   [1;32m✓ Counted         [0m  
+ [1m [0m[1mBIO103L   [0m[1m [0m        0   [1;32m  A  [0m   [1;32m✓ Counted         [0m  
+ [1m [0m[1mMAT130    [0m[1m [0m      3.0   [1;32m A-  [0m   [1;32m✓ Counted         [0m  
+ [1m [0m[1mPHY107    [0m[1m [0m      3.0   [32m  B  [0m   [1;32m✓ Counted         [0m  
+ [1m [0m[1mPHY107L   [0m[1m [0m      1.0   [32m B+  [0m   [1;32m✓ Counted         [0m  
+ [1m [0m[1mCSE215    [0m[1m [0m      3.0   [1;32m  A  [0m   [1;32m✓ Counted         [0m  
+ [1m [0m[1mCSE215L   [0m[1m [0m      1.0   [1;32m  A  [0m   [1;32m✓ Counted         [0m  
+                                                     
+  Sem Credits: [1;36m20.0[0m  |  TGPA: [1;32m3.41[0m  |  Cumulative CGPA: [1;32m3.44[0m
+  [32m✓ Good Standing[0m
+
+[3m                     [0m[1;3mSpring 2020[0m[3m                     [0m
+                                                     
+ [1;36m [0m[1;36mCourse    [0m[1;36m [0m [1;36m [0m[1;36mCredits[0m[1;36m [0m [1;36m [0m[1;36mGrade[0m[1;36m [0m [1;36m [0m[1;36mStatus            [0m[1;36m [0m 
+ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 
+ [1m [0m[1mPOL101    [0m[1m [0m      3.0   [1;32m A-  [0m   [1;32m✓ Counted         [0m  
+ [1m [0m[1mECO101    [0m[1m [0m      3.0   [32m  B  [0m   [1;32m✓ Counted         [0m  
+ [1m [0m[1mSOC101    [0m[1m [0m      3.0   [32m B+  [0m   [1;32m✓ Counted         [0m  
+ [1m [0m[1mMAT250    [0m[1m [0m      3.0   [32m  B  [0m   [1;32m✓ Counted         [0m  
+ [1m [0m[1mPHY108    [0m[1m [0m      3.0   [32m B-  [0m   [1;32m✓ Counted         [0m  
+ [1m [0m[1mPHY108L   [0m[1m [0m      1.0   [32m  B  [0m   [1;32m✓ Counted         [0m  
+ [1m [0m[1mCSE225    [0m[1m [0m      3.0   [32m B+  [0m   [1;32m✓ Counted         [0m  
+ [1m [0m[1mCSE225L   [0m[1m [0m        0   [1;32m  A  [0m   [1;32m✓ Counted         [0m  
+ [1m [0m[1mCSE231    [0m[1m [0m      3.0   [32m  B  [0m   [1;32m✓ Counted         [0m  
+ [1m [0m[1mCSE231L   [0m[1m [0m        0   [32m B+  [0m   [1;32m✓ Counted         [0m  
+                                                     
+  Sem Credits: [1;36m22.0[0m  |  TGPA: [1;32m3.14[0m  |  Cumulative CGPA: [1;32m3.35[0m
+  [32m✓ Good Standing[0m
+
+[3m                     [0m[1;3mSummer 2020[0m[3m                     [0m
+                                                     
+ [1;36m [0m[1;36mCourse    [0m[1;36m [0m [1;36m [0m[1;36mCredits[0m[1;36m [0m [1;36m [0m[1;36mGrade[0m[1;36m [0m [1;36m [0m[1;36mStatus            [0m[1;36m [0m 
+ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 
+ [1m [0m[1mMAT350    [0m[1m [0m      3.0   [32m B-  [0m   [1;32m✓ Counted         [0m  
+ [1m [0m[1mMAT361    [0m[1m [0m      3.0   [33m C+  [0m   [1;32m✓ Counted         [0m  
+ [1m [0m[1mCHE101    [0m[1m [0m      3.0   [33m C+  [0m   [1;32m✓ Counted         [0m  
+ [1m [0m[1mCHE101L   [0m[1m [0m      1.0   [32m  B  [0m   [1;32m✓ Counted         [0m  
+ [1m [0m[1mEEE141    [0m[1m [0m      3.0   [32m  B  [0m   [1;32m✓ Counted         [0m  
+ [1m [0m[1mEEE141L   [0m[1m [0m      1.0   [32m B+  [0m   [1;32m✓ Counted         [0m  
+                                                     
+  Sem Credits: [1;36m14.0[0m  |  TGPA: [1;33m2.66[0m  |  Cumulative CGPA: [1;32m3.23[0m
+  [32m✓ Good Standing[0m
+
+[3m                      [0m[1;3mFall 2020[0m[3m                      [0m
+                                                     
+ [1;36m [0m[1;36mCourse    [0m[1;36m [0m [1;36m [0m[1;36mCredits[0m[1;36m [0m [1;36m [0m[1;36mGrade[0m[1;36m [0m [1;36m [0m[1;36mStatus            [0m[1;36m [0m 
+ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 
+ [1m [0m[1mEEE452    [0m[1m [0m      3.0   [32m  B  [0m   [1;32m✓ Counted         [0m  
+ [1m [0m[1mEEE154    [0m[1m [0m      1.0   [1;32m  A  [0m   [1;32m✓ Counted         [0m  
+ [1m [0m[1mEEE111    [0m[1m [0m      3.0   [32m B-  [0m   [1;32m✓ Counted         [0m  
+ [1m [0m[1mEEE111L   [0m[1m [0m      1.0   [32m  B  [0m   [1;32m✓ Counted         [0m  
+ [1m [0m[1mCSE311    [0m[1m [0m      3.0   [1;32m A-  [0m   [1;32m✓ Counted         [0m  
+ [1m [0m[1mCSE311L   [0m[1m [0m        0   [1;32m  A  [0m   [1;32m✓ Counted         [0m  
+                                                     
+  Sem Credits: [1;36m11.0[0m  |  TGPA: [1;32m3.20[0m  |  Cumulative CGPA: [1;32m3.23[0m
+  [32m✓ Good Standing[0m
+
+[3m                     [0m[1;3mSpring 2021[0m[3m                     [0m
+                                                     
+ [1;36m [0m[1;36mCourse    [0m[1;36m [0m [1;36m [0m[1;36mCredits[0m[1;36m [0m [1;36m [0m[1;36mGrade[0m[1;36m [0m [1;36m [0m[1;36mStatus            [0m[1;36m [0m 
+ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 
+ [1m [0m[1mCSE332    [0m[1m [0m      3.0   [32m B+  [0m   [1;32m✓ Counted         [0m  
+ [1m [0m[1mCSE332L   [0m[1m [0m        0   [32m  B  [0m   [1;32m✓ Counted         [0m  
+ [1m [0m[1mCSE299    [0m[1m [0m      1.0   [1;32m  A  [0m   [1;32m✓ Counted         [0m  
+                                                     
+  Sem Credits: [1;36m4.0[0m  |  TGPA: [1;32m3.47[0m  |  Cumulative CGPA: [1;32m3.24[0m
+  [32m✓ Good Standing[0m
+
+[3m                     [0m[1;3mSummer 2021[0m[3m                     [0m
+                                                     
+ [1;36m [0m[1;36mCourse    [0m[1;36m [0m [1;36m [0m[1;36mCredits[0m[1;36m [0m [1;36m [0m[1;36mGrade[0m[1;36m [0m [1;36m [0m[1;36mStatus            [0m[1;36m [0m 
+ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 
+ [1m [0m[1mCSE323    [0m[1m [0m      3.0   [32m  B  [0m   [1;32m✓ Counted         [0m  
+ [1m [0m[1mCSE327    [0m[1m [0m      3.0   [1;32m A-  [0m   [1;32m✓ Counted         [0m  
+                                                     
+  Sem Credits: [1;36m6.0[0m  |  TGPA: [1;32m3.35[0m  |  Cumulative CGPA: [1;32m3.24[0m
+  [32m✓ Good Standing[0m
+
+[3m                      [0m[1;3mFall 2021[0m[3m                      [0m
+                                                     
+ [1;36m [0m[1;36mCourse    [0m[1;36m [0m [1;36m [0m[1;36mCredits[0m[1;36m [0m [1;36m [0m[1;36mGrade[0m[1;36m [0m [1;36m [0m[1;36mStatus            [0m[1;36m [0m 
+ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 
+ [1m [0m[1mCSE331    [0m[1m [0m      3.0   [32m  B  [0m   [1;32m✓ Counted         [0m  
+ [1m [0m[1mCSE331L   [0m[1m [0m        0   [32m B+  [0m   [1;32m✓ Counted         [0m  
+ [1m [0m[1mCSE373    [0m[1m [0m      3.0   [32m B+  [0m   [1;32m✓ Counted         [0m  
+                                                     
+  Sem Credits: [1;36m6.0[0m  |  TGPA: [1;32m3.15[0m  |  Cumulative CGPA: [1;32m3.24[0m
+  [32m✓ Good Standing[0m
+
+[3m                     [0m[1;3mSpring 2022[0m[3m                     [0m
+                                                     
+ [1;36m [0m[1;36mCourse    [0m[1;36m [0m [1;36m [0m[1;36mCredits[0m[1;36m [0m [1;36m [0m[1;36mGrade[0m[1;36m [0m [1;36m [0m[1;36mStatus            [0m[1;36m [0m 
+ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 
+ [1m [0m[1mCSE425    [0m[1m [0m      3.0   [1;32m  A  [0m   [1;32m✓ Counted         [0m  
+ [1m [0m[1mCSE422    [0m[1m [0m      3.0   [32m  B  [0m   [1;32m✓ Counted         [0m  
+ [1m [0m[1mPSY101    [0m[1m [0m      3.0   [32m  B  [0m   [1;32m✓ Counted         [0m  
+                                                     
+  Sem Credits: [1;36m9.0[0m  |  TGPA: [1;32m3.33[0m  |  Cumulative CGPA: [1;32m3.25[0m
+  [32m✓ Good Standing[0m
+
+[3m                     [0m[1;3mSummer 2022[0m[3m                     [0m
+                                                     
+ [1;36m [0m[1;36mCourse    [0m[1;36m [0m [1;36m [0m[1;36mCredits[0m[1;36m [0m [1;36m [0m[1;36mGrade[0m[1;36m [0m [1;36m [0m[1;36mStatus            [0m[1;36m [0m 
+ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 
+ [1m [0m[1mSOC201    [0m[1m [0m      3.0   [1;32m A-  [0m   [1;32m✓ Counted         [0m  
+                                                     
+  Sem Credits: [1;36m3.0[0m  |  TGPA: [1;32m3.70[0m  |  Cumulative CGPA: [1;32m3.26[0m
+  [32m✓ Good Standing[0m
+
+[3m                      [0m[1;3mFall 2022[0m[3m                      [0m
+                                                     
+ [1;36m [0m[1;36mCourse    [0m[1;36m [0m [1;36m [0m[1;36mCredits[0m[1;36m [0m [1;36m [0m[1;36mGrade[0m[1;36m [0m [1;36m [0m[1;36mStatus            [0m[1;36m [0m 
+ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 
+ [1m [0m[1mCSE499A   [0m[1m [0m      1.5   [1;32m  A  [0m   [1;32m✓ Counted         [0m  
+ [1m [0m[1mCSE440    [0m[1m [0m      3.0   [32m B+  [0m   [1;32m✓ Counted         [0m  
+                                                     
+  Sem Credits: [1;36m4.5[0m  |  TGPA: [1;32m3.53[0m  |  Cumulative CGPA: [1;32m3.27[0m
+  [32m✓ Good Standing[0m
+
+[3m                     [0m[1;3mSpring 2023[0m[3m                     [0m
+                                                     
+ [1;36m [0m[1;36mCourse    [0m[1;36m [0m [1;36m [0m[1;36mCredits[0m[1;36m [0m [1;36m [0m[1;36mGrade[0m[1;36m [0m [1;36m [0m[1;36mStatus            [0m[1;36m [0m 
+ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 
+ [1m [0m[1mCSE499B   [0m[1m [0m      1.5   [1;32m  A  [0m   [1;32m✓ Counted         [0m  
+ [1m [0m[1mCSE498R   [0m[1m [0m      1.0   [1;32m  A  [0m   [1;32m✓ Counted         [0m  
+ [1m [0m[1mCSE445    [0m[1m [0m      3.0   [1;32m A-  [0m   [1;32m✓ Counted         [0m  
+                                                     
+  Sem Credits: [1;36m5.5[0m  |  TGPA: [1;32m3.84[0m  |  Cumulative CGPA: [1;32m3.29[0m
+  [32m✓ Good Standing[0m
+
+[1;34m╭─[0m[1;34m────────────────────────────[0m[1;34m Final Summary [0m[1;34m────────────────────────────[0m[1;34m─╮[0m
+[1;34m│[0m [1mFinal CGPA:[0m [32m3.29[0m  |  [1mGPA-Bearing Credits:[0m 5.5  |  [1mStatus:[0m [32mGood Standing[0m [1;34m│[0m
+[1;34m╰─────────────────────────────────────────────────────────────────────────╯[0m
+
+[3m      Grade      [0m
+[3m  Distribution   [0m
+                 
+ [1m [0m[1mGrade[0m[1m [0m [1m [0m[1mCount[0m[1m [0m 
+ ─────────────── 
+  [1;32m  A  [0m      15  
+  [1;32m A-  [0m       8  
+  [32m B+  [0m      13  
+  [32m  B  [0m      18  
+  [32m B-  [0m       3  
+  [33m C+  [0m       2  
+                 
+
+[92m───────────────────────────────────────────────────────────────── [0m[1;34mLevel [0m[1;34m3[0m[1;34m: Audit & Deficiency Reporter[0m[92m ─────────────────────────────────────────────────────────────────[0m
+
+[1;34m╭─[0m[1;34m─────────────────────────────────────────────────────────────────────[0m[1;34m GRADUATION AUDIT REPORT [0m[1;34m──────────────────────────────────────────────────────────────────────[0m[1;34m─╮[0m
+[1;34m│[0m [1m  [0m[1mProgram          [0m[1m  [0m  Computer Science & Engineering (CSE)                                                                                                          [1;34m│[0m
+[1;34m│[0m [1m  [0m[1mCredits Required [0m[1m  [0m  133                                                                                                                                           [1;34m│[0m
+[1;34m│[0m [1m  [0m[1mCredits Completed[0m[1m  [0m  [32m133.0[0m                                                                                                                                         [1;34m│[0m
+[1;34m│[0m [1m  [0m[1mCGPA             [0m[1m  [0m  [32m3.30[0m (min: 2.00)                                                                                                                              [1;34m│[0m
+[1;34m│[0m [1m  [0m[1mMajor CGPA       [0m[1m  [0m  [32m3.37[0m                                                                                                                                          [1;34m│[0m
+[1;34m╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯[0m
+[32m╭───────────────────────────╮[0m
+[32m│[0m [1;32m✓ ELIGIBLE FOR GRADUATION[0m [32m│[0m
+[32m╰───────────────────────────╯[0m
+
+[1mDEFICIENCY REPORT[0m
+──────────────────────────────────────────────────
+
+  [32m✓ All course requirements satisfied[0m
+
+

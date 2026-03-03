@@ -1,0 +1,12 @@
+course_code,course_name,credits,grade,semester
+MAT120,Calculus I,3,D,Spring2020
+CSE115,Programming Language I,3,A,Spring2020
+CSE115L,Programming Language I Lab,1,B,Spring2020
+PHY108,Physics II,3,A-,Spring2020
+PHY108L,Physics II Lab,1,D+,Spring2020
+MAT125,Linear Algebra,3,B,Spring2020
+CSE173,Discrete Mathematics,3,C-,Summer2020
+MAT130,Calculus II,3,C-,Summer2020
+GEO205,Geography,3,B+,Summer2020
+HIS102,World Civilization,3,B-,Summer2020
+ANT101,Anthropology,3,B-,Summer2020

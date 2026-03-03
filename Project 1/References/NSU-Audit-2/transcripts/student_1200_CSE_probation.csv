@@ -1,0 +1,23 @@
+course_code,course_name,credits,grade,semester
+MAT120,Calculus I,3,D,Fall2022
+CSE115,Programming Language I,3,D,Fall2022
+CSE115L,Programming Language I Lab,1,D,Fall2022
+GEO205,Geography,3,I,Fall2022
+POL101,Intro to Political Science,3,I,Fall2022
+ENG103,Intermediate Composition,3,D+,Fall2022
+CSE173,Discrete Mathematics,3,C-,Spring2023
+MAT130,Calculus II,3,D+,Spring2023
+CSE331L,Microprocessor Interfacing Lab,1,F,Spring2023
+EEE141,Electrical Circuits I,3,D+,Spring2023
+EEE141L,Electrical Circuits I Lab,1,D+,Spring2023
+HIS102,World Civilization,3,F,Spring2023
+CSE215,Programming Language II,3,D,Summer2023
+CSE215L,Programming Language II Lab,1,D+,Summer2023
+MAT250,Calculus III,3,F,Summer2023
+CSE425,Concepts of Programming Languages,3,I,Summer2023
+ENG111,Public Speaking,3,C-,Summer2023
+CSE225,Data Structures & Algorithms,3,I,Fall2023
+MAT250,Calculus III,3,F,Fall2023
+ECO104,Intro to Macroeconomics,3,D+,Fall2023
+CSE331,Microprocessor Interfacing,3,C-,Fall2023
+CSE331L,Microprocessor Interfacing Lab,1,C-,Fall2023

@@ -1,0 +1,249 @@
+BATCH REPORT FOR: CSE_credit_tally_retakes_withdrawals_incompletes.csv
+============================================================
+
+LEVEL 1 — CREDIT TALLY
+------------------------------
+
+==================================================
+  LEVEL 1 � CREDIT TALLY REPORT
+==================================================
+  Transcript File  : CSE_credit_tally_retakes_withdrawals_incompletes.csv
+  Credits Attempted: 35
+  Credits Earned   : 29
+
+CODE       COURSE NAME                    CR   GRADE      STATUS
+---------------------------------------------------------------------------
+CSE115     Programming Language I         3    B          BEST
+CSE115L    Programming Language I Lab     1    A          BEST
+CSE173     Discrete Mathematics           3    I          FAILED
+CSE215     Programming Language II        3    F          RETAKE-IGNORED
+CSE215     Programming Language II        3    B+         BEST
+CSE225     Data Structures & Algorithms   3    B          BEST
+CSE225L    Data Structures & Algorithms   1    A-         BEST
+ECO101     Intro to Microeconomics        3    B+         BEST
+ENG102     Introduction to Composition    3    T          WAIVED
+ENG103     Intermediate Composition       3    B+         BEST
+MAT116     Pre-Calculus                   0    T          WAIVED
+MAT120     Calculus I                     3    A-         BEST
+MAT125     Linear Algebra                 3    D          RETAKE-IGNORED
+MAT125     Linear Algebra                 3    C+         BEST
+PHI104     Introduction to Ethics         3    A          BEST
+PHY107     Physics I                      3    W          WITHDRAWN
+PHY107L    Physics I Lab                  1    W          WITHDRAWN
+---------------------------------------------------------------------------
+  Total Credits Earned: 29
+===========================================================================
+
+
+
+LEVEL 2 — CGPA & STANDING
+------------------------------
+
+──────────────────────────────────────────────────
+  WAIVER INPUT
+──────────────────────────────────────────────────
+  ENG102: Already in transcript (skipped)
+  MAT116: Already in transcript (skipped)
+
+==================================================
+  LEVEL 2 — CGPA & STANDING REPORT (CSE)
+==================================================
+  Transcript File  : CSE_credit_tally_retakes_withdrawals_incompletes.csv
+  Program          : CSE
+  Credits Attempted: 35
+  Credits Earned   : 29
+
+──────────────────────────────────────────────────
+  CGPA CALCULATION
+──────────────────────────────────────────────────
+  GPA Credits (denominator) : 29
+  Quality Points (numerator): 85.40
+  Cumulative GPA            : 2.94 / 4.00
+  Academic Standing         : NORMAL
+
+──────────────────────────────────────────────────
+  GPA COURSE DETAIL
+──────────────────────────────────────────────────
++---------+------------------------------+----+-------+-----+------+
+| Code    | Course Name                  | Cr | Grade | GP  | QP   |
++---------+------------------------------+----+-------+-----+------+
+| CSE115  | Programming Language I       | 3  | B     | 3.0 | 9.0  |
+| CSE115L | Programming Language I Lab   | 1  | A     | 4.0 | 4.0  |
+| CSE215  | Programming Language II      | 3  | B+    | 3.3 | 9.9  |
+| CSE225  | Data Structures & Algorithms | 3  | B     | 3.0 | 9.0  |
+| CSE225L | Data Structures & Algorithms | 1  | A-    | 3.7 | 3.7  |
+| ECO101  | Intro to Microeconomics      | 3  | B+    | 3.3 | 9.9  |
+| ENG103  | Intermediate Composition     | 3  | B+    | 3.3 | 9.9  |
+| MAT120  | Calculus I                   | 3  | A-    | 3.7 | 11.1 |
+| MAT125  | Linear Algebra               | 3  | C+    | 2.3 | 6.9  |
+| PHI104  | Introduction to Ethics       | 3  | A     | 4.0 | 12.0 |
++---------+------------------------------+----+-------+-----+------+
+  Total GPA Credits: 26   Total QP: 85.40   CGPA: 2.94
+
+──────────────────────────────────────────────────
+  WAIVER STATUS
+──────────────────────────────────────────────────
+  ENG102: WAIVED
+  MAT116: WAIVED
+
+  Credit Reduction from Waivers: 3 credits
+
+──────────────────────────────────────────────────
+  GRADE DISTRIBUTION
+──────────────────────────────────────────────────
+  A:   2  ██
+  A-:   2  ██
+  B+:   3  ███
+  B:   2  ██
+  C+:   1  █
+
+==================================================
+
+
+LEVEL 3 — GRADUATION AUDIT
+------------------------------
+
+==================================================
+  LEVEL 3 — AUDIT REPORT (CSE)
+==================================================
+  Transcript File  : CSE_credit_tally_retakes_withdrawals_incompletes.csv
+  Program          : CSE
+  Credits Earned   : 29 / 127
+  CGPA             : 2.94 / 4.00
+  Major Core CGPA  : 2.26 / 4.00
+  Major Elec CGPA  : 0.00 / 4.00
+
+  ✗ NOT ELIGIBLE FOR GRADUATION
+    ✗ Credits earned (29) < 127 required
+    ✗ 49 required course(s) still missing
+==================================================
+
+──────────────────────────────────────────────────
+  MISSING COURSES / REQUIREMENTS
+──────────────────────────────────────────────────
+
+  [CSE Major Core] — 18 course(s), 40 credits
+    ○ CSE173 (3 credits)
+    ○ CSE215L (1 credits)
+    ○ CSE231 (3 credits)
+    ○ CSE231L (1 credits)
+    ○ CSE299 (1 credits)
+    ○ CSE311 (3 credits)
+    ○ CSE311L (1 credits)
+    ○ CSE323 (3 credits)
+    ○ CSE327 (3 credits)
+    ○ CSE331 (3 credits)
+    ○ CSE331L (1 credits)
+    ○ CSE332 (3 credits)
+    ○ CSE373 (3 credits)
+    ○ CSE425 (3 credits)
+    ○ EEE141 (3 credits)
+    ○ EEE141L (1 credits)
+    ○ EEE111 (3 credits)
+    ○ EEE111L (1 credits)
+
+  [Capstone] — 3 course(s), 7 credits
+    ○ CSE499A (2 credits)
+    ○ CSE499B (2 credits)
+    ○ EEE452 (3 credits)
+
+  [SEPS Core] — 13 course(s), 29 credits
+    ○ MAT130 (3 credits)
+    ○ MAT250 (3 credits)
+    ○ MAT350 (3 credits)
+    ○ MAT361 (3 credits)
+    ○ PHY107 (3 credits)
+    ○ PHY107L (1 credits)
+    ○ PHY108 (3 credits)
+    ○ PHY108L (1 credits)
+    ○ CHE101 (3 credits)
+    ○ CHE101L (1 credits)
+    ○ BIO103 (3 credits)
+    ○ BIO103L (1 credits)
+    ○ CEE110 (1 credits)
+
+  [GED Required] — 7 course(s), 21 credits
+    ○ ENG105 (3 credits)
+    ○ ENG111 (3 credits)
+    ○ HIS101 (3 credits)
+    ○ HIS102 (3 credits)
+    ○ CSE101 (3 credits)
+    ○ CSE145 (3 credits)
+    ○ CSE226 (3 credits)
+
+  [GED Choice (POL101 or POL104)] — 2 course(s), 6 credits
+    ○ POL101 (3 credits)
+    ○ POL104 (3 credits)
+
+  [GED Choice (SOC101/ANT101/ENV203/GEO205)] — 4 course(s), 12 credits
+    ○ SOC101 (3 credits)
+    ○ ANT101 (3 credits)
+    ○ ENV203 (3 credits)
+    ○ GEO205 (3 credits)
+
+  [CSE Electives (400-level)] — 1 course(s), 9 credits
+    ○ Any CSE 4xx (3 needed) (9 credits)
+
+  [Open Electives] — 1 course(s), 3 credits
+    ○ Any courses (3 credits needed) (3 credits)
+
+  Total Missing: 49 course(s), 127 credits
+==================================================
+
+──────────────────────────────────────────────────
+  PATH TO GRADUATION
+──────────────────────────────────────────────────
+
+  Summary:
+    Credits still needed  : 98
+    Courses to complete   : 49
+    Estimated semesters   : ~9 (at 15 credits/semester)
+
+  Action Items:
+
+    1. [HIGH] CREDITS
+       Earn 98 more credits to reach the 127-credit requirement
+       Currently at 29/127 credits.
+
+    2. [HIGH] CSE MAJOR CORE
+       Complete 18 course(s) (40 credits)
+       CSE173 (3cr), CSE215L (1cr), CSE231 (3cr), CSE231L (1cr)
+       CSE299 (1cr), CSE311 (3cr), CSE311L (1cr), CSE323 (3cr)
+       CSE327 (3cr), CSE331 (3cr), CSE331L (1cr), CSE332 (3cr)
+       CSE373 (3cr), CSE425 (3cr), EEE141 (3cr), EEE141L (1cr)
+       EEE111 (3cr), EEE111L (1cr)
+
+    3. [HIGH] CAPSTONE
+       Complete 3 course(s) (7 credits)
+       CSE499A (2cr), CSE499B (2cr), EEE452 (3cr)
+
+    4. [HIGH] SEPS CORE
+       Complete 13 course(s) (29 credits)
+       MAT130 (3cr), MAT250 (3cr), MAT350 (3cr), MAT361 (3cr)
+       PHY107 (3cr), PHY107L (1cr), PHY108 (3cr), PHY108L (1cr)
+       CHE101 (3cr), CHE101L (1cr), BIO103 (3cr), BIO103L (1cr)
+       CEE110 (1cr)
+
+    5. [HIGH] GED REQUIRED
+       Complete 7 course(s) (21 credits)
+       ENG105 (3cr), ENG111 (3cr), HIS101 (3cr), HIS102 (3cr)
+       CSE101 (3cr), CSE145 (3cr), CSE226 (3cr)
+
+    6. [MEDIUM] GED CHOICE (POL101 OR POL104)
+       Complete 1 course from: POL101 or POL104
+       Pick any one (6 credits each).
+
+    7. [MEDIUM] GED CHOICE (SOC101/ANT101/ENV203/GEO205)
+       Complete 1 course from: SOC101 or ANT101 or ENV203 or GEO205
+       Pick any one (12 credits each).
+
+    8. [MEDIUM] CSE ELECTIVES (400-LEVEL)
+       Complete 9 credits of electives
+       Any CSE 4xx (3 needed) (9cr)
+
+    9. [MEDIUM] OPEN ELECTIVES
+       Complete 3 credits of electives
+       Any courses (3 credits needed) (3cr)
+
+==================================================
+
