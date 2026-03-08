@@ -1,0 +1,47 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=Instrument+Serif:ital@0;1&display=swap');
+
+@theme {
+    --color-background: #FAF8F5;
+    --color-surface: #F2EFE9;
+    --color-foreground: #1A1714;
+    --color-muted: #7A7267;
+    --color-stroke: rgba(26, 23, 20, 0.08);
+    --font-sans: "DM Sans", sans-serif;
+    --font-display: "Instrument Serif", serif;
+}
+
+:root {
+    color-scheme: light;
+    background-color: #FAF8F5;
+    color: #1A1714;
+    font-family: "DM Sans", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    min-width: 320px;
+    background-color: #FAF8F5;
+}
+
+/* All page content must sit above the canvas (z-index: 0) */
+#root {
+    position: relative;
+    z-index: 1;
+}
+
+@layer utilities {
+    .glass-panel {
+        background-color: rgba(255, 255, 255, 0.72);
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
+        box-shadow:
+            0 1px 3px rgba(26, 23, 20, 0.07),
+            0 8px 32px rgba(26, 23, 20, 0.05),
+            inset 0 1px 0 rgba(255, 255, 255, 0.9);
+        border: 1px solid rgba(26, 23, 20, 0.07);
+    }
+}
