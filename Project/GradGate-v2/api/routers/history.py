@@ -19,12 +19,32 @@ def list_history(user_id: CurrentUser) -> list[ScanSummary]:
     sb = get_supabase()
     response = (
         sb.table("scan_sessions")
-        .select("id, created_at, program, input_type, file_name")
+        .select("id, created_at, program, input_type, file_name, result_json")
         .eq("user_id", user_id)
         .order("created_at", desc=True)
         .execute()
     )
-    return [ScanSummary(**row) for row in response.data]
+    summaries = []
+    for row in response.data:
+        result = row.get("result_json")
+        if isinstance(result, str):
+            import json as _json
+
+            result = _json.loads(result)
+        requested_level = None
+        if isinstance(result, dict):
+            requested_level = result.get("metadata", {}).get("requested_level")
+        summaries.append(
+            ScanSummary(
+                id=row["id"],
+                created_at=row["created_at"],
+                program=row["program"],
+                input_type=row["input_type"],
+                file_name=row.get("file_name"),
+                requested_level=requested_level,
+            )
+        )
+    return summaries
 
 
 @router.get("/{scan_id}", response_model=ScanDetail, summary="Get a specific scan result")

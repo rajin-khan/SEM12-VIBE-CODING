@@ -16,13 +16,13 @@ from engine.program_loader import (
 )
 from engine.transcript import load_transcript, resolve_retakes, validate_courses, validate_grades
 
-DEFAULT_KNOWLEDGE = str(Path(__file__).resolve().parent / "data" / "program_knowledge.md")
+DEFAULT_KNOWLEDGE = str(Path(__file__).resolve().parent.parent / "data" / "curriculum" / "catalog.json")
 
 
 def main():
     parser = argparse.ArgumentParser(
         description="GradGate Level 1: Credit Tally Engine",
-        epilog="Example: python level_1.py data/transcript.csv CSE data/program_knowledge.md",
+        epilog="Example: python level_1.py data/transcript.csv CSE data/curriculum/catalog.json",
     )
     parser.add_argument("transcript", help="Path to transcript CSV file")
     parser.add_argument(

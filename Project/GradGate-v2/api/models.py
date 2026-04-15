@@ -20,6 +20,36 @@ class AuditOptions(BaseModel):
     minor: str | None = None
 
 
+class SavedAuditRequest(BaseModel):
+    """Request payload for persisting a locally computed audit result."""
+
+    program: str
+    input_type: str
+    file_name: str | None = None
+    result: dict[str, Any]
+
+
+class AuditOptionsResponse(BaseModel):
+    """Metadata used by web/mobile clients to build audit forms."""
+
+    programs: list[dict[str, Any]]
+    levels: list[dict[str, str]]
+    report_modes: list[str]
+    supported_minors: list[str]
+    bba_concentrations: list[dict[str, str]]
+
+
+class OCRHealthResponse(BaseModel):
+    """Local OCR/PDF capability metadata."""
+
+    ready: bool
+    image_ocr_ready: bool
+    scanned_pdf_ready: bool
+    text_pdf_ready: bool
+    dependencies: dict[str, bool]
+    messages: list[str]
+
+
 # ── Response models ──────────────────────────────────────────────────────────
 
 
@@ -40,6 +70,7 @@ class ScanSummary(BaseModel):
     program: str
     input_type: str
     file_name: str | None
+    requested_level: str | None = None
 
 
 class ScanDetail(BaseModel):

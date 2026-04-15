@@ -8,13 +8,16 @@ from __future__ import annotations
 
 import os
 from typing import Annotated
+from pathlib import Path
 
 import jwt
 from dotenv import load_dotenv
 from fastapi import Depends, HTTPException, status
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 
-load_dotenv()
+API_DIR = Path(__file__).resolve().parent
+load_dotenv(API_DIR.parent / "cli" / ".env")
+load_dotenv(API_DIR.parent / ".env")
 
 _bearer = HTTPBearer(auto_error=True)
 

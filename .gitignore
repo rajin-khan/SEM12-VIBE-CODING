@@ -1,0 +1,12 @@
+# Monorepo-wide: secrets and machine-local config
+**/.env
+**/.env.*
+!**/.env.example
+!**/.env.*.example
+
+# CLI session / OAuth token store (GradGate Supabase CLI login)
+**/cli/.gradgate/
+
+# Keys & certs (mobile keystores also covered per-subproject .gitignore)
+*.pem
+*.p12

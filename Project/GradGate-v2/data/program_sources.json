@@ -1,0 +1,61 @@
+{
+  "verified_on": "2026-04-05",
+  "programs": {
+    "CSE": {
+      "source_type": "program_page",
+      "source_url": "https://ece.northsouth.edu/undergraduate/academics/programs/bs-cse/",
+      "source_title": "Bachelor of Science in Computer Science and Engineering (BSCSE) - Department of Electrical and Computer Engineering",
+      "cross_check_url": "https://www.northsouth.edu/undergraduate-programs.html",
+      "notes": "The current undergraduate programs index lists CSE at 130 credits. Earlier departmental materials exposed an older 134/136-credit interpretation; legacy waiver-based credit adjustments were removed so the repo matches the current 130-credit requirement."
+    },
+    "EEE": {
+      "source_type": "program_page",
+      "source_url": "https://ece.northsouth.edu/undergraduate/academics/programs/bs-eee/",
+      "source_title": "Bachelor of Science in Electrical and Electronic Engineering (BSEEE) - Department of Electrical and Computer Engineering",
+      "cross_check_url": "https://www.northsouth.edu/undergraduate-programs.html",
+      "notes": "The current undergraduate programs index and the EEE programme page both indicate a 130-credit BS in EEE."
+    },
+    "ETE": {
+      "source_type": "program_page",
+      "source_url": "https://ece.northsouth.edu/undergraduate/academics/programs/bs-ete/",
+      "source_title": "Bachelor of Science in Electronics and Telecommunication Engineering (BSETE) - Department of Electrical and Computer Engineering",
+      "cross_check_url": "https://www.northsouth.edu/undergraduate-programs.html",
+      "notes": "The current undergraduate programs index and the ETE programme page both indicate a 130-credit BS in ETE."
+    },
+    "CEE": {
+      "source_type": "program_page",
+      "source_url": "https://www.northsouth.edu/academic/seps/cee/",
+      "source_title": "Civil and Environmental Engineering | North South University",
+      "cross_check_url": "https://www.northsouth.edu/undergraduate-programs.html",
+      "notes": "The undergraduate programs index lists BS in CEE at 149 credits. The department page was used as the current programme homepage."
+    },
+    "ENV": {
+      "source_type": "program_page",
+      "source_url": "https://www.northsouth.edu/academic/shls/esm/bs-env.html",
+      "source_title": "BS in Environmental Science & Management | North South University",
+      "cross_check_url": "https://www.northsouth.edu/undergraduate-programs.html",
+      "notes": "The BS in Environmental Science & Management page lays out the 130-credit structure with 82 core credits, 15 concentration-core credits, 15 concentration-elective credits, 12 GED credits, and 6 open elective credits."
+    },
+    "ENG": {
+      "source_type": "program_page",
+      "source_url": "https://www.northsouth.edu/academic/programs-18022021/bachelor/ba-english.html",
+      "source_title": "BA in English | North South University",
+      "cross_check_url": "https://www.northsouth.edu/academic/shss/",
+      "notes": "The BA in English page for 163 onwards students lays out the 123-credit structure with 54 university core credits, 39 school-core credits, 24 concentration credits, and 6 free-elective credits."
+    },
+    "BBA": {
+      "source_type": "handbook_or_program_page",
+      "source_url": "https://www.northsouth.edu/academic/sbe/bba-program.html",
+      "source_title": "BBA Program | North South University",
+      "cross_check_url": "https://www.northsouth.edu/undergraduate-programs.html",
+      "notes": "The current BBA programme page states 130 credits with waiver-aware variants of 127 or 124 credits, which conflicts with the undergraduate programs index summary showing 120 credits. The programme page was treated as authoritative."
+    },
+    "ECO": {
+      "source_type": "program_page",
+      "source_url": "https://www.northsouth.edu/academic/sbe/economics.html?eco_start=32",
+      "source_title": "Department of Economics | North South University",
+      "cross_check_url": "https://www.northsouth.edu/undergraduate-programs.html",
+      "notes": "The current undergraduate programs index lists BS in Economics at 120 credits. The department page references the Spring 2019 curriculum stream used as the current baseline in this pass."
+    }
+  }
+}

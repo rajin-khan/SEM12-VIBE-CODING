@@ -170,10 +170,6 @@ The following courses are treated as equivalent. If a student passes one, the ot
 - **Total Credits Required**: 130
 - **Minimum CGPA**: 2.0
 - **Waivable Courses**: ENG102, MAT112
-- **Credit Adjustment**:
-  - Both waived: 130 credits required
-  - One waived: 133 credits required
-  - None waived: 136 credits required
 
 ### Mandatory GED (33 Credits)
 
@@ -785,13 +781,13 @@ CSE225L, CSE231L, CSE311L, CSE331L, CSE332L
 
 - **Alias**: BBA
 - **Degree**: Bachelor of Business Administration (BBA)
-- **Total Credits Required**: 120
+- **Total Credits Required**: 130
 - **Minimum CGPA**: 2.0
 - **Waivable Courses**: ENG102, BUS112
 - **Credit Adjustment**:
-  - Both waived: 120 credits required
-  - One waived: 123 credits required
-  - None waived: 126 credits required
+  - Both waived: 124 credits required
+  - One waived: 127 credits required
+  - None waived: 130 credits required
 
 ### Mandatory GED
 
@@ -860,6 +856,10 @@ CSE225L, CSE231L, CSE311L, CSE331L, CSE332L
 - ECO201, ECO204, ECO301, ECO304, ECO309, ECO317
 
 **Concentration CGPA minimum**: 2.50
+
+### Open Electives (9 Credits)
+
+3 courses from any department outside the declared concentration.
 
 ### Prerequisites
 

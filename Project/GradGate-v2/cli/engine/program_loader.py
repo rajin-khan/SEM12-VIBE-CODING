@@ -1,10 +1,12 @@
-"""Parse program_knowledge.md into structured program data."""
+"""Load curriculum data from the canonical JSON catalog or legacy markdown."""
 
 from __future__ import annotations
 
+import json
 import re
 from dataclasses import dataclass, field
 from pathlib import Path
+from typing import Any
 
 
 @dataclass
@@ -77,6 +79,7 @@ class ProgramInfo:
 
     prerequisites: dict[str, list[str]] = field(default_factory=dict)
     credit_prerequisites: dict[str, int] = field(default_factory=dict)
+    bucket_gpa_requirements: dict[str, float] = field(default_factory=dict)
 
     def all_required_codes(self) -> set[str]:
         codes: set[str] = set()
@@ -184,7 +187,11 @@ def _parse_prerequisite_line(line: str) -> tuple[str, list[str]] | None:
 
 
 def load_nsu_course_list(md_path: str) -> set[str]:
-    """Extract the master course list from program_knowledge.md."""
+    """Extract the master course list from the canonical catalog or legacy markdown."""
+    if Path(md_path).suffix.lower() == ".json":
+        blob = json.loads(Path(md_path).read_text(encoding="utf-8"))
+        return set(blob.get("nsu_course_list", []))
+
     text = Path(md_path).read_text(encoding="utf-8")
     courses: set[str] = set()
 
@@ -207,6 +214,15 @@ def load_nsu_course_list(md_path: str) -> set[str]:
 
 def load_equivalences(md_path: str) -> dict[str, set[str]]:
     """Load course equivalence groups. Returns mapping: code -> set of equivalent codes."""
+    if Path(md_path).suffix.lower() == ".json":
+        blob = json.loads(Path(md_path).read_text(encoding="utf-8"))
+        equiv: dict[str, set[str]] = {}
+        for group in blob.get("equivalences", []):
+            code_set = set(group)
+            for code in code_set:
+                equiv[code] = code_set
+        return equiv
+
     text = Path(md_path).read_text(encoding="utf-8")
     equiv: dict[str, set[str]] = {}
 
@@ -233,8 +249,86 @@ def load_equivalences(md_path: str) -> dict[str, set[str]]:
     return equiv
 
 
+def _course_from_payload(payload: dict[str, Any]) -> CourseReq:
+    return CourseReq(
+        code=payload["code"],
+        name=payload.get("name", ""),
+        credits=float(payload.get("credits", 0)),
+        is_non_credit_lab=bool(payload.get("is_non_credit_lab", False)),
+    )
+
+
+def _program_from_payload(payload: dict[str, Any]) -> ProgramInfo:
+    buckets = payload.get("buckets", {})
+    return ProgramInfo(
+        full_name=payload["full_name"],
+        alias=payload["alias"],
+        degree=payload["degree"],
+        total_credits=int(payload["total_credits"]),
+        min_cgpa=float(payload.get("min_cgpa", 2.0)),
+        waivable=list(payload.get("waivable", [])),
+        credit_adjustment=dict(payload.get("credit_adjustment", {})),
+        mandatory_ged=[_course_from_payload(course) for course in buckets.get("mandatory_ged", [])],
+        core_math=[_course_from_payload(course) for course in buckets.get("core_math", [])],
+        core_science=[_course_from_payload(course) for course in buckets.get("core_science", [])],
+        core_business=[_course_from_payload(course) for course in buckets.get("core_business", [])],
+        major_core=[_course_from_payload(course) for course in buckets.get("major_core", [])],
+        capstone=[_course_from_payload(course) for course in buckets.get("capstone", [])],
+        internship=[_course_from_payload(course) for course in buckets.get("internship", [])],
+        alternative_groups=[
+            AlternativeGroup(options=list(group.get("options", [])), credits=float(group.get("credits", 0)))
+            for group in payload.get("alternative_groups", [])
+        ],
+        trails=[
+            TrailInfo(name=trail.get("name", ""), courses=list(trail.get("courses", [])))
+            for trail in payload.get("trails", [])
+        ],
+        trail_credits_required=int(payload.get("trail_credits_required", 0)),
+        concentrations=[
+            ConcentrationInfo(
+                name=concentration.get("name", ""),
+                alias=concentration.get("alias", ""),
+                courses=list(concentration.get("courses", [])),
+            )
+            for concentration in payload.get("concentrations", [])
+        ],
+        concentration_credits_required=int(payload.get("concentration_credits_required", 0)),
+        concentration_min_cgpa=float(payload.get("concentration_min_cgpa", 0.0)),
+        open_elective_credits=int(payload.get("open_elective_credits", 0)),
+        non_credit_labs=list(payload.get("non_credit_labs", [])),
+        minors=[
+            MinorInfo(
+                name=minor.get("name", ""),
+                total_credits=int(minor.get("total_credits", 0)),
+                required_courses=list(minor.get("required_courses", [])),
+                elective_courses=list(minor.get("elective_courses", [])),
+                elective_pick_count=int(minor.get("elective_pick_count", 0)),
+                prerequisites=set(minor.get("prerequisites", [])),
+            )
+            for minor in payload.get("minors", [])
+        ],
+        prerequisites={key: list(value) for key, value in payload.get("prerequisites", {}).items()},
+        credit_prerequisites={
+            key: int(value) for key, value in payload.get("credit_prerequisites", {}).items()
+        },
+        bucket_gpa_requirements={
+            key: float(value) for key, value in payload.get("bucket_gpa_requirements", {}).items()
+        },
+    )
+
+
 def load_program(md_path: str, program_name: str) -> ProgramInfo | None:
-    """Load a specific program's info from the knowledge file."""
+    """Load a specific program's info from the canonical catalog or legacy markdown."""
+    if Path(md_path).suffix.lower() == ".json":
+        resolved = resolve_program_name(program_name)
+        blob = json.loads(Path(md_path).read_text(encoding="utf-8"))
+        for alias, payload in blob.get("programs", {}).items():
+            if alias == program_name.strip().upper():
+                return _program_from_payload(payload)
+            if payload.get("full_name") == resolved:
+                return _program_from_payload(payload)
+        return None
+
     resolved = resolve_program_name(program_name)
     text = Path(md_path).read_text(encoding="utf-8")
     lines = text.split("\n")
@@ -480,7 +574,14 @@ def load_program(md_path: str, program_name: str) -> ProgramInfo | None:
 
 
 def load_all_programs(md_path: str) -> dict[str, ProgramInfo]:
-    """Load all programs from the knowledge file."""
+    """Load all programs from the canonical catalog or legacy markdown."""
+    if Path(md_path).suffix.lower() == ".json":
+        blob = json.loads(Path(md_path).read_text(encoding="utf-8"))
+        return {
+            alias: _program_from_payload(payload)
+            for alias, payload in blob.get("programs", {}).items()
+        }
+
     programs: dict[str, ProgramInfo] = {}
     text = Path(md_path).read_text(encoding="utf-8")
     for m in re.finditer(r"## \[Program:\s*(.+?)\]", text):

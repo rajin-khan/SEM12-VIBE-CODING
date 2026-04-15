@@ -3,11 +3,15 @@
 from __future__ import annotations
 
 import os
+from pathlib import Path
 
 from dotenv import load_dotenv
 from supabase import Client, create_client
 
-load_dotenv()
+SERVICES_DIR = Path(__file__).resolve().parent
+PROJECT_ROOT = SERVICES_DIR.parent.parent
+load_dotenv(PROJECT_ROOT / "cli" / ".env")
+load_dotenv(PROJECT_ROOT / ".env")
 
 _client: Client | None = None
 

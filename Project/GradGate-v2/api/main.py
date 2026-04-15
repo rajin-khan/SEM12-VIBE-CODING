@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import os
+from pathlib import Path
 
 from dotenv import load_dotenv
 from fastapi import FastAPI
@@ -11,7 +12,9 @@ from fastapi.middleware.cors import CORSMiddleware
 from api.models import HealthResponse
 from api.routers import audit, history
 
-load_dotenv()
+API_DIR = Path(__file__).resolve().parent
+load_dotenv(API_DIR.parent / "cli" / ".env")
+load_dotenv(API_DIR.parent / ".env")
 
 app = FastAPI(
     title="GradGate API",

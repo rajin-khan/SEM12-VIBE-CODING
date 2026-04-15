@@ -13,13 +13,13 @@ from engine.program_loader import load_equivalences, load_program
 from engine.transcript import load_transcript, resolve_retakes, validate_grades
 from engine.waivers import get_waivers
 
-DEFAULT_KNOWLEDGE = str(Path(__file__).resolve().parent / "data" / "program_knowledge.md")
+DEFAULT_KNOWLEDGE = str(Path(__file__).resolve().parent.parent / "data" / "curriculum" / "catalog.json")
 
 
 def main():
     parser = argparse.ArgumentParser(
         description="GradGate Level 3: Audit & Deficiency Reporter",
-        epilog="Example: python level_3.py data/transcript.csv CSE data/program_knowledge.md",
+        epilog="Example: python level_3.py data/transcript.csv CSE data/curriculum/catalog.json",
     )
     parser.add_argument("transcript", help="Path to transcript CSV file")
     parser.add_argument("program_name", default="CSE", help="Program alias (CSE, BBA, EEE, etc.)")

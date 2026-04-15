@@ -611,14 +611,14 @@ w(
 # tc01 – CSE all pass (eligible)
 w("tc01_cse_all_pass.csv", CSE_ALL)
 
-# tc02 – BBA all pass (eligible)
-w("tc02_bba_all_pass.csv", BBA_ALL)
+# tc02 – BBA near complete (9 credits short under current curriculum)
+w("tc02_bba_credit_short_9.csv", BBA_ALL)
 
-# tc03 – EEE all pass
-w("tc03_eee_all_pass.csv", EEE_ALL)
+# tc03 – EEE near complete (1 credit short)
+w("tc03_eee_credit_short_1.csv", EEE_ALL)
 
-# tc04 – ETE all pass
-w("tc04_ete_all_pass.csv", ETE_ALL)
+# tc04 – ETE near complete (5 credits short)
+w("tc04_ete_credit_short_5.csv", ETE_ALL)
 
 # tc05 – CEE all pass
 w("tc05_cee_all_pass.csv", CEE_ALL)
@@ -626,11 +626,11 @@ w("tc05_cee_all_pass.csv", CEE_ALL)
 # tc06 – ENV all pass
 w("tc06_env_all_pass.csv", ENV_ALL)
 
-# tc07 – ENG all pass
-w("tc07_eng_all_pass.csv", ENG_ALL)
+# tc07 – ENG near complete (3 credits short)
+w("tc07_eng_credit_short_3.csv", ENG_ALL)
 
-# tc08 – ECO all pass
-w("tc08_eco_all_pass.csv", ECO_ALL)
+# tc08 – ECO near complete (6 credits short)
+w("tc08_eco_credit_short_6.csv", ECO_ALL)
 
 # tc09 – CSE extra credits
 w(
@@ -645,7 +645,7 @@ w(
     ],
 )
 
-# tc10 – BBA extra credits
+# tc10 – BBA extra credits (still short under the current 130-credit curriculum)
 w(
     "tc10_bba_extra_credits.csv",
     BBA_ALL
@@ -654,6 +654,49 @@ w(
         ("HIS205", 3, "B+", "Summer 2022"),
         ("POL101", 3, "B", "Fall 2022"),
         ("MKT330", 3, "A-", "Spring 2023"),
+    ],
+)
+
+# tc58 – BBA all pass under current curriculum
+w(
+    "tc58_bba_all_pass_current.csv",
+    BBA_ALL
+    + [
+        ("LAW101", 3, "A", "Fall 2023"),
+        ("PAD201", 3, "B+", "Spring 2024"),
+        ("TNM201", 3, "A-", "Summer 2024"),
+    ],
+)
+
+# tc59 – EEE all pass under current curriculum
+w(
+    "tc59_eee_all_pass_current.csv",
+    EEE_ALL + [("EEE410", 3, "A-", "Fall 2023")],
+)
+
+# tc60 – ETE all pass under current curriculum
+w(
+    "tc60_ete_all_pass_current.csv",
+    ETE_ALL
+    + [
+        ("ETE418", 3, "B+", "Summer 2024"),
+        ("ETE443", 3, "A-", "Fall 2024"),
+    ],
+)
+
+# tc61 – ENG all pass under current curriculum
+w(
+    "tc61_eng_all_pass_current.csv",
+    ENG_ALL + [("ENG466", 3, "A-", "Fall 2024")],
+)
+
+# tc62 – ECO all pass under current curriculum
+w(
+    "tc62_eco_all_pass_current.csv",
+    ECO_ALL
+    + [
+        ("ECO486", 3, "A-", "Fall 2024"),
+        ("LAW101", 3, "B+", "Spring 2025"),
     ],
 )
 
@@ -794,7 +837,7 @@ w(
     ],
 )
 
-# tc19 – no waivers (ENG102 + MAT112 both taken, 136 credits needed)
+# tc19 – no waivers (current CSE baseline, no credit reduction applied)
 no_waiver = [r for r in CSE_ALL]
 w("tc19_no_waivers.csv", no_waiver)
 

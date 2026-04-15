@@ -73,6 +73,7 @@ class AuditResult:
     minor_courses_missing: list[str] = field(default_factory=list)
     minor_prereqs_met: bool = True
     minor_prereqs_missing: list[str] = field(default_factory=list)
+    bucket_gpas: dict[str, float] = field(default_factory=dict)
 
 
 def _expand_passed(passed: set[str], equivalences: dict[str, set[str]]) -> set[str]:
@@ -216,6 +217,26 @@ def _detect_concentration(
     return "", "", 0.0
 
 
+def _compute_bucket_gpas(
+    records: list[CourseRecord], program_info: ProgramInfo, waivers: set[str]
+) -> dict[str, float]:
+    bucket_map = {
+        "mandatory_ged": {cr.code for cr in program_info.mandatory_ged},
+        "core_math": {cr.code for cr in program_info.core_math},
+        "core_science": {cr.code for cr in program_info.core_science},
+        "core_business": {cr.code for cr in program_info.core_business},
+        "major_core": {cr.code for cr in program_info.major_core},
+        "capstone": {cr.code for cr in program_info.capstone},
+        "internship": {cr.code for cr in program_info.internship},
+    }
+    bucket_gpas: dict[str, float] = {}
+    for bucket_name in program_info.bucket_gpa_requirements:
+        codes = bucket_map.get(bucket_name, set())
+        if codes:
+            bucket_gpas[bucket_name] = compute_major_cgpa(records, codes, waivers)
+    return bucket_gpas
+
+
 def run_audit(
     records: list[CourseRecord],
     program_info: ProgramInfo,
@@ -243,6 +264,7 @@ def run_audit(
     w_bonus = waiver_credit_bonus(waivers, program_info, transcript_codes)
     credits_completed = credits_earned + w_bonus
     credits_required = compute_adjusted_credits(program_info, waivers)
+    bucket_gpas = _compute_bucket_gpas(records, program_info, waivers)
 
     deficiencies = DeficiencyReport()
     deficiencies.missing_ged = _check_category(
@@ -321,6 +343,14 @@ def run_audit(
                 f"{program_info.concentration_min_cgpa:.2f}"
             )
 
+    for bucket_name, threshold in program_info.bucket_gpa_requirements.items():
+        bucket_gpa = bucket_gpas.get(bucket_name, 0.0)
+        if bucket_gpa < threshold:
+            eligible = False
+            reasons.append(
+                f"{bucket_name.replace('_', ' ').title()} GPA {bucket_gpa:.2f} below minimum {threshold:.2f}"
+            )
+
     minor_name = ""
     minor_completed = False
     minor_taken: list[str] = []
@@ -379,6 +409,7 @@ def run_audit(
         minor_courses_missing=minor_missing,
         minor_prereqs_met=minor_prereqs_met,
         minor_prereqs_missing=minor_prereqs_missing,
+        bucket_gpas=bucket_gpas,
     )
 
 

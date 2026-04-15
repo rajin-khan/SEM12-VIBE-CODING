@@ -1,0 +1,552 @@
+{
+  "tc01_cse_all_pass.csv": {
+    "credits_completed": 133.0,
+    "credits_required": 130,
+    "eligible": true,
+    "program": "CSE",
+    "reasons": []
+  },
+  "tc02_bba_credit_short_9.csv": {
+    "credits_completed": 121.0,
+    "credits_required": 130,
+    "eligible": false,
+    "program": "BBA",
+    "reasons": [
+      "Need 9.0 more credits (121.0/130)"
+    ]
+  },
+  "tc03_eee_credit_short_1.csv": {
+    "credits_completed": 129.0,
+    "credits_required": 130,
+    "eligible": false,
+    "program": "EEE",
+    "reasons": [
+      "Need 1.0 more credits (129.0/130)"
+    ]
+  },
+  "tc04_ete_credit_short_5.csv": {
+    "credits_completed": 125.0,
+    "credits_required": 130,
+    "eligible": false,
+    "program": "ETE",
+    "reasons": [
+      "Need 5.0 more credits (125.0/130)"
+    ]
+  },
+  "tc05_cee_all_pass.csv": {
+    "credits_completed": 149.0,
+    "credits_required": 149,
+    "eligible": true,
+    "program": "CEE",
+    "reasons": []
+  },
+  "tc06_env_all_pass.csv": {
+    "credits_completed": 132.0,
+    "credits_required": 130,
+    "eligible": true,
+    "program": "ENV",
+    "reasons": []
+  },
+  "tc07_eng_credit_short_3.csv": {
+    "credits_completed": 120.0,
+    "credits_required": 123,
+    "eligible": false,
+    "program": "ENG",
+    "reasons": [
+      "Need 3.0 more credits (120.0/123)"
+    ]
+  },
+  "tc08_eco_credit_short_6.csv": {
+    "credits_completed": 114.0,
+    "credits_required": 120,
+    "eligible": false,
+    "program": "ECO",
+    "reasons": [
+      "Need 6.0 more credits (114.0/120)"
+    ]
+  },
+  "tc09_cse_extra_credits.csv": {
+    "credits_completed": 145.0,
+    "credits_required": 130,
+    "eligible": true,
+    "program": "CSE",
+    "reasons": []
+  },
+  "tc10_bba_extra_credits.csv": {
+    "credits_completed": 121.0,
+    "credits_required": 130,
+    "eligible": false,
+    "program": "BBA",
+    "reasons": [
+      "Need 9.0 more credits (121.0/130)"
+    ]
+  },
+  "tc11_cse_with_F.csv": {
+    "credits_completed": 23.0,
+    "credits_required": 130,
+    "eligible": false,
+    "program": "CSE",
+    "reasons": [
+      "Need 107.0 more credits (23.0/130)",
+      "48 missing course(s)"
+    ]
+  },
+  "tc12_bba_with_F.csv": {
+    "credits_completed": 24.0,
+    "credits_required": 130,
+    "eligible": false,
+    "program": "BBA",
+    "reasons": [
+      "Need 106.0 more credits (24.0/130)",
+      "22 missing course(s)"
+    ]
+  },
+  "tc13_cse_with_I.csv": {
+    "credits_completed": 19.0,
+    "credits_required": 130,
+    "eligible": false,
+    "program": "CSE",
+    "reasons": [
+      "Need 111.0 more credits (19.0/130)",
+      "50 missing course(s)"
+    ]
+  },
+  "tc14_bba_with_I.csv": {
+    "credits_completed": 21.0,
+    "credits_required": 130,
+    "eligible": false,
+    "program": "BBA",
+    "reasons": [
+      "Need 109.0 more credits (21.0/130)",
+      "23 missing course(s)"
+    ]
+  },
+  "tc15_cse_with_W.csv": {
+    "credits_completed": 16.0,
+    "credits_required": 130,
+    "eligible": false,
+    "program": "CSE",
+    "reasons": [
+      "Need 114.0 more credits (16.0/130)",
+      "51 missing course(s)"
+    ]
+  },
+  "tc16_bba_with_W.csv": {
+    "credits_completed": 18.0,
+    "credits_required": 130,
+    "eligible": false,
+    "program": "BBA",
+    "reasons": [
+      "Need 112.0 more credits (18.0/130)",
+      "24 missing course(s)"
+    ]
+  },
+  "tc17_cse_mixed_FIW.csv": {
+    "credits_completed": 19.0,
+    "credits_required": 130,
+    "eligible": false,
+    "program": "CSE",
+    "reasons": [
+      "Need 111.0 more credits (19.0/130)",
+      "50 missing course(s)"
+    ]
+  },
+  "tc18_bba_mixed_FIW.csv": {
+    "credits_completed": 18.0,
+    "credits_required": 130,
+    "eligible": false,
+    "program": "BBA",
+    "reasons": [
+      "Need 112.0 more credits (18.0/130)",
+      "24 missing course(s)"
+    ]
+  },
+  "tc19_no_waivers.csv": {
+    "credits_completed": 133.0,
+    "credits_required": 130,
+    "eligible": true,
+    "program": "CSE",
+    "reasons": []
+  },
+  "tc20_eng102_waived.csv": {
+    "credits_completed": 133.0,
+    "credits_required": 130,
+    "eligible": true,
+    "program": "CSE",
+    "reasons": []
+  },
+  "tc21_mat112_waived.csv": {
+    "credits_completed": 133.0,
+    "credits_required": 130,
+    "eligible": true,
+    "program": "CSE",
+    "reasons": []
+  },
+  "tc22_both_waived.csv": {
+    "credits_completed": 133.0,
+    "credits_required": 130,
+    "eligible": true,
+    "program": "CSE",
+    "reasons": []
+  },
+  "tc23_retake_pass.csv": {
+    "credits_completed": 22.0,
+    "credits_required": 130,
+    "eligible": false,
+    "program": "CSE",
+    "reasons": [
+      "Need 108.0 more credits (22.0/130)",
+      "49 missing course(s)"
+    ]
+  },
+  "tc24_retake_still_fail.csv": {
+    "credits_completed": 10.0,
+    "credits_required": 130,
+    "eligible": false,
+    "program": "CSE",
+    "reasons": [
+      "Need 120.0 more credits (10.0/130)",
+      "53 missing course(s)"
+    ]
+  },
+  "tc25_multiple_retakes.csv": {
+    "credits_completed": 16.0,
+    "credits_required": 130,
+    "eligible": false,
+    "program": "CSE",
+    "reasons": [
+      "Need 114.0 more credits (16.0/130)",
+      "51 missing course(s)"
+    ]
+  },
+  "tc26_transfer_T_grade.csv": {
+    "credits_completed": 20.0,
+    "credits_required": 130,
+    "eligible": false,
+    "program": "CSE",
+    "reasons": [
+      "Need 110.0 more credits (20.0/130)",
+      "49 missing course(s)"
+    ]
+  },
+  "tc27_non_nsu_courses.csv": {
+    "credits_completed": 16.0,
+    "credits_required": 130,
+    "eligible": false,
+    "program": "CSE",
+    "reasons": [
+      "Need 114.0 more credits (16.0/130)",
+      "52 missing course(s)"
+    ]
+  },
+  "tc29_empty_transcript.csv": {
+    "credits_completed": 0.0,
+    "credits_required": 130,
+    "eligible": false,
+    "program": "CSE",
+    "reasons": [
+      "Need 130.0 more credits (0.0/130)",
+      "CGPA 0.00 below minimum 2.00",
+      "58 missing course(s)"
+    ]
+  },
+  "tc30_probation_P1.csv": {
+    "credits_completed": 15.0,
+    "credits_required": 130,
+    "eligible": false,
+    "program": "CSE",
+    "reasons": [
+      "Need 115.0 more credits (15.0/130)",
+      "CGPA 1.94 below minimum 2.00",
+      "52 missing course(s)"
+    ]
+  },
+  "tc31_probation_P2.csv": {
+    "credits_completed": 18.0,
+    "credits_required": 130,
+    "eligible": false,
+    "program": "CSE",
+    "reasons": [
+      "Need 112.0 more credits (18.0/130)",
+      "CGPA 1.45 below minimum 2.00",
+      "52 missing course(s)"
+    ]
+  },
+  "tc32_dismissal.csv": {
+    "credits_completed": 15.0,
+    "credits_required": 130,
+    "eligible": false,
+    "program": "CSE",
+    "reasons": [
+      "Need 115.0 more credits (15.0/130)",
+      "CGPA 0.66 below minimum 2.00",
+      "53 missing course(s)"
+    ]
+  },
+  "tc33_bba_concentration_FIN.csv": {
+    "credits_completed": 121.0,
+    "credits_required": 130,
+    "eligible": false,
+    "program": "BBA",
+    "reasons": [
+      "Need 9.0 more credits (121.0/130)"
+    ]
+  },
+  "tc34_bba_undeclared.csv": {
+    "credits_completed": 112.0,
+    "credits_required": 130,
+    "eligible": false,
+    "program": "BBA",
+    "reasons": [
+      "Need 18.0 more credits (112.0/130)",
+      "5 missing course(s)"
+    ]
+  },
+  "tc35_prereq_violation.csv": {
+    "credits_completed": 19.0,
+    "credits_required": 130,
+    "eligible": false,
+    "program": "CSE",
+    "reasons": [
+      "Need 111.0 more credits (19.0/130)",
+      "50 missing course(s)"
+    ]
+  },
+  "tc36_zero_credit_labs_only.csv": {
+    "credits_completed": 0.0,
+    "credits_required": 130,
+    "eligible": false,
+    "program": "CSE",
+    "reasons": [
+      "Need 130.0 more credits (0.0/130)",
+      "CGPA 0.00 below minimum 2.00",
+      "53 missing course(s)"
+    ]
+  },
+  "tc37_high_cgpa_4.0.csv": {
+    "credits_completed": 30.0,
+    "credits_required": 130,
+    "eligible": false,
+    "program": "CSE",
+    "reasons": [
+      "Need 100.0 more credits (30.0/130)",
+      "45 missing course(s)"
+    ]
+  },
+  "tc38_borderline_2.0.csv": {
+    "credits_completed": 30.0,
+    "credits_required": 130,
+    "eligible": false,
+    "program": "CSE",
+    "reasons": [
+      "Need 100.0 more credits (30.0/130)",
+      "CGPA 1.93 below minimum 2.00",
+      "45 missing course(s)"
+    ]
+  },
+  "tc41_negative_credits.csv": {
+    "credits_completed": 6.0,
+    "credits_required": 130,
+    "eligible": false,
+    "program": "CSE",
+    "reasons": [
+      "Need 124.0 more credits (6.0/130)",
+      "54 missing course(s)"
+    ]
+  },
+  "tc42_whitespace_grades.csv": {
+    "credits_completed": 12.0,
+    "credits_required": 130,
+    "eligible": false,
+    "program": "CSE",
+    "reasons": [
+      "Need 118.0 more credits (12.0/130)",
+      "54 missing course(s)"
+    ]
+  },
+  "tc43_duplicate_same_semester.csv": {
+    "credits_completed": 9.0,
+    "credits_required": 130,
+    "eligible": false,
+    "program": "CSE",
+    "reasons": [
+      "Need 121.0 more credits (9.0/130)",
+      "55 missing course(s)"
+    ]
+  },
+  "tc44_p_grade.csv": {
+    "credits_completed": 13.0,
+    "credits_required": 130,
+    "eligible": false,
+    "program": "CSE",
+    "reasons": [
+      "Need 117.0 more credits (13.0/130)",
+      "52 missing course(s)"
+    ]
+  },
+  "tc45_credit_prereq_violation.csv": {
+    "credits_completed": 17.0,
+    "credits_required": 130,
+    "eligible": false,
+    "program": "CSE",
+    "reasons": [
+      "Need 113.0 more credits (17.0/130)",
+      "50 missing course(s)"
+    ]
+  },
+  "tc46_corequisite_same_semester.csv": {
+    "credits_completed": 14.0,
+    "credits_required": 130,
+    "eligible": false,
+    "program": "CSE",
+    "reasons": [
+      "Need 116.0 more credits (14.0/130)",
+      "51 missing course(s)"
+    ]
+  },
+  "tc47_eee_prereq_violation.csv": {
+    "credits_completed": 22.0,
+    "credits_required": 130,
+    "eligible": false,
+    "program": "EEE",
+    "reasons": [
+      "Need 108.0 more credits (22.0/130)",
+      "37 missing course(s)"
+    ]
+  },
+  "tc48_bba_prereq_violation.csv": {
+    "credits_completed": 21.0,
+    "credits_required": 130,
+    "eligible": false,
+    "program": "BBA",
+    "reasons": [
+      "Need 109.0 more credits (21.0/130)",
+      "23 missing course(s)"
+    ]
+  },
+  "tc49_cross_program_courses.csv": {
+    "credits_completed": 22.0,
+    "credits_required": 130,
+    "eligible": false,
+    "program": "CSE",
+    "reasons": [
+      "Need 108.0 more credits (22.0/130)",
+      "51 missing course(s)"
+    ]
+  },
+  "tc50_bba_wrong_concentration.csv": {
+    "credits_completed": 100.0,
+    "credits_required": 130,
+    "eligible": false,
+    "program": "BBA",
+    "reasons": [
+      "Need 30.0 more credits (100.0/130)",
+      "4 missing course(s)"
+    ]
+  },
+  "tc51_i_grade_resolved.csv": {
+    "credits_completed": 16.0,
+    "credits_required": 130,
+    "eligible": false,
+    "program": "CSE",
+    "reasons": [
+      "Need 114.0 more credits (16.0/130)",
+      "51 missing course(s)"
+    ]
+  },
+  "tc52_retake_worse_grade.csv": {
+    "credits_completed": 15.0,
+    "credits_required": 130,
+    "eligible": false,
+    "program": "CSE",
+    "reasons": [
+      "Need 115.0 more credits (15.0/130)",
+      "52 missing course(s)"
+    ]
+  },
+  "tc53_retake_ineligible.csv": {
+    "credits_completed": 12.0,
+    "credits_required": 130,
+    "eligible": false,
+    "program": "CSE",
+    "reasons": [
+      "Need 118.0 more credits (12.0/130)",
+      "53 missing course(s)"
+    ]
+  },
+  "tc54_cse_math_minor_complete.csv": {
+    "credits_completed": 35.0,
+    "credits_required": 130,
+    "eligible": false,
+    "program": "CSE",
+    "reasons": [
+      "Need 95.0 more credits (35.0/130)",
+      "46 missing course(s)"
+    ]
+  },
+  "tc55_cse_physics_minor_complete.csv": {
+    "credits_completed": 33.0,
+    "credits_required": 130,
+    "eligible": false,
+    "program": "CSE",
+    "reasons": [
+      "Need 97.0 more credits (33.0/130)",
+      "47 missing course(s)"
+    ]
+  },
+  "tc56_cse_math_minor_partial.csv": {
+    "credits_completed": 25.0,
+    "credits_required": 130,
+    "eligible": false,
+    "program": "CSE",
+    "reasons": [
+      "Need 105.0 more credits (25.0/130)",
+      "48 missing course(s)"
+    ]
+  },
+  "tc57_cse_minor_missing_prereqs.csv": {
+    "credits_completed": 22.0,
+    "credits_required": 130,
+    "eligible": false,
+    "program": "CSE",
+    "reasons": [
+      "Need 108.0 more credits (22.0/130)",
+      "51 missing course(s)"
+    ]
+  },
+  "tc58_bba_all_pass_current.csv": {
+    "credits_completed": 130.0,
+    "credits_required": 130,
+    "eligible": true,
+    "program": "BBA",
+    "reasons": []
+  },
+  "tc59_eee_all_pass_current.csv": {
+    "credits_completed": 132.0,
+    "credits_required": 130,
+    "eligible": true,
+    "program": "EEE",
+    "reasons": []
+  },
+  "tc60_ete_all_pass_current.csv": {
+    "credits_completed": 131.0,
+    "credits_required": 130,
+    "eligible": true,
+    "program": "ETE",
+    "reasons": []
+  },
+  "tc61_eng_all_pass_current.csv": {
+    "credits_completed": 123.0,
+    "credits_required": 123,
+    "eligible": true,
+    "program": "ENG",
+    "reasons": []
+  },
+  "tc62_eco_all_pass_current.csv": {
+    "credits_completed": 120.0,
+    "credits_required": 120,
+    "eligible": true,
+    "program": "ECO",
+    "reasons": []
+  }
+}

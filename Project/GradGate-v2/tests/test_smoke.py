@@ -11,9 +11,9 @@ import pytest
 # Resolve paths relative to repo root
 REPO = Path(__file__).resolve().parent.parent
 TESTS_DIR = REPO / "tests"
-KNOWLEDGE = REPO / "data" / "program_knowledge.md"
-TC01 = TESTS_DIR / "tc01_cse_all_pass.csv"
-TC02 = TESTS_DIR / "tc02_bba_all_pass.csv"
+KNOWLEDGE = REPO / "data" / "curriculum" / "catalog.json"
+TC01 = TESTS_DIR / "happy_cse_default.csv"
+TC02 = TESTS_DIR / "happy_bba_finance.csv"
 
 
 # ── Import smoke ────────────────────────────────────────────────────────────
@@ -48,7 +48,7 @@ def test_load_transcript_cse():
     from engine.transcript import load_transcript, validate_grades
 
     records = load_transcript(str(TC01))
-    assert len(records) > 0, "Expected records in tc01_cse_all_pass.csv"
+    assert len(records) > 0, "Expected records in happy_cse_default.csv"
     errors = validate_grades(records)
     assert errors == [], f"Unexpected grade errors: {errors}"
 
@@ -58,7 +58,7 @@ def test_load_transcript_bba():
     from engine.transcript import load_transcript, validate_grades
 
     records = load_transcript(str(TC02))
-    assert len(records) > 0, "Expected records in tc02_bba_all_pass.csv"
+    assert len(records) > 0, "Expected records in happy_bba_finance.csv"
     errors = validate_grades(records)
     assert errors == [], f"Unexpected grade errors: {errors}"
 
@@ -66,7 +66,7 @@ def test_load_transcript_bba():
 # ── Program loader ──────────────────────────────────────────────────────────
 
 
-@pytest.mark.skipif(not KNOWLEDGE.exists(), reason="program_knowledge.md not found")
+@pytest.mark.skipif(not KNOWLEDGE.exists(), reason="catalog.json not found")
 def test_program_loader_cse():
     from engine.program_loader import load_program
 
@@ -77,7 +77,7 @@ def test_program_loader_cse():
     assert len(info.major_core) > 0
 
 
-@pytest.mark.skipif(not KNOWLEDGE.exists(), reason="program_knowledge.md not found")
+@pytest.mark.skipif(not KNOWLEDGE.exists(), reason="catalog.json not found")
 def test_program_loader_bba():
     from engine.program_loader import load_program
 
@@ -86,7 +86,7 @@ def test_program_loader_bba():
     assert info.total_credits > 0
 
 
-@pytest.mark.skipif(not KNOWLEDGE.exists(), reason="program_knowledge.md not found")
+@pytest.mark.skipif(not KNOWLEDGE.exists(), reason="catalog.json not found")
 def test_nsu_course_list_nonempty():
     from engine.program_loader import load_nsu_course_list
 

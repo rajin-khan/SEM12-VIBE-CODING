@@ -1,8 +1,16 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
 [project]
 name = "gradgate"
 version = "2.0.0"
 requires-python = ">=3.11"
-dependencies = ["rich>=13.0.0"]
+dependencies = [
+    "rich>=13.0.0",
+    "python-dotenv>=1.0",
+    "supabase>=2.4",
+]
 
 [project.optional-dependencies]
 dev = [
@@ -25,6 +33,7 @@ ocr = [
     "pytesseract>=0.3.10",
     "Pillow>=10.0",
     "pdf2image>=1.17",
+    "pypdf>=5.0",
 ]
 load = [
     "locust>=2.24",
@@ -54,3 +63,6 @@ warn_unused_configs = true
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 addopts = "--tb=short -q"
+
+[tool.setuptools]
+packages = ["api"]

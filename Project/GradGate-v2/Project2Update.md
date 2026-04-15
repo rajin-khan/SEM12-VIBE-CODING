@@ -11,5 +11,10 @@ other requirements:
 
 - work with a minimum of 20 concurrent users (max) [setup automated testing for this]
 - 
+- OCR/PDF setup for local development:
+  - `pip install '.[api,ocr]'`
+  - install `tesseract`
+  - install Poppler so `pdftoppm` is on PATH
+  - use `/audit/ocr-status` to verify the machine is ready before testing PDF/image uploads
 
 - due sunday 8th march

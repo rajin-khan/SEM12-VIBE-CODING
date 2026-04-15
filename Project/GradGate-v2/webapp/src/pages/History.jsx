@@ -3,6 +3,8 @@ import { Link, Navigate } from 'react-router-dom'
 import { useAuth } from '../lib/AuthContext'
 import { GlassCard } from '../components/ui/GlassCard'
 import { FileText, ArrowRight, ClockCounterClockwise } from '@phosphor-icons/react'
+import { fetchHistory } from '../lib/api'
+import { levelLabel } from '../lib/auditConfig'
 
 export default function History() {
     const { session, loading } = useAuth()
@@ -12,14 +14,9 @@ export default function History() {
 
     useEffect(() => {
         if (!session) return
-        const fetchHistory = async () => {
+        const loadHistory = async () => {
             try {
-                const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000'
-                const res = await fetch(`${apiUrl}/history`, {
-                    headers: { 'Authorization': `Bearer ${session.access_token}` }
-                })
-                const data = await res.json()
-                if (!res.ok) throw new Error(data.detail || "Failed to load history")
+                const data = await fetchHistory(session)
                 setHistory(data)
             } catch (e) {
                 setErr(e.message)
@@ -27,7 +24,7 @@ export default function History() {
                 setIsFetching(false)
             }
         }
-        fetchHistory()
+        loadHistory()
     }, [session])
 
     if (loading) return null
@@ -104,6 +101,11 @@ export default function History() {
                                         </div>
                                     </div>
                                     <div className="flex items-center gap-3 shrink-0">
+                                        {scan.requested_level && (
+                                            <span className="hidden md:inline rounded border border-black/8 bg-black/4 px-2 py-1 text-[11px] font-medium text-muted">
+                                                {levelLabel(scan.requested_level)}
+                                            </span>
+                                        )}
                                         <span className="hidden sm:inline px-2 py-1 bg-black/4 rounded border border-black/8 text-[11px] font-medium text-muted uppercase tracking-widest">
                                             {scan.input_type}
                                         </span>

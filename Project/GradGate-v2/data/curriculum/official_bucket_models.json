@@ -1,0 +1,364 @@
+{
+  "verified_on": "2026-04-05",
+  "programs": {
+    "CSE": {
+      "model": "runtime_mapped_high_level",
+      "source_granularity": "program_page_summary",
+      "bucket_requirements": [
+        {
+          "key": "general_education",
+          "label": "General education / university core",
+          "credits": 33,
+          "kind": "fixed",
+          "source_basis": "runtime_aligned"
+        },
+        {
+          "key": "math_science_foundation",
+          "label": "Math, science, and engineering foundation",
+          "credits": 41,
+          "kind": "fixed",
+          "source_basis": "runtime_aligned"
+        },
+        {
+          "key": "major_core",
+          "label": "Major core",
+          "credits": 42,
+          "kind": "fixed",
+          "source_basis": "runtime_aligned"
+        },
+        {
+          "key": "capstone",
+          "label": "Capstone sequence",
+          "credits": 4,
+          "kind": "fixed",
+          "source_basis": "runtime_aligned"
+        },
+        {
+          "key": "trail_courses",
+          "label": "Trail / advanced option courses",
+          "credits": 9,
+          "kind": "fixed",
+          "source_basis": "runtime_aligned"
+        },
+        {
+          "key": "open_elective",
+          "label": "Open elective",
+          "credits": 3,
+          "kind": "fixed",
+          "source_basis": "runtime_aligned"
+        }
+      ],
+      "notes": "The current public BS-CSE page confirms the 130-credit structure. Public bucket totals are not presented as explicitly as on some other programs, so these credits preserve the current runtime degree-plan split used by the engine."
+    },
+    "EEE": {
+      "model": "runtime_mapped_high_level",
+      "source_granularity": "program_page_summary",
+      "bucket_requirements": [
+        {
+          "key": "general_education",
+          "label": "General education / university core",
+          "credits": 24,
+          "kind": "fixed",
+          "source_basis": "runtime_aligned"
+        },
+        {
+          "key": "math_foundation",
+          "label": "Math foundation",
+          "credits": 18,
+          "kind": "fixed",
+          "source_basis": "runtime_aligned"
+        },
+        {
+          "key": "science_foundation",
+          "label": "Science foundation",
+          "credits": 15,
+          "kind": "fixed",
+          "source_basis": "runtime_aligned"
+        },
+        {
+          "key": "major_core",
+          "label": "Major core",
+          "credits": 53,
+          "kind": "fixed",
+          "source_basis": "runtime_aligned"
+        },
+        {
+          "key": "major_electives_and_supporting_courses",
+          "label": "Advanced electives / supporting courses",
+          "credits": 20,
+          "kind": "derived_to_total",
+          "source_basis": "remaining_credits_to_program_total"
+        }
+      ],
+      "notes": "The current BS-EEE page confirms the 130-credit total. The public page is more explicit about the overall program than about bucket-by-bucket credit partitions, so this structure preserves the current mapped audit buckets and records the remaining credits as advanced elective/supporting work."
+    },
+    "ETE": {
+      "model": "runtime_mapped_high_level",
+      "source_granularity": "program_page_summary",
+      "bucket_requirements": [
+        {
+          "key": "general_education",
+          "label": "General education / university core",
+          "credits": 24,
+          "kind": "fixed",
+          "source_basis": "runtime_aligned"
+        },
+        {
+          "key": "math_foundation",
+          "label": "Math foundation",
+          "credits": 15,
+          "kind": "fixed",
+          "source_basis": "runtime_aligned"
+        },
+        {
+          "key": "science_foundation",
+          "label": "Science foundation",
+          "credits": 12,
+          "kind": "fixed",
+          "source_basis": "runtime_aligned"
+        },
+        {
+          "key": "major_core",
+          "label": "Major core",
+          "credits": 46,
+          "kind": "fixed",
+          "source_basis": "runtime_aligned"
+        },
+        {
+          "key": "major_electives_and_supporting_courses",
+          "label": "Advanced electives / supporting courses",
+          "credits": 33,
+          "kind": "derived_to_total",
+          "source_basis": "remaining_credits_to_program_total"
+        }
+      ],
+      "notes": "The current BS-ETE page confirms the 130-credit total. The public page does not cleanly expose every bucket total, so the runtime-aligned split is preserved here with a derived advanced-course remainder."
+    },
+    "CEE": {
+      "model": "runtime_mapped_high_level",
+      "source_granularity": "department_page_summary",
+      "bucket_requirements": [
+        {
+          "key": "general_education",
+          "label": "General education / university core",
+          "credits": 21,
+          "kind": "fixed",
+          "source_basis": "runtime_aligned"
+        },
+        {
+          "key": "math_foundation",
+          "label": "Math foundation",
+          "credits": 18,
+          "kind": "fixed",
+          "source_basis": "runtime_aligned"
+        },
+        {
+          "key": "science_foundation",
+          "label": "Science foundation",
+          "credits": 12,
+          "kind": "fixed",
+          "source_basis": "runtime_aligned"
+        },
+        {
+          "key": "major_core",
+          "label": "Major core",
+          "credits": 67,
+          "kind": "fixed",
+          "source_basis": "runtime_aligned"
+        },
+        {
+          "key": "major_electives_and_supporting_courses",
+          "label": "Advanced electives / supporting courses",
+          "credits": 31,
+          "kind": "derived_to_total",
+          "source_basis": "remaining_credits_to_program_total"
+        }
+      ],
+      "notes": "The undergraduate index states 149 credits for BS-CEE. The current public department page is used as the authoritative home page, while the bucket split remains mapped from the audit model plus a derived remainder for advanced/supporting work."
+    },
+    "ENV": {
+      "model": "official_page_bucketed",
+      "source_granularity": "program_page_breakdown",
+      "bucket_requirements": [
+        {
+          "key": "program_core",
+          "label": "Program core",
+          "credits": 82,
+          "kind": "fixed",
+          "source_basis": "official_page"
+        },
+        {
+          "key": "concentration_core",
+          "label": "Concentration core",
+          "credits": 15,
+          "kind": "fixed",
+          "source_basis": "official_page"
+        },
+        {
+          "key": "concentration_electives",
+          "label": "Concentration electives",
+          "credits": 15,
+          "kind": "fixed",
+          "source_basis": "official_page"
+        },
+        {
+          "key": "general_education",
+          "label": "General education",
+          "credits": 12,
+          "kind": "fixed",
+          "source_basis": "official_page"
+        },
+        {
+          "key": "open_electives",
+          "label": "Open electives",
+          "credits": 6,
+          "kind": "fixed",
+          "source_basis": "official_page"
+        }
+      ],
+      "tracks": [
+        {
+          "key": "science",
+          "label": "Environmental Science concentration",
+          "credit_pattern": "15 concentration core + 15 concentration electives"
+        },
+        {
+          "key": "management",
+          "label": "Environmental Management concentration",
+          "credit_pattern": "15 concentration core + 15 concentration electives"
+        }
+      ],
+      "notes": "The BS in Environmental Science & Management page explicitly states the 130-credit breakdown and the two concentration tracks."
+    },
+    "ENG": {
+      "model": "official_page_bucketed",
+      "source_granularity": "program_page_breakdown",
+      "bucket_requirements": [
+        {
+          "key": "university_core",
+          "label": "University core",
+          "credits": 54,
+          "kind": "fixed",
+          "source_basis": "official_page"
+        },
+        {
+          "key": "school_core",
+          "label": "School core",
+          "credits": 39,
+          "kind": "fixed",
+          "source_basis": "official_page"
+        },
+        {
+          "key": "concentration",
+          "label": "Concentration",
+          "credits": 24,
+          "kind": "fixed",
+          "source_basis": "official_page"
+        },
+        {
+          "key": "free_electives",
+          "label": "Free electives",
+          "credits": 6,
+          "kind": "fixed",
+          "source_basis": "official_page"
+        }
+      ],
+      "notes": "The BA in English page for 163 and onward students explicitly states the 123-credit breakdown."
+    },
+    "BBA": {
+      "model": "official_page_with_waiver_sensitive_variants",
+      "source_granularity": "program_page_breakdown",
+      "bucket_requirements": [
+        {
+          "key": "ged",
+          "label": "General education / university core",
+          "credits": 36,
+          "kind": "fixed",
+          "source_basis": "official_page"
+        },
+        {
+          "key": "school_core",
+          "label": "School core",
+          "credits": 21,
+          "kind": "fixed",
+          "source_basis": "official_page"
+        },
+        {
+          "key": "bba_core",
+          "label": "BBA core",
+          "credits": 36,
+          "kind": "fixed",
+          "source_basis": "official_page"
+        },
+        {
+          "key": "concentration_major",
+          "label": "Concentration / major",
+          "credits": 18,
+          "kind": "fixed",
+          "source_basis": "official_page"
+        },
+        {
+          "key": "free_electives",
+          "label": "Free electives",
+          "credits": 9,
+          "kind": "fixed",
+          "source_basis": "official_page"
+        },
+        {
+          "key": "internship",
+          "label": "Internship",
+          "credits": 4,
+          "kind": "fixed",
+          "source_basis": "official_page"
+        },
+        {
+          "key": "waiver_sensitive_courses",
+          "label": "ENG102 and BUS112 if not waived",
+          "credits": {
+            "none_waived": 6,
+            "one_waived": 3,
+            "both_waived": 0
+          },
+          "kind": "conditional",
+          "source_basis": "official_page"
+        }
+      ],
+      "notes": "The current BBA page explicitly documents a 130-credit structure with waiver-aware 127-credit and 124-credit variants depending on ENG102 and BUS112 waivers."
+    },
+    "ECO": {
+      "model": "mixed_public_and_runtime",
+      "source_granularity": "department_page_plus_runtime_mapping",
+      "bucket_requirements": [
+        {
+          "key": "general_education",
+          "label": "General education / university core",
+          "credits": 18,
+          "kind": "fixed",
+          "source_basis": "runtime_aligned"
+        },
+        {
+          "key": "quantitative_foundation",
+          "label": "Quantitative / methods foundation",
+          "credits": 12,
+          "kind": "fixed",
+          "source_basis": "runtime_aligned"
+        },
+        {
+          "key": "economics_core",
+          "label": "Economics core",
+          "credits": 33,
+          "kind": "fixed",
+          "source_basis": "runtime_aligned"
+        },
+        {
+          "key": "economics_electives_and_supporting_courses",
+          "label": "Economics electives / supporting courses",
+          "credits": 57,
+          "kind": "derived_to_total",
+          "source_basis": "remaining_credits_to_program_total"
+        }
+      ],
+      "notes": "The Department of Economics page confirms the Spring 2019 curriculum stream and the 120-credit program total through the undergraduate index. Public bucket-by-bucket credits are not cleanly exposed, so the detailed split remains runtime-aligned with a derived remainder."
+    }
+  }
+}

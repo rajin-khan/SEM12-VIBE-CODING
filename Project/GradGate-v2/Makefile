@@ -24,7 +24,7 @@ format-check:
 	black --check .
 
 typecheck:
-	mypy engine/ display/
+	mypy cli/engine cli/display api
 
 # ── Tests ────────────────────────────────────────────────────────────────────
 test:
@@ -32,7 +32,7 @@ test:
 
 test-cov:
 	pytest tests/ -x --ignore=tests/load \
-		--cov=engine --cov=display \
+		--cov=cli/engine --cov=cli/display --cov=api \
 		--cov-report=term-missing -q
 
 # ── Development ──────────────────────────────────────────────────────────────

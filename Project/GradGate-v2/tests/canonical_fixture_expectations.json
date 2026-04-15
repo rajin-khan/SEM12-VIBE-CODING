@@ -1,0 +1,613 @@
+{
+  "concentration_bba_finance.csv": {
+    "concentration": "FIN",
+    "credits_completed": 130.0,
+    "credits_required": 130,
+    "eligible": true,
+    "minor": null,
+    "program": "BBA",
+    "reasons": [],
+    "scenario": "concentration_bba_finance",
+    "waivers": []
+  },
+  "concentration_bba_finance_low_gpa.csv": {
+    "concentration": "FIN",
+    "credits_completed": 130.0,
+    "credits_required": 130,
+    "eligible": false,
+    "minor": null,
+    "program": "BBA",
+    "reasons": [
+      "Concentration CGPA 1.90 below minimum 2.50"
+    ],
+    "scenario": "concentration_bba_finance_low_gpa",
+    "waivers": []
+  },
+  "concentration_bba_undeclared.csv": {
+    "concentration": "FIN",
+    "credits_completed": 121.0,
+    "credits_required": 130,
+    "eligible": false,
+    "minor": null,
+    "program": "BBA",
+    "reasons": [
+      "Need 9.0 more credits (121.0/130)",
+      "3 missing course(s)"
+    ],
+    "scenario": "concentration_bba_undeclared",
+    "waivers": []
+  },
+  "failed_bba_core.csv": {
+    "concentration": "FIN",
+    "credits_completed": 127.0,
+    "credits_required": 130,
+    "eligible": false,
+    "minor": null,
+    "program": "BBA",
+    "reasons": [
+      "Need 3.0 more credits (127.0/130)",
+      "1 missing course(s)"
+    ],
+    "scenario": "failed_bba_core",
+    "waivers": []
+  },
+  "failed_cse_core.csv": {
+    "concentration": null,
+    "credits_completed": 127.0,
+    "credits_required": 130,
+    "eligible": false,
+    "minor": null,
+    "program": "CSE",
+    "reasons": [
+      "Need 3.0 more credits (127.0/130)",
+      "1 missing course(s)"
+    ],
+    "scenario": "failed_cse_core",
+    "waivers": []
+  },
+  "happy_bba_finance.csv": {
+    "concentration": "FIN",
+    "credits_completed": 130.0,
+    "credits_required": 130,
+    "eligible": true,
+    "minor": null,
+    "program": "BBA",
+    "reasons": [],
+    "scenario": "happy_bba_finance",
+    "waivers": []
+  },
+  "happy_cee_default.csv": {
+    "concentration": null,
+    "credits_completed": 149.0,
+    "credits_required": 149,
+    "eligible": true,
+    "minor": null,
+    "program": "CEE",
+    "reasons": [],
+    "scenario": "happy_cee_default",
+    "waivers": []
+  },
+  "happy_cse_default.csv": {
+    "concentration": null,
+    "credits_completed": 130.0,
+    "credits_required": 130,
+    "eligible": true,
+    "minor": null,
+    "program": "CSE",
+    "reasons": [],
+    "scenario": "happy_cse_default",
+    "waivers": []
+  },
+  "happy_cse_extended.csv": {
+    "concentration": null,
+    "credits_completed": 133.0,
+    "credits_required": 130,
+    "eligible": true,
+    "minor": null,
+    "program": "CSE",
+    "reasons": [],
+    "scenario": "happy_cse_extended",
+    "waivers": []
+  },
+  "happy_eco_default.csv": {
+    "concentration": null,
+    "credits_completed": 120.0,
+    "credits_required": 120,
+    "eligible": true,
+    "minor": null,
+    "program": "ECO",
+    "reasons": [],
+    "scenario": "happy_eco_default",
+    "waivers": []
+  },
+  "happy_eee_default.csv": {
+    "concentration": null,
+    "credits_completed": 131.0,
+    "credits_required": 130,
+    "eligible": true,
+    "minor": null,
+    "program": "EEE",
+    "reasons": [],
+    "scenario": "happy_eee_default",
+    "waivers": []
+  },
+  "happy_eng_default.csv": {
+    "concentration": null,
+    "credits_completed": 123.0,
+    "credits_required": 123,
+    "eligible": true,
+    "minor": null,
+    "program": "ENG",
+    "reasons": [],
+    "scenario": "happy_eng_default",
+    "waivers": []
+  },
+  "happy_env_default.csv": {
+    "concentration": null,
+    "credits_completed": 132.0,
+    "credits_required": 130,
+    "eligible": true,
+    "minor": null,
+    "program": "ENV",
+    "reasons": [],
+    "scenario": "happy_env_default",
+    "waivers": []
+  },
+  "happy_ete_default.csv": {
+    "concentration": null,
+    "credits_completed": 130.0,
+    "credits_required": 130,
+    "eligible": true,
+    "minor": null,
+    "program": "ETE",
+    "reasons": [],
+    "scenario": "happy_ete_default",
+    "waivers": []
+  },
+  "incomplete_bba_hold.csv": {
+    "concentration": "FIN",
+    "credits_completed": 127.0,
+    "credits_required": 130,
+    "eligible": false,
+    "minor": null,
+    "program": "BBA",
+    "reasons": [
+      "Need 3.0 more credits (127.0/130)",
+      "1 missing course(s)"
+    ],
+    "scenario": "incomplete_bba_hold",
+    "waivers": []
+  },
+  "incomplete_cse_hold.csv": {
+    "concentration": null,
+    "credits_completed": 127.0,
+    "credits_required": 130,
+    "eligible": false,
+    "minor": null,
+    "program": "CSE",
+    "reasons": [
+      "Need 3.0 more credits (127.0/130)",
+      "1 missing course(s)"
+    ],
+    "scenario": "incomplete_cse_hold",
+    "waivers": []
+  },
+  "incomplete_cse_resolved.csv": {
+    "concentration": null,
+    "credits_completed": 130.0,
+    "credits_required": 130,
+    "eligible": true,
+    "minor": null,
+    "program": "CSE",
+    "reasons": [],
+    "scenario": "incomplete_cse_resolved",
+    "waivers": []
+  },
+  "minor_cse_math_complete.csv": {
+    "concentration": null,
+    "credits_completed": 139.0,
+    "credits_required": 130,
+    "eligible": true,
+    "minor": "MATH",
+    "program": "CSE",
+    "reasons": [],
+    "scenario": "minor_cse_math_complete",
+    "waivers": []
+  },
+  "minor_cse_math_missing_prereqs.csv": {
+    "concentration": null,
+    "credits_completed": 139.0,
+    "credits_required": 130,
+    "eligible": false,
+    "minor": "MATH",
+    "program": "CSE",
+    "reasons": [
+      "1 missing course(s)"
+    ],
+    "scenario": "minor_cse_math_missing_prereqs",
+    "waivers": []
+  },
+  "minor_cse_math_partial.csv": {
+    "concentration": null,
+    "credits_completed": 133.0,
+    "credits_required": 130,
+    "eligible": true,
+    "minor": "MATH",
+    "program": "CSE",
+    "reasons": [],
+    "scenario": "minor_cse_math_partial",
+    "waivers": []
+  },
+  "minor_cse_physics_complete.csv": {
+    "concentration": null,
+    "credits_completed": 142.0,
+    "credits_required": 130,
+    "eligible": true,
+    "minor": "PHYSICS",
+    "program": "CSE",
+    "reasons": [],
+    "scenario": "minor_cse_physics_complete",
+    "waivers": []
+  },
+  "mixed_bba_statuses.csv": {
+    "concentration": "FIN",
+    "credits_completed": 121.0,
+    "credits_required": 130,
+    "eligible": false,
+    "minor": null,
+    "program": "BBA",
+    "reasons": [
+      "Need 9.0 more credits (121.0/130)",
+      "3 missing course(s)"
+    ],
+    "scenario": "mixed_bba_statuses",
+    "waivers": []
+  },
+  "mixed_cse_statuses.csv": {
+    "concentration": null,
+    "credits_completed": 121.0,
+    "credits_required": 130,
+    "eligible": false,
+    "minor": null,
+    "program": "CSE",
+    "reasons": [
+      "Need 9.0 more credits (121.0/130)",
+      "3 missing course(s)"
+    ],
+    "scenario": "mixed_cse_statuses",
+    "waivers": []
+  },
+  "prereq_bba_finance_early.csv": {
+    "concentration": "FIN",
+    "credits_completed": 130.0,
+    "credits_required": 130,
+    "eligible": true,
+    "minor": null,
+    "program": "BBA",
+    "reasons": [],
+    "scenario": "prereq_bba_finance_early",
+    "waivers": []
+  },
+  "prereq_bba_internship_early.csv": {
+    "concentration": "FIN",
+    "credits_completed": 130.0,
+    "credits_required": 130,
+    "eligible": true,
+    "minor": null,
+    "program": "BBA",
+    "reasons": [],
+    "scenario": "prereq_bba_internship_early",
+    "waivers": []
+  },
+  "prereq_cse_database_early.csv": {
+    "concentration": null,
+    "credits_completed": 130.0,
+    "credits_required": 130,
+    "eligible": true,
+    "minor": null,
+    "program": "CSE",
+    "reasons": [],
+    "scenario": "prereq_cse_database_early",
+    "waivers": []
+  },
+  "prereq_eee_circuits_early.csv": {
+    "concentration": null,
+    "credits_completed": 131.0,
+    "credits_required": 130,
+    "eligible": true,
+    "minor": null,
+    "program": "EEE",
+    "reasons": [],
+    "scenario": "prereq_eee_circuits_early",
+    "waivers": []
+  },
+  "probation_bba_borderline.csv": {
+    "concentration": "FIN",
+    "credits_completed": 130.0,
+    "credits_required": 130,
+    "eligible": true,
+    "minor": null,
+    "program": "BBA",
+    "reasons": [],
+    "scenario": "probation_bba_borderline",
+    "waivers": []
+  },
+  "probation_bba_dismissal_risk.csv": {
+    "concentration": "FIN",
+    "credits_completed": 130.0,
+    "credits_required": 130,
+    "eligible": false,
+    "minor": null,
+    "program": "BBA",
+    "reasons": [
+      "CGPA 1.64 below minimum 2.00",
+      "Concentration CGPA 1.62 below minimum 2.50",
+      "Core Business GPA 1.76 below minimum 2.00",
+      "Major Core GPA 1.69 below minimum 2.00"
+    ],
+    "scenario": "probation_bba_dismissal_risk",
+    "waivers": []
+  },
+  "probation_bba_recovery.csv": {
+    "concentration": "FIN",
+    "credits_completed": 130.0,
+    "credits_required": 130,
+    "eligible": true,
+    "minor": null,
+    "program": "BBA",
+    "reasons": [],
+    "scenario": "probation_bba_recovery",
+    "waivers": []
+  },
+  "retake_cse_ineligible.csv": {
+    "concentration": null,
+    "credits_completed": 130.0,
+    "credits_required": 130,
+    "eligible": true,
+    "minor": null,
+    "program": "CSE",
+    "reasons": [],
+    "scenario": "retake_cse_ineligible",
+    "waivers": []
+  },
+  "retake_cse_multiple.csv": {
+    "concentration": null,
+    "credits_completed": 130.0,
+    "credits_required": 130,
+    "eligible": true,
+    "minor": null,
+    "program": "CSE",
+    "reasons": [],
+    "scenario": "retake_cse_multiple",
+    "waivers": []
+  },
+  "retake_cse_recovered.csv": {
+    "concentration": null,
+    "credits_completed": 130.0,
+    "credits_required": 130,
+    "eligible": true,
+    "minor": null,
+    "program": "CSE",
+    "reasons": [],
+    "scenario": "retake_cse_recovered",
+    "waivers": []
+  },
+  "retake_cse_unresolved.csv": {
+    "concentration": null,
+    "credits_completed": 127.0,
+    "credits_required": 130,
+    "eligible": false,
+    "minor": null,
+    "program": "CSE",
+    "reasons": [
+      "Need 3.0 more credits (127.0/130)",
+      "1 missing course(s)"
+    ],
+    "scenario": "retake_cse_unresolved",
+    "waivers": []
+  },
+  "retake_cse_worse_second_attempt.csv": {
+    "concentration": null,
+    "credits_completed": 130.0,
+    "credits_required": 130,
+    "eligible": true,
+    "minor": null,
+    "program": "CSE",
+    "reasons": [],
+    "scenario": "retake_cse_worse_second_attempt",
+    "waivers": []
+  },
+  "short_bba_credit_gap.csv": {
+    "concentration": "FIN",
+    "credits_completed": 127.0,
+    "credits_required": 130,
+    "eligible": false,
+    "minor": null,
+    "program": "BBA",
+    "reasons": [
+      "Need 3.0 more credits (127.0/130)"
+    ],
+    "scenario": "short_bba_credit_gap",
+    "waivers": []
+  },
+  "short_cee_credit_gap.csv": {
+    "concentration": null,
+    "credits_completed": 146.0,
+    "credits_required": 149,
+    "eligible": false,
+    "minor": null,
+    "program": "CEE",
+    "reasons": [
+      "Need 3.0 more credits (146.0/149)"
+    ],
+    "scenario": "short_cee_credit_gap",
+    "waivers": []
+  },
+  "short_cse_credit_gap.csv": {
+    "concentration": null,
+    "credits_completed": 127.0,
+    "credits_required": 130,
+    "eligible": false,
+    "minor": null,
+    "program": "CSE",
+    "reasons": [
+      "Need 3.0 more credits (127.0/130)",
+      "1 missing course(s)"
+    ],
+    "scenario": "short_cse_credit_gap",
+    "waivers": []
+  },
+  "short_eco_credit_gap.csv": {
+    "concentration": null,
+    "credits_completed": 117.0,
+    "credits_required": 120,
+    "eligible": false,
+    "minor": null,
+    "program": "ECO",
+    "reasons": [
+      "Need 3.0 more credits (117.0/120)"
+    ],
+    "scenario": "short_eco_credit_gap",
+    "waivers": []
+  },
+  "short_eee_credit_gap.csv": {
+    "concentration": null,
+    "credits_completed": 128.0,
+    "credits_required": 130,
+    "eligible": false,
+    "minor": null,
+    "program": "EEE",
+    "reasons": [
+      "Need 2.0 more credits (128.0/130)"
+    ],
+    "scenario": "short_eee_credit_gap",
+    "waivers": []
+  },
+  "short_eng_credit_gap.csv": {
+    "concentration": null,
+    "credits_completed": 120.0,
+    "credits_required": 123,
+    "eligible": false,
+    "minor": null,
+    "program": "ENG",
+    "reasons": [
+      "Need 3.0 more credits (120.0/123)"
+    ],
+    "scenario": "short_eng_credit_gap",
+    "waivers": []
+  },
+  "short_env_credit_gap.csv": {
+    "concentration": null,
+    "credits_completed": 129.0,
+    "credits_required": 130,
+    "eligible": false,
+    "minor": null,
+    "program": "ENV",
+    "reasons": [
+      "Need 1.0 more credits (129.0/130)"
+    ],
+    "scenario": "short_env_credit_gap",
+    "waivers": []
+  },
+  "short_ete_credit_gap.csv": {
+    "concentration": null,
+    "credits_completed": 127.0,
+    "credits_required": 130,
+    "eligible": false,
+    "minor": null,
+    "program": "ETE",
+    "reasons": [
+      "Need 3.0 more credits (127.0/130)"
+    ],
+    "scenario": "short_ete_credit_gap",
+    "waivers": []
+  },
+  "transfer_cse_external_credit.csv": {
+    "concentration": null,
+    "credits_completed": 133.0,
+    "credits_required": 130,
+    "eligible": true,
+    "minor": null,
+    "program": "CSE",
+    "reasons": [],
+    "scenario": "transfer_cse_external_credit",
+    "waivers": []
+  },
+  "waiver_cse_both.csv": {
+    "concentration": null,
+    "credits_completed": 127.0,
+    "credits_required": 130,
+    "eligible": false,
+    "minor": null,
+    "program": "CSE",
+    "reasons": [
+      "Need 3.0 more credits (127.0/130)",
+      "1 missing course(s)"
+    ],
+    "scenario": "waiver_cse_both",
+    "waivers": [
+      "ENG102",
+      "MAT112"
+    ]
+  },
+  "waiver_cse_eng102.csv": {
+    "concentration": null,
+    "credits_completed": 127.0,
+    "credits_required": 130,
+    "eligible": false,
+    "minor": null,
+    "program": "CSE",
+    "reasons": [
+      "Need 3.0 more credits (127.0/130)",
+      "1 missing course(s)"
+    ],
+    "scenario": "waiver_cse_eng102",
+    "waivers": [
+      "ENG102"
+    ]
+  },
+  "waiver_cse_mat112.csv": {
+    "concentration": null,
+    "credits_completed": 127.0,
+    "credits_required": 130,
+    "eligible": false,
+    "minor": null,
+    "program": "CSE",
+    "reasons": [
+      "Need 3.0 more credits (127.0/130)",
+      "1 missing course(s)"
+    ],
+    "scenario": "waiver_cse_mat112",
+    "waivers": [
+      "MAT112"
+    ]
+  },
+  "withdrawn_bba_hold.csv": {
+    "concentration": "FIN",
+    "credits_completed": 127.0,
+    "credits_required": 130,
+    "eligible": false,
+    "minor": null,
+    "program": "BBA",
+    "reasons": [
+      "Need 3.0 more credits (127.0/130)",
+      "1 missing course(s)"
+    ],
+    "scenario": "withdrawn_bba_hold",
+    "waivers": []
+  },
+  "withdrawn_cse_hold.csv": {
+    "concentration": null,
+    "credits_completed": 127.0,
+    "credits_required": 130,
+    "eligible": false,
+    "minor": null,
+    "program": "CSE",
+    "reasons": [
+      "Need 3.0 more credits (127.0/130)",
+      "1 missing course(s)"
+    ],
+    "scenario": "withdrawn_cse_hold",
+    "waivers": []
+  }
+}

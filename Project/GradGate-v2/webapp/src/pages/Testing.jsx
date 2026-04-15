@@ -2,6 +2,7 @@ import { useState, useRef, useCallback } from 'react'
 import { Navigate, Link } from 'react-router-dom'
 import { useAuth } from '../lib/AuthContext'
 import { GlassCard } from '../components/ui/GlassCard'
+import { runTranscriptAudit } from '../lib/api'
 import {
     FolderOpen, FileCsv, FileImage, ArrowSquareOut,
     Circle, CheckCircle, XCircle, SpinnerGap, Tray
@@ -17,10 +18,10 @@ const PROGRAMS = [
 const ACCEPTED = ['.csv', '.pdf', '.png', '.jpg', '.jpeg']
 
 function statusIcon(status) {
-    if (status === 'running') return <SpinnerGap size={16} weight="regular" className="text-white/60 animate-spin" />
-    if (status === 'done') return <CheckCircle size={16} weight="fill" className="text-emerald-400" />
-    if (status === 'error') return <XCircle size={16} weight="fill" className="text-red-400" />
-    return <Circle size={16} weight="regular" className="text-white/20" />
+    if (status === 'running') return <SpinnerGap size={16} weight="regular" className="text-muted animate-spin" />
+    if (status === 'done') return <CheckCircle size={16} weight="fill" className="text-emerald-500" />
+    if (status === 'error') return <XCircle size={16} weight="fill" className="text-red-500" />
+    return <Circle size={16} weight="regular" className="text-muted/30" />
 }
 
 export default function Testing() {
@@ -55,26 +56,15 @@ export default function Testing() {
         setFileField(index, 'error', null)
 
         try {
-            const formData = new FormData()
-            formData.append('file', entry.file)
-            formData.append('program', entry.program)
-
-            const isCSV = entry.file.name.toLowerCase().endsWith('.csv')
-            const endpoint = isCSV ? '/audit/csv' : '/audit/image'
-            const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000'
-
-            const res = await fetch(`${apiUrl}${endpoint}`, {
-                method: 'POST',
-                headers: { 'Authorization': `Bearer ${session.access_token}` },
-                body: formData
+            const data = await runTranscriptAudit(session, {
+                file: entry.file,
+                program: entry.program,
+                level: 'all',
+                report: 'normal',
+                concentration: '',
+                minor: '',
+                waivers: [],
             })
-            const data = await res.json()
-            if (!res.ok) {
-                const msg = Array.isArray(data.detail)
-                    ? data.detail.map(d => d.msg).join(', ')
-                    : (data.detail || 'Audit failed')
-                throw new Error(msg)
-            }
             setFiles(prev => prev.map((f, i) => i === index
                 ? { ...f, status: 'done', scan_id: data.scan_id }
                 : f
@@ -113,7 +103,7 @@ export default function Testing() {
                             <Tray size={14} weight="thin" className="text-muted" />
                             <span className="text-xs uppercase tracking-widest text-muted font-medium">Batch Testing</span>
                         </div>
-                        <h1 className="text-4xl font-display text-white">Testing Suite</h1>
+                        <h1 className="text-4xl font-display text-foreground">Testing Suite</h1>
                         <p className="text-muted text-sm mt-1">Upload a folder of transcripts and run audits in bulk.</p>
                     </div>
                     <div className="flex items-center gap-3">
@@ -121,7 +111,7 @@ export default function Testing() {
                             <>
                                 <button
                                     onClick={clearAll}
-                                    className="text-xs text-muted hover:text-white transition-colors px-3 py-2"
+                                    className="text-xs text-muted hover:text-foreground transition-colors px-3 py-2"
                                 >
                                     Clear all
                                 </button>
@@ -139,7 +129,7 @@ export default function Testing() {
 
                 {/* Folder picker */}
                 <GlassCard
-                    className="flex flex-col items-center justify-center gap-4 cursor-pointer hover:bg-white/5 transition-colors border-dashed border-2 border-white/10 hover:border-white/20 mb-6 py-12"
+                    className="flex flex-col items-center justify-center gap-4 cursor-pointer hover:bg-black/5 transition-colors border-dashed border-2 border-black/10 hover:border-black/20 mb-6 py-12"
                     onClick={() => folderInputRef.current?.click()}
                 >
                     <input
@@ -152,11 +142,11 @@ export default function Testing() {
                         // @ts-ignore — webkitdirectory is non-standard but widely supported
                         webkitdirectory=""
                     />
-                    <div className="w-14 h-14 rounded-full bg-white/5 border border-white/10 flex items-center justify-center">
-                        <FolderOpen size={28} weight="thin" className="text-white/40" />
+                    <div className="w-14 h-14 rounded-full bg-black/5 border border-black/10 flex items-center justify-center">
+                        <FolderOpen size={28} weight="thin" className="text-muted" />
                     </div>
                     <div className="text-center">
-                        <p className="text-white font-medium">Select a folder of transcripts</p>
+                        <p className="text-foreground font-medium">Select a folder of transcripts</p>
                         <p className="text-muted text-xs mt-1">CSV, PDF, PNG, JPG files will be loaded automatically</p>
                     </div>
                 </GlassCard>
@@ -167,7 +157,7 @@ export default function Testing() {
                         <span className="text-xs text-muted">{files.length} file{files.length !== 1 ? 's' : ''} loaded</span>
                         {doneCount > 0 && <span className="text-xs text-emerald-400">{doneCount} completed</span>}
                         {errorCount > 0 && <span className="text-xs text-red-400">{errorCount} failed</span>}
-                        {runningCount > 0 && <span className="text-xs text-white/50">{runningCount} running…</span>}
+                        {runningCount > 0 && <span className="text-xs text-muted/60">{runningCount} running…</span>}
                     </div>
                 )}
 
@@ -180,8 +170,8 @@ export default function Testing() {
                                 <GlassCard
                                     key={entry.file.name + index}
                                     className={`py-4 px-5 transition-all
-                                        ${entry.status === 'done' ? 'border-emerald-500/20 bg-emerald-500/3' : ''}
-                                        ${entry.status === 'error' ? 'border-red-500/20 bg-red-500/3' : ''}
+                                        ${entry.status === 'done' ? 'border-emerald-500/20 bg-emerald-500/5' : ''}
+                                        ${entry.status === 'error' ? 'border-red-500/20 bg-red-500/5' : ''}
                                     `}
                                 >
                                     <div className="flex items-center gap-4">
@@ -189,16 +179,16 @@ export default function Testing() {
                                         <div className="shrink-0">{statusIcon(entry.status)}</div>
 
                                         {/* File icon */}
-                                        <div className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center shrink-0">
+                                        <div className="w-8 h-8 rounded-lg bg-black/5 border border-black/10 flex items-center justify-center shrink-0">
                                             {isCSV
-                                                ? <FileCsv size={15} weight="thin" className="text-white/50" />
-                                                : <FileImage size={15} weight="thin" className="text-white/50" />
+                                                ? <FileCsv size={15} weight="thin" className="text-muted" />
+                                                : <FileImage size={15} weight="thin" className="text-muted" />
                                             }
                                         </div>
 
                                         {/* Filename */}
                                         <div className="flex-1 min-w-0">
-                                            <p className="text-white text-sm font-medium truncate">{entry.file.name}</p>
+                                            <p className="text-foreground text-sm font-medium truncate">{entry.file.name}</p>
                                             {entry.error && (
                                                 <p className="text-red-400 text-xs mt-0.5 truncate">{entry.error}</p>
                                             )}
@@ -209,7 +199,7 @@ export default function Testing() {
                                             value={entry.program}
                                             onChange={(e) => setFileField(index, 'program', e.target.value)}
                                             disabled={entry.status === 'running' || entry.status === 'done'}
-                                            className="bg-black/40 border border-white/10 rounded-md px-3 py-1.5 text-white text-xs outline-none focus:border-white/30 appearance-none shrink-0 disabled:opacity-40"
+                                            className="bg-black/5 border border-black/10 rounded-md px-3 py-1.5 text-foreground text-xs outline-none focus:border-black/30 appearance-none shrink-0 disabled:opacity-40"
                                         >
                                             {PROGRAMS.map(p => (
                                                 <option key={p.value} value={p.value}>{p.label}</option>
@@ -220,7 +210,7 @@ export default function Testing() {
                                         {entry.status === 'done' && entry.scan_id ? (
                                             <Link
                                                 to={`/results/${entry.scan_id}`}
-                                                className="inline-flex items-center gap-1.5 text-xs font-medium text-white/70 hover:text-white border border-white/10 rounded-md px-3 py-1.5 hover:border-white/20 transition-all shrink-0"
+                                                className="inline-flex items-center gap-1.5 text-xs font-medium text-muted hover:text-foreground border border-black/10 rounded-md px-3 py-1.5 hover:border-black/20 transition-all shrink-0"
                                             >
                                                 View <ArrowSquareOut size={12} weight="regular" />
                                             </Link>
@@ -238,7 +228,7 @@ export default function Testing() {
                                         {/* Remove */}
                                         <button
                                             onClick={() => removeFile(index)}
-                                            className="text-white/20 hover:text-white/60 transition-colors text-lg leading-none shrink-0 pl-1"
+                                            className="text-muted/40 hover:text-foreground transition-colors text-lg leading-none shrink-0 pl-1"
                                             title="Remove"
                                         >
                                             ×

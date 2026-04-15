@@ -17,13 +17,13 @@ from engine.program_loader import (
 from engine.transcript import load_transcript, resolve_retakes, validate_courses, validate_grades
 from engine.waivers import get_waivers
 
-DEFAULT_KNOWLEDGE = str(Path(__file__).resolve().parent / "data" / "program_knowledge.md")
+DEFAULT_KNOWLEDGE = str(Path(__file__).resolve().parent.parent / "data" / "curriculum" / "catalog.json")
 
 
 def main():
     parser = argparse.ArgumentParser(
         description="GradGate Level 2: Logic Gate & Waiver Handler",
-        epilog="Example: python level_2.py data/transcript.csv CSE data/program_knowledge.md --waivers ENG102,MAT112",
+        epilog="Example: python level_2.py data/transcript.csv CSE data/curriculum/catalog.json --waivers ENG102,MAT112",
     )
     parser.add_argument("transcript", help="Path to transcript CSV file")
     parser.add_argument(
