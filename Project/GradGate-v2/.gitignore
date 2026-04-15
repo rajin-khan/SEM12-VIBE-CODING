@@ -55,6 +55,3 @@ tests/load/report.html
 # Supabase local
 supabase/.branches
 supabase/.temp
-
-# CLI session tokens (never commit)
-cli/.gradgate/
