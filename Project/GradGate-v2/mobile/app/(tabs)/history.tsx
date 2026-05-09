@@ -4,6 +4,7 @@ import { useRouter } from 'expo-router'
 import { Ionicons } from '@expo/vector-icons'
 import { useAuth } from '../../src/lib/AuthContext'
 import { fetchHistory } from '../../src/lib/api'
+import { levelLabel } from '../../src/lib/auditConfig'
 import { Card } from '../../src/components/Card'
 import { SectionLabel } from '../../src/components/SectionLabel'
 import { colors, fonts, radius } from '../../src/theme'
@@ -25,7 +26,13 @@ export default function HistoryScreen() {
 
   const formatDate = (iso: string) => {
     const d = new Date(iso)
-    return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+    return d.toLocaleDateString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+    })
   }
 
   return (
@@ -74,8 +81,15 @@ export default function HistoryScreen() {
                     {scan.file_name ? `  ·  ${scan.file_name}` : ''}
                   </Text>
                 </View>
-                <View style={styles.badge}>
-                  <Text style={styles.badgeText}>{scan.input_type}</Text>
+                <View style={styles.metaColumn}>
+                  {scan.requested_level ? (
+                    <View style={styles.levelBadge}>
+                      <Text style={styles.levelBadgeText}>{levelLabel(scan.requested_level)}</Text>
+                    </View>
+                  ) : null}
+                  <View style={styles.badge}>
+                    <Text style={styles.badgeText}>{scan.input_type}</Text>
+                  </View>
                 </View>
                 <Ionicons name="chevron-forward" size={16} color={colors.muted} />
               </Card>
@@ -104,9 +118,12 @@ const styles = StyleSheet.create({
   row: { flexDirection: 'row', alignItems: 'center', gap: 12, padding: 16 },
   fileIcon: { width: 40, height: 40, borderRadius: radius.md, backgroundColor: 'rgba(26,23,20,0.04)', borderWidth: 1, borderColor: colors.stroke, alignItems: 'center', justifyContent: 'center' },
   rowInfo: { flex: 1, gap: 3 },
+  metaColumn: { alignItems: 'flex-end', gap: 6 },
   rowTitle: { fontFamily: 'DMSans_400Regular', fontSize: 14, color: colors.foreground },
   bold: { fontFamily: 'DMSans_600SemiBold' },
   rowSub: { fontFamily: 'DMSans_400Regular', fontSize: 12, color: colors.muted },
   badge: { paddingHorizontal: 8, paddingVertical: 3, borderRadius: radius.pill, backgroundColor: 'rgba(26,23,20,0.05)', borderWidth: 1, borderColor: colors.stroke },
   badgeText: { fontFamily: 'DMSans_500Medium', fontSize: 10, color: colors.muted, textTransform: 'uppercase', letterSpacing: 0.8 },
+  levelBadge: { maxWidth: 140, paddingHorizontal: 8, paddingVertical: 3, borderRadius: radius.pill, backgroundColor: 'rgba(26,23,20,0.04)', borderWidth: 1, borderColor: colors.stroke },
+  levelBadgeText: { fontFamily: 'DMSans_500Medium', fontSize: 10, color: colors.muted, textAlign: 'right' },
 })

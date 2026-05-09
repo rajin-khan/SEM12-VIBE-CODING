@@ -39,7 +39,7 @@ load_dotenv(ROOT_ENV_PATH)
 APP_DIR = Path(__file__).resolve().parent / ".gradgate"
 SESSION_STORE = APP_DIR / "supabase_auth.json"
 DEFAULT_REDIRECT_URL = "http://127.0.0.1:8765/auth/callback"
-DEFAULT_API_URL = "http://localhost:8000"
+DEFAULT_API_URL = "http://127.0.0.1:8000"
 
 
 def _env(*names: str, default: str = "") -> str:
@@ -369,6 +369,36 @@ def submit_scanned_audit(
         "minor": minor or "",
     }
     return _request_multipart("/audit/image", file_path, fields)
+
+
+def submit_reviewed_audit(
+    *,
+    program: str,
+    input_type: str,
+    file_name: str,
+    extracted_csv: str,
+    waivers: str | None = None,
+    level: str = "all",
+    report: str = "normal",
+    concentration: str | None = None,
+    minor: str | None = None,
+    extraction_mode: str | None = None,
+    warnings: list[str] | None = None,
+) -> Any:
+    payload = {
+        "program": program.upper(),
+        "input_type": input_type,
+        "file_name": file_name,
+        "extracted_csv": extracted_csv,
+        "waivers": [item.strip().upper() for item in (waivers or "").split(",") if item.strip()],
+        "level": level,
+        "report": report,
+        "concentration": concentration or None,
+        "minor": minor or None,
+        "extraction_mode": extraction_mode,
+        "warnings": warnings or [],
+    }
+    return _request_json("POST", "/audit/review", payload)
 
 
 def print_history_table(console: Console, scans: list[dict[str, Any]]) -> None:

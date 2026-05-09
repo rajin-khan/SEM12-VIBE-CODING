@@ -74,6 +74,8 @@ def test_ocr_status():
     assert "ready" in body
     assert "dependencies" in body
     assert "messages" in body
+    assert "supported_extensions" in body
+    assert "extraction_modes" in body
 
 
 # ── Audit ─────────────────────────────────────────────────────────────────────
@@ -180,6 +182,18 @@ def test_audit_image_rejects_bad_extension():
 
 
 def test_audit_image_pdf_with_cli_options():
+    extraction = MagicMock()
+    extraction.input_type = "pdf"
+    extraction.extracted_csv = "Course_Code,Credits,Grade,Semester\n"
+    extraction.review_required = False
+    extraction.metadata.return_value = {
+        "input_type": "pdf",
+        "extraction_mode": "pdf_text",
+        "warnings": [],
+        "pages_processed": 1,
+        "rows_detected": 2,
+        "review_required": False,
+    }
     mocked_result = {
         "program": "Computer Science & Engineering",
         "program_alias": "CSE",
@@ -199,7 +213,7 @@ def test_audit_image_pdf_with_cli_options():
         "audit": {"eligible": True, "reasons": [], "roadmap": []},
     }
 
-    with patch("api.routers.audit.extract_transcript_csv", return_value="Course_Code,Credits,Grade,Semester\n"):
+    with patch("api.routers.audit.extract_transcript_document", return_value=extraction):
         with patch("api.routers.audit._run_engine", return_value=mocked_result) as run_engine:
             with patch(AUDIT_MOCK, return_value=_mock_supabase_insert()):
                 resp = client.post(
@@ -219,8 +233,10 @@ def test_audit_image_pdf_with_cli_options():
     body = resp.json()
     assert body["program"] == "CSE"
     assert body["input_type"] == "pdf"
+    assert body["status"] == "audited"
     assert body["result"]["metadata"]["requested_level"] == "3"
     assert body["result"]["metadata"]["report_mode"] == "full"
+    assert body["result"]["metadata"]["extraction"]["extraction_mode"] == "pdf_text"
     assert body["result"]["waivers_applied"] == ["ENG102"]
     run_engine.assert_called_once()
     assert run_engine.call_args.kwargs["level"] == "3"
@@ -230,7 +246,7 @@ def test_audit_image_pdf_with_cli_options():
 
 def test_audit_image_dependency_failure_returns_503():
     with patch(
-        "api.routers.audit.extract_transcript_csv",
+        "api.routers.audit.extract_transcript_document",
         side_effect=OCRDependencyError("Image OCR is not available on this machine."),
     ):
         resp = client.post(
@@ -244,6 +260,89 @@ def test_audit_image_dependency_failure_returns_503():
     detail = resp.json()["detail"]
     assert "message" in detail
     assert "ocr_status" in detail
+
+
+def test_audit_image_review_required_response():
+    extraction = MagicMock()
+    extraction.input_type = "image"
+    extraction.review_required = True
+    extraction.review_payload.return_value = {
+        "input_type": "image",
+        "extraction_mode": "image_ocr",
+        "review_required": True,
+        "warnings": ["OCR confidence is lower than ideal; please review extracted rows."],
+        "pages_processed": 1,
+        "rows_detected": 1,
+        "extracted_preview_rows": [
+            {
+                "course_code": "ENG102",
+                "credits": "3",
+                "grade": "A-",
+                "semester": "Spring 2019",
+                "confidence": 0.81,
+                "raw_line": "ENG102 3 A- Spring 2019",
+            }
+        ],
+        "extracted_csv": "Course_Code,Credits,Grade,Semester\nENG102,3,A-,Spring 2019",
+    }
+
+    with patch("api.routers.audit.extract_transcript_document", return_value=extraction):
+        resp = client.post(
+            "/audit/image",
+            files={"file": ("transcript.png", io.BytesIO(b"fake"), "image/png")},
+            data={"program": "CSE"},
+            headers={"Authorization": "Bearer test-token"},
+        )
+
+    assert resp.status_code == 200, resp.text
+    body = resp.json()
+    assert body["status"] == "review_required"
+    assert body["scan_id"] is None
+    assert body["review"]["warnings"]
+
+
+def test_audit_review_runs_engine_and_saves():
+    mocked_result = {
+        "program": "Computer Science & Engineering",
+        "program_alias": "CSE",
+        "metadata": {
+            "requested_level": "all",
+            "requested_level_label": "All Levels",
+            "report_mode": "normal",
+            "selected_concentration": None,
+            "selected_minor": None,
+            "program_alias": "CSE",
+        },
+        "non_nsu_courses_flagged": [],
+        "waivers_applied": [],
+        "credits": {"total_earned": 130, "course_statuses": []},
+        "cgpa": {"final": 3.5, "semesters": []},
+        "grade_distribution": {},
+        "audit": {"eligible": True, "reasons": [], "roadmap": []},
+    }
+    with patch("api.routers.audit._run_engine", return_value=mocked_result):
+        with patch(AUDIT_MOCK, return_value=_mock_supabase_insert()):
+            resp = client.post(
+                "/audit/review",
+                json={
+                    "program": "CSE",
+                    "input_type": "pdf",
+                    "file_name": "reviewed.pdf",
+                    "extracted_csv": "Course_Code,Credits,Grade,Semester\nENG102,3,A-,Spring 2019",
+                    "waivers": [],
+                    "level": "all",
+                    "report": "normal",
+                    "extraction_mode": "pdf_ocr",
+                    "warnings": ["foo"],
+                },
+                headers={"Authorization": "Bearer test-token"},
+            )
+
+    assert resp.status_code == 200, resp.text
+    body = resp.json()
+    assert body["status"] == "audited"
+    assert body["input_type"] == "pdf"
+    assert body["result"]["metadata"]["extraction"]["review_accepted"] is True
 
 
 # ── History ───────────────────────────────────────────────────────────────────

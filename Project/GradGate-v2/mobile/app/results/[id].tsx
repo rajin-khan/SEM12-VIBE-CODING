@@ -1,50 +1,68 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { View, Text, ScrollView, StyleSheet, TouchableOpacity } from 'react-native'
 import { useLocalSearchParams, useRouter } from 'expo-router'
 import { Ionicons } from '@expo/vector-icons'
 import { useAuth } from '../../src/lib/AuthContext'
 import { fetchResult } from '../../src/lib/api'
+import { levelLabel } from '../../src/lib/auditConfig'
 import { Card } from '../../src/components/Card'
 import { SectionLabel } from '../../src/components/SectionLabel'
 import { StatusBadge } from '../../src/components/StatusBadge'
-import { colors, fonts, radius } from '../../src/theme'
+import { colors, radius } from '../../src/theme'
+
+function MetricCard({ label, value }: { label: string; value: string | number }) {
+  return (
+    <Card style={styles.metricCard}>
+      <Text style={styles.metricLabel}>{label}</Text>
+      <Text style={styles.metricValue}>{value}</Text>
+    </Card>
+  )
+}
 
 export default function ResultsScreen() {
   const { id } = useLocalSearchParams<{ id: string }>()
   const { session } = useAuth()
   const router = useRouter()
-  const [result, setResult] = useState<any>(null)
+  const [scan, setScan] = useState<any>(null)
   const [error, setError] = useState('')
 
   useEffect(() => {
     if (!session || !id) return
     fetchResult(session, id)
-      .then(data => setResult(data.result))
-      .catch(e => setError(e.message))
+      .then(setScan)
+      .catch((e) => setError(e.message))
   }, [id, session])
 
-  if (error) return (
-    <View style={styles.centered}>
-      <Text style={styles.errorText}>{error}</Text>
-    </View>
-  )
-
-  if (!result) return (
-    <View style={styles.centered}>
-      <Text style={styles.loadingText}>Loading results…</Text>
-    </View>
-  )
-
+  const result = scan?.result || {}
   const audit = result.audit || {}
+  const metadata = result.metadata || {}
   const gradeDist = result.grade_distribution || {}
+  const requestedLevel = metadata.requested_level
+  const missingCourses = audit.missing_courses || {}
+  const deficiencyEntries = Object.entries(missingCourses).filter(([_, value]) =>
+    Array.isArray(value) ? value.length > 0 : Number(value) > 0
+  )
+  const prereqViolations = audit.prerequisite_violations || []
+  const maxGradeCount = useMemo(
+    () => Math.max(...(Object.values(gradeDist) as number[]), 1),
+    [gradeDist]
+  )
 
-  let missingCourses: string[] = [...(audit.failed_courses || [])]
-  const missingCats = audit.missing_courses || {}
-  ;['ged', 'math', 'science', 'business', 'major', 'capstone', 'internship'].forEach(cat => {
-    if (Array.isArray(missingCats[cat])) missingCourses = [...missingCourses, ...missingCats[cat]]
-  })
+  if (error) {
+    return (
+      <View style={styles.centered}>
+        <Text style={styles.errorText}>{error}</Text>
+      </View>
+    )
+  }
 
-  const maxGrade = Math.max(...Object.values(gradeDist) as number[], 1)
+  if (!scan) {
+    return (
+      <View style={styles.centered}>
+        <Text style={styles.loadingText}>Loading results…</Text>
+      </View>
+    )
+  }
 
   return (
     <ScrollView
@@ -52,8 +70,7 @@ export default function ResultsScreen() {
       contentContainerStyle={styles.content}
       showsVerticalScrollIndicator={false}
     >
-      {/* Back */}
-      <TouchableOpacity style={styles.backBtn} onPress={() => router.back()} activeOpacity={0.7}>
+      <TouchableOpacity style={styles.backBtn} onPress={() => router.back()} activeOpacity={0.75}>
         <Ionicons name="chevron-back" size={16} color={colors.muted} />
         <Text style={styles.backText}>Back</Text>
       </TouchableOpacity>
@@ -61,79 +78,157 @@ export default function ResultsScreen() {
       <View style={styles.header}>
         <SectionLabel>Degree Audit</SectionLabel>
         <Text style={styles.heading}>Results</Text>
-        {result.program && <Text style={styles.sub}>{result.program}</Text>}
+        <Text style={styles.sub}>{result.program || scan.program}</Text>
       </View>
 
-      {/* Status & Stats */}
-      <View style={styles.statsRow}>
-        <Card style={[styles.statCard, styles.statusCard, { borderTopWidth: 3, borderTopColor: audit.eligible ? colors.green : colors.red }]}>
-          <Text style={styles.statLabel}>Status</Text>
-          <Text style={[styles.statBig, { color: audit.eligible ? colors.green : colors.red }]}>
-            {audit.eligible ? 'ELIGIBLE' : 'DEFICIENT'}
-          </Text>
-        </Card>
-        <View style={styles.smallStats}>
-          <Card style={styles.statCard}>
-            <Text style={styles.statLabel}>Credits</Text>
-            <Text style={styles.statBig}>{audit.credits_completed || 0}
-              <Text style={styles.statOf}>/{audit.credits_required || 0}</Text>
-            </Text>
-          </Card>
-          <Card style={styles.statCard}>
-            <Text style={styles.statLabel}>CGPA</Text>
-            <Text style={styles.statBig}>{(result.cgpa?.final || 0).toFixed(2)}</Text>
-          </Card>
+      <Card style={styles.topCard}>
+        <View style={styles.topRow}>
+          <StatusBadge eligible={Boolean(audit.eligible)} />
+          <View style={styles.metaPills}>
+            {requestedLevel ? (
+              <View style={styles.metaPill}>
+                <Text style={styles.metaPillText}>{levelLabel(requestedLevel)}</Text>
+              </View>
+            ) : null}
+            {scan.input_type ? (
+              <View style={styles.metaPill}>
+                <Text style={styles.metaPillText}>{scan.input_type.toUpperCase()}</Text>
+              </View>
+            ) : null}
+          </View>
         </View>
+        <Text style={styles.topTitle}>
+          {audit.eligible ? 'Eligible for graduation' : 'Not eligible for graduation'}
+        </Text>
+        <Text style={styles.topSub}>
+          {scan.file_name || 'Uploaded transcript'}
+        </Text>
+      </Card>
+
+      <View style={styles.metricsGrid}>
+        <MetricCard label="Credits" value={`${audit.credits_completed || 0}/${audit.credits_required || 0}`} />
+        <MetricCard label="CGPA" value={(result.cgpa?.final || 0).toFixed(3)} />
+        <MetricCard label="Major CGPA" value={(audit.major_cgpa || 0).toFixed(3)} />
       </View>
 
-      {/* Missing courses */}
-      {missingCourses.length > 0 && (
-        <Card style={styles.missingCard}>
-          <Text style={styles.missingTitle}>Action Required: Missing / Failed Courses</Text>
-          <View style={styles.courseChips}>
-            {missingCourses.map((c, i) => (
-              <View key={i} style={styles.courseChip}>
-                <Text style={styles.courseChipText}>{c}</Text>
+      {audit.reasons?.length ? (
+        <Card>
+          <Text style={styles.sectionTitle}>Blocking Reasons</Text>
+          <View style={styles.stack}>
+            {audit.reasons.map((reason: string) => (
+              <View key={reason} style={styles.listRow}>
+                <Ionicons name="alert-circle" size={16} color={colors.red} />
+                <Text style={styles.listText}>{reason}</Text>
               </View>
             ))}
           </View>
         </Card>
-      )}
+      ) : null}
 
-      {/* Roadmap */}
       <Card>
         <Text style={styles.sectionTitle}>Academic Roadmap</Text>
-        {audit.roadmap && audit.roadmap.length > 0
-          ? audit.roadmap.map((step: string, i: number) => (
-            <View key={i} style={styles.roadmapItem}>
-              <View style={styles.roadmapBar} />
-              <Text style={styles.roadmapText}>{step}</Text>
-            </View>
-          ))
-          : (
-            <View style={[styles.roadmapItem, { borderLeftColor: colors.green }]}>
-              <View style={[styles.roadmapBar, { backgroundColor: colors.green }]} />
-              <Text style={[styles.roadmapText, { color: colors.green }]}>All requirements complete!</Text>
-            </View>
-          )
-        }
+        {audit.roadmap?.length ? (
+          <View style={styles.stack}>
+            {audit.roadmap.map((step: string) => (
+              <View key={step} style={styles.listRow}>
+                <Ionicons name="git-branch-outline" size={16} color={colors.muted} />
+                <Text style={styles.listText}>{step}</Text>
+              </View>
+            ))}
+          </View>
+        ) : (
+          <Text style={styles.helperText}>All requirements complete.</Text>
+        )}
       </Card>
 
-      {/* Grade distribution */}
+      {(audit.concentration || audit.minor) ? (
+        <Card>
+          <Text style={styles.sectionTitle}>Specialization</Text>
+          {audit.concentration ? (
+            <View style={styles.infoBlock}>
+              <Text style={styles.infoTitle}>Concentration</Text>
+              <Text style={styles.infoText}>
+                {audit.concentration.name} · CGPA {(audit.concentration.cgpa || 0).toFixed(3)}
+              </Text>
+            </View>
+          ) : null}
+          {audit.minor ? (
+            <View style={styles.infoBlock}>
+              <Text style={styles.infoTitle}>Minor</Text>
+              <Text style={styles.infoText}>
+                {audit.minor.name} · {audit.minor.completed ? 'Completed' : 'Incomplete'}
+              </Text>
+              {audit.minor.courses_missing?.length ? (
+                <Text style={styles.helperText}>
+                  Missing: {audit.minor.courses_missing.join(', ')}
+                </Text>
+              ) : null}
+            </View>
+          ) : null}
+        </Card>
+      ) : null}
+
+      {deficiencyEntries.length ? (
+        <Card>
+          <Text style={styles.sectionTitle}>Deficiencies</Text>
+          <View style={styles.stack}>
+            {deficiencyEntries.map(([key, value]) => (
+              <View key={key} style={styles.infoBlock}>
+                <Text style={styles.infoTitle}>{key.replace(/_/g, ' ')}</Text>
+                <Text style={styles.infoText}>
+                  {Array.isArray(value) ? value.join(', ') : String(value)}
+                </Text>
+              </View>
+            ))}
+          </View>
+        </Card>
+      ) : null}
+
+      {audit.failed_courses?.length ? (
+        <Card>
+          <Text style={styles.sectionTitle}>Failed Courses</Text>
+          <Text style={styles.infoText}>{audit.failed_courses.join(', ')}</Text>
+        </Card>
+      ) : null}
+
+      {prereqViolations.length ? (
+        <Card>
+          <Text style={styles.sectionTitle}>Prerequisite Violations</Text>
+          <View style={styles.stack}>
+            {prereqViolations.map((item: any, index: number) => (
+              <View key={`${item.course}-${index}`} style={styles.infoBlock}>
+                <Text style={styles.infoTitle}>{item.course}</Text>
+                <Text style={styles.infoText}>
+                  Missing {item.missing_prereqs?.join(', ')} · {item.semester}
+                </Text>
+              </View>
+            ))}
+          </View>
+        </Card>
+      ) : null}
+
       <Card>
         <Text style={styles.sectionTitle}>Grade Distribution</Text>
-        {Object.entries(gradeDist).length > 0
-          ? Object.entries(gradeDist).map(([grade, count]) => (
-            <View key={grade} style={styles.gradeRow}>
-              <Text style={styles.gradeLabel}>{grade}</Text>
-              <View style={styles.gradeBarBg}>
-                <View style={[styles.gradeBar, { width: `${((count as number) / maxGrade) * 100}%` }]} />
+        {Object.keys(gradeDist).length ? (
+          <View style={styles.stack}>
+            {Object.entries(gradeDist).map(([grade, count]) => (
+              <View key={grade} style={styles.gradeRow}>
+                <Text style={styles.gradeLabel}>{grade}</Text>
+                <View style={styles.gradeBarBg}>
+                  <View
+                    style={[
+                      styles.gradeBar,
+                      { width: `${((count as number) / maxGradeCount) * 100}%` },
+                    ]}
+                  />
+                </View>
+                <Text style={styles.gradeCount}>{count as number}</Text>
               </View>
-              <Text style={styles.gradeCount}>{count as number}</Text>
-            </View>
-          ))
-          : <Text style={styles.noData}>No grade data available.</Text>
-        }
+            ))}
+          </View>
+        ) : (
+          <Text style={styles.helperText}>No grade data available.</Text>
+        )}
       </Card>
     </ScrollView>
   )
@@ -150,26 +245,41 @@ const styles = StyleSheet.create({
   header: { gap: 4, marginBottom: 4 },
   heading: { fontFamily: 'InstrumentSerif_400Regular', fontSize: 34, color: colors.foreground },
   sub: { fontFamily: 'DMSans_400Regular', fontSize: 13, color: colors.muted, marginTop: 2 },
-  statsRow: { flexDirection: 'row', gap: 10 },
-  statusCard: { flex: 1.5 },
-  smallStats: { flex: 1, gap: 10 },
-  statCard: { padding: 16, gap: 6 },
-  statLabel: { fontFamily: 'DMSans_400Regular', fontSize: 10, letterSpacing: 1.2, textTransform: 'uppercase', color: colors.muted },
-  statBig: { fontFamily: 'InstrumentSerif_400Regular', fontSize: 28, color: colors.foreground, lineHeight: 34 },
-  statOf: { fontFamily: 'DMSans_400Regular', fontSize: 16, color: colors.muted },
-  missingCard: { backgroundColor: '#FEF2F2', borderColor: '#FECACA' },
-  missingTitle: { fontFamily: 'DMSans_500Medium', fontSize: 13, color: colors.red, marginBottom: 10 },
-  courseChips: { flexDirection: 'row', flexWrap: 'wrap', gap: 8 },
-  courseChip: { paddingHorizontal: 10, paddingVertical: 5, backgroundColor: '#FEE2E2', borderRadius: radius.md, borderWidth: 1, borderColor: '#FECACA' },
-  courseChipText: { fontFamily: 'DMSans_500Medium', fontSize: 12, color: colors.red },
-  sectionTitle: { fontFamily: 'DMSans_600SemiBold', fontSize: 13, color: colors.foreground, marginBottom: 16 },
-  roadmapItem: { flexDirection: 'row', gap: 12, alignItems: 'flex-start', marginBottom: 10 },
-  roadmapBar: { width: 2, minHeight: 18, backgroundColor: 'rgba(26,23,20,0.2)', borderRadius: 1, marginTop: 3 },
-  roadmapText: { flex: 1, fontFamily: 'DMSans_400Regular', fontSize: 14, color: colors.foreground, lineHeight: 20 },
-  gradeRow: { flexDirection: 'row', alignItems: 'center', gap: 10, marginBottom: 8 },
-  gradeLabel: { fontFamily: 'DMSans_500Medium', fontSize: 13, color: colors.foreground, width: 28 },
-  gradeBarBg: { flex: 1, height: 5, backgroundColor: 'rgba(26,23,20,0.07)', borderRadius: 99, overflow: 'hidden' },
-  gradeBar: { height: '100%', backgroundColor: 'rgba(26,23,20,0.4)', borderRadius: 99 },
-  gradeCount: { fontFamily: 'DMSans_400Regular', fontSize: 12, color: colors.muted, width: 24, textAlign: 'right' },
-  noData: { fontFamily: 'DMSans_400Regular', fontSize: 13, color: colors.muted },
+  topCard: { gap: 10 },
+  topRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', gap: 8 },
+  metaPills: { flexDirection: 'row', flexWrap: 'wrap', gap: 6, justifyContent: 'flex-end' },
+  metaPill: {
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: radius.pill,
+    borderWidth: 1,
+    borderColor: colors.stroke,
+    backgroundColor: 'rgba(26,23,20,0.04)',
+  },
+  metaPillText: { fontFamily: 'DMSans_500Medium', fontSize: 10, color: colors.muted },
+  topTitle: { fontFamily: 'DMSans_600SemiBold', fontSize: 18, color: colors.foreground },
+  topSub: { fontFamily: 'DMSans_400Regular', fontSize: 12, color: colors.muted },
+  metricsGrid: { flexDirection: 'row', gap: 10 },
+  metricCard: { flex: 1, padding: 16, gap: 6 },
+  metricLabel: {
+    fontFamily: 'DMSans_400Regular',
+    fontSize: 10,
+    color: colors.muted,
+    textTransform: 'uppercase',
+    letterSpacing: 0.8,
+  },
+  metricValue: { fontFamily: 'InstrumentSerif_400Regular', fontSize: 24, color: colors.foreground },
+  sectionTitle: { fontFamily: 'DMSans_600SemiBold', fontSize: 13, color: colors.foreground, marginBottom: 10 },
+  stack: { gap: 10 },
+  listRow: { flexDirection: 'row', alignItems: 'flex-start', gap: 10 },
+  listText: { flex: 1, fontFamily: 'DMSans_400Regular', fontSize: 13, color: colors.foreground, lineHeight: 19 },
+  infoBlock: { gap: 4 },
+  infoTitle: { fontFamily: 'DMSans_500Medium', fontSize: 12, color: colors.foreground, textTransform: 'capitalize' },
+  infoText: { fontFamily: 'DMSans_400Regular', fontSize: 13, color: colors.foreground, lineHeight: 19 },
+  helperText: { fontFamily: 'DMSans_400Regular', fontSize: 13, color: colors.muted },
+  gradeRow: { flexDirection: 'row', alignItems: 'center', gap: 10 },
+  gradeLabel: { width: 28, fontFamily: 'DMSans_500Medium', fontSize: 13, color: colors.foreground },
+  gradeBarBg: { flex: 1, height: 6, borderRadius: 999, backgroundColor: 'rgba(26,23,20,0.07)', overflow: 'hidden' },
+  gradeBar: { height: '100%', borderRadius: 999, backgroundColor: 'rgba(26,23,20,0.4)' },
+  gradeCount: { width: 24, textAlign: 'right', fontFamily: 'DMSans_400Regular', fontSize: 12, color: colors.muted },
 })

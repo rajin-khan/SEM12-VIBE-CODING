@@ -1,5 +1,5 @@
 import React from 'react'
-import { TouchableOpacity, Text, StyleSheet, ViewStyle, ActivityIndicator } from 'react-native'
+import { TouchableOpacity, Text, StyleSheet, ViewStyle, ActivityIndicator, StyleProp } from 'react-native'
 import { colors, fonts, radius } from '../../src/theme'
 
 interface PrimaryButtonProps {
@@ -7,7 +7,7 @@ interface PrimaryButtonProps {
   onPress: () => void
   disabled?: boolean
   loading?: boolean
-  style?: ViewStyle
+  style?: StyleProp<ViewStyle>
   variant?: 'primary' | 'ghost' | 'outline'
 }
 

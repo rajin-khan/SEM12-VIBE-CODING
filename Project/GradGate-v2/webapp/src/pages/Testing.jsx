@@ -2,7 +2,7 @@ import { useState, useRef, useCallback } from 'react'
 import { Navigate, Link } from 'react-router-dom'
 import { useAuth } from '../lib/AuthContext'
 import { GlassCard } from '../components/ui/GlassCard'
-import { runTranscriptAudit } from '../lib/api'
+import { SCANNED_EXTENSIONS, runTranscriptAudit } from '../lib/api'
 import {
     FolderOpen, FileCsv, FileImage, ArrowSquareOut,
     Circle, CheckCircle, XCircle, SpinnerGap, Tray
@@ -15,7 +15,7 @@ const PROGRAMS = [
     { value: "ETE", label: "ETE" },
 ]
 
-const ACCEPTED = ['.csv', '.pdf', '.png', '.jpg', '.jpeg']
+const ACCEPTED = ['.csv', ...SCANNED_EXTENSIONS]
 
 function statusIcon(status) {
     if (status === 'running') return <SpinnerGap size={16} weight="regular" className="text-muted animate-spin" />
@@ -65,6 +65,9 @@ export default function Testing() {
                 minor: '',
                 waivers: [],
             })
+            if (data.status === 'review_required') {
+                throw new Error(data.review?.warnings?.[0] || 'Review required before auditing this document.')
+            }
             setFiles(prev => prev.map((f, i) => i === index
                 ? { ...f, status: 'done', scan_id: data.scan_id }
                 : f

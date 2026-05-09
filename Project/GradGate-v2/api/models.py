@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from datetime import datetime
-from typing import Any
+from typing import Any, Literal
 from uuid import UUID
 
 from pydantic import BaseModel, Field
@@ -47,7 +47,29 @@ class OCRHealthResponse(BaseModel):
     scanned_pdf_ready: bool
     text_pdf_ready: bool
     dependencies: dict[str, bool]
+    supported_extensions: list[str]
+    extraction_modes: list[str]
     messages: list[str]
+
+
+class ExtractedPreviewRow(BaseModel):
+    course_code: str
+    credits: str
+    grade: str
+    semester: str
+    confidence: float
+    raw_line: str
+
+
+class ReviewPayload(BaseModel):
+    input_type: str
+    extraction_mode: str
+    review_required: bool
+    warnings: list[str]
+    pages_processed: int
+    rows_detected: int
+    extracted_preview_rows: list[ExtractedPreviewRow]
+    extracted_csv: str
 
 
 # ── Response models ──────────────────────────────────────────────────────────
@@ -56,10 +78,28 @@ class OCRHealthResponse(BaseModel):
 class AuditResponse(BaseModel):
     """Returned after a successful audit run."""
 
-    scan_id: UUID
+    status: Literal["audited", "review_required"] = "audited"
+    scan_id: UUID | None = None
     program: str
     input_type: str
-    result: dict[str, Any]
+    result: dict[str, Any] | None = None
+    review: ReviewPayload | None = None
+
+
+class ReviewedAuditRequest(BaseModel):
+    """Review-mode payload for continuing from extracted transcript rows."""
+
+    program: str
+    input_type: str
+    file_name: str | None = None
+    extracted_csv: str
+    waivers: list[str] = Field(default_factory=list)
+    level: str = "all"
+    report: str = "normal"
+    concentration: str | None = None
+    minor: str | None = None
+    extraction_mode: str | None = None
+    warnings: list[str] = Field(default_factory=list)
 
 
 class ScanSummary(BaseModel):

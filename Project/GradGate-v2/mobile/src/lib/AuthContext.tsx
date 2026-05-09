@@ -19,16 +19,40 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
+    let active = true
+
+    const bootstrap = async () => {
+      try {
+        const { data: { session } } = await supabase.auth.getSession()
+        if (!active) return
+        setSession(session)
+      } catch (error) {
+        if (!active) return
+        setSession(null)
+        try {
+          await supabase.auth.signOut({ scope: 'local' })
+        } catch {
+          // Ignore local sign-out cleanup failures during bootstrap.
+        }
+      } finally {
+        if (active) {
+          setLoading(false)
+        }
+      }
+    }
+
+    bootstrap()
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (_event, session) => {
+      if (!active) return
       setSession(session)
       setLoading(false)
     })
 
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session)
-    })
-
-    return () => subscription.unsubscribe()
+    return () => {
+      active = false
+      subscription.unsubscribe()
+    }
   }, [])
 
   const signOut = async () => {

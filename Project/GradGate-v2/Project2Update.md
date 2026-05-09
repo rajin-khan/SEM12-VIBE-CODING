@@ -16,5 +16,6 @@ other requirements:
   - install `tesseract`
   - install Poppler so `pdftoppm` is on PATH
   - use `/audit/ocr-status` to verify the machine is ready before testing PDF/image uploads
+  - external Codex skills such as `pdf` and `ocr-document-processor` are used only as development guidance, not as GradGate runtime dependencies
 
 - due sunday 8th march

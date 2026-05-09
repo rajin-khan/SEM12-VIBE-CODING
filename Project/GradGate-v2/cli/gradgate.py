@@ -6,6 +6,8 @@ import os
 import sys
 from pathlib import Path
 
+from rich.table import Table
+
 CLI_DIR = Path(__file__).resolve().parent
 PROJECT_ROOT = CLI_DIR.parent
 
@@ -19,6 +21,7 @@ from auth_session import (
     save_local_audit,
     sign_in_with_google,
     sign_out,
+    submit_reviewed_audit,
     submit_scanned_audit,
 )
 from display.formatter import (
@@ -45,7 +48,19 @@ from engine.waivers import get_waivers
 
 DEFAULT_KNOWLEDGE = str(PROJECT_ROOT / "data" / "curriculum" / "catalog.json")
 TESTS_DIR = str(PROJECT_ROOT / "tests")
-SCANNED_EXTENSIONS = {".pdf", ".png", ".jpg", ".jpeg"}
+SCANNED_EXTENSIONS = {
+    ".pdf",
+    ".png",
+    ".jpg",
+    ".jpeg",
+    ".tif",
+    ".tiff",
+    ".bmp",
+    ".webp",
+    ".heic",
+    ".heif",
+    ".gif",
+}
 
 
 # ─── Interactive menu ────────────────────────────────────────────────
@@ -115,7 +130,7 @@ def _restore_formatter_console(output_file, original_console, output_path: str) 
 def _browse_transcript() -> str:
     """Let the user pick a transcript file interactively."""
     console.print("\n[bold]Select transcript source:[/]")
-    console.print("  [cyan]1.[/] Enter a file path manually [dim](CSV, PDF, PNG, JPG)[/]")
+    console.print("  [cyan]1.[/] Enter a file path manually [dim](CSV, PDF, PNG, JPG, TIFF, BMP, WEBP, HEIC, GIF)[/]")
     console.print("  [cyan]2.[/] Use the sample transcript  [dim](data/transcript.csv)[/]")
     console.print("  [cyan]3.[/] Browse test cases")
 
@@ -591,6 +606,55 @@ def _run_remote_scanned_audit(
         concentration=concentration,
         minor=minor,
     )
+    if response.get("status") == "review_required":
+        review = response.get("review") or {}
+        warnings = review.get("warnings") or []
+        preview_rows = review.get("extracted_preview_rows") or []
+
+        console.print("\n[yellow]OCR review required before running the audit.[/]")
+        for warning in warnings:
+            console.print(f"  [yellow]-[/] {warning}")
+
+        if preview_rows:
+            preview_table = Table(title="Extracted Transcript Preview", border_style="yellow")
+            preview_table.add_column("Course")
+            preview_table.add_column("Credits")
+            preview_table.add_column("Grade")
+            preview_table.add_column("Semester")
+            preview_table.add_column("Confidence", justify="right")
+            for row in preview_rows[:12]:
+                preview_table.add_row(
+                    row.get("course_code", "—"),
+                    str(row.get("credits", "—")),
+                    row.get("grade", "—"),
+                    row.get("semester", "—"),
+                    f"{float(row.get('confidence', 0)):.2f}",
+                )
+            console.print(preview_table)
+
+        if not sys.stdin.isatty():
+            raise RuntimeError(
+                "Transcript extraction needs review. Re-run this command interactively to confirm the extracted rows."
+            )
+
+        confirm = input("  Continue with these extracted rows? (y/n): ").strip().lower()
+        if confirm != "y":
+            raise RuntimeError("Audit cancelled after OCR review.")
+
+        response = submit_reviewed_audit(
+            program=program_name,
+            input_type=response.get("input_type", "image"),
+            file_name=Path(transcript_path).name,
+            extracted_csv=review.get("extracted_csv", ""),
+            waivers=waivers_value,
+            level=level,
+            report=report_mode,
+            concentration=concentration,
+            minor=minor,
+            extraction_mode=review.get("extraction_mode"),
+            warnings=warnings,
+        )
+
     program_info = load_program(knowledge_path, program_name)
     if not program_info:
         raise RuntimeError(f"Program '{program_name}' not found in local catalog.")

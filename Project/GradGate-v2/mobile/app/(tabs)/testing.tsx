@@ -6,13 +6,14 @@ import { useRouter } from 'expo-router'
 import * as DocumentPicker from 'expo-document-picker'
 import { Ionicons } from '@expo/vector-icons'
 import { useAuth } from '../../src/lib/AuthContext'
-import { auditCSV, auditImage } from '../../src/lib/api'
+import { runTranscriptAudit } from '../../src/lib/api'
+import { defaultAuditOptions } from '../../src/lib/auditConfig'
 import { Card } from '../../src/components/Card'
 import { PrimaryButton } from '../../src/components/PrimaryButton'
 import { SectionLabel } from '../../src/components/SectionLabel'
 import { colors, fonts, radius } from '../../src/theme'
 
-const PROGRAMS = ['CSE', 'BBA', 'EEE', 'ETE']
+const PROGRAMS = defaultAuditOptions().programs.map((item) => item.value)
 
 type Status = 'idle' | 'running' | 'done' | 'error'
 interface FileEntry {
@@ -34,7 +35,7 @@ export default function TestingScreen() {
 
   const pickFiles = async () => {
     const result = await DocumentPicker.getDocumentAsync({
-      type: ['text/csv', 'application/pdf', 'image/png', 'image/jpeg'],
+      type: ['text/csv', 'application/pdf', 'image/*'],
       copyToCacheDirectory: true,
       multiple: true,
     })
@@ -60,9 +61,22 @@ export default function TestingScreen() {
     updateFile(entry.id, { status: 'running' })
     try {
       const isCSV = entry.name.endsWith('.csv') || entry.type === 'text/csv'
-      const data = isCSV
-        ? await auditCSV(session, entry.uri, entry.name, entry.program)
-        : await auditImage(session, entry.uri, entry.name, entry.type, entry.program)
+      const data = await runTranscriptAudit(session, {
+        file: {
+          uri: entry.uri,
+          name: entry.name,
+          type: isCSV ? 'text/csv' : entry.type,
+        },
+        program: entry.program,
+        level: 'all',
+        report: 'normal',
+        concentration: '',
+        minor: '',
+        waivers: [],
+      })
+      if (data.status === 'review_required') {
+        throw new Error(data.review?.warnings?.[0] || 'Review required before auditing this document.')
+      }
       updateFile(entry.id, { status: 'done', scanId: data.scan_id })
     } catch (e: any) {
       updateFile(entry.id, { status: 'error', error: e.message })

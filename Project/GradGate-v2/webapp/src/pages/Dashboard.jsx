@@ -5,7 +5,7 @@ import { GlassCard } from '../components/ui/GlassCard'
 import { Button } from '../components/ui/Button'
 import { CaretDown, Cpu, FileCsv, FileImage, SlidersHorizontal, UploadSimple, X } from '@phosphor-icons/react'
 import { defaultAuditOptions, levelLabel } from '../lib/auditConfig'
-import { fetchAuditOptions, fetchOcrStatus, runTranscriptAudit } from '../lib/api'
+import { SCANNED_EXTENSIONS, fetchAuditOptions, fetchOcrStatus, runTranscriptAudit, submitReviewedAudit } from '../lib/api'
 
 function WaiverInput({ waivers, setWaivers, disabled }) {
     const [value, setValue] = useState('')
@@ -81,6 +81,7 @@ export default function Dashboard() {
     const [isDragging, setIsDragging] = useState(false)
     const [auditOptions, setAuditOptions] = useState(defaultAuditOptions())
     const [ocrStatus, setOcrStatus] = useState(null)
+    const [reviewPayload, setReviewPayload] = useState(null)
 
     useEffect(() => {
         let active = true
@@ -166,6 +167,7 @@ export default function Dashboard() {
             return
         }
         setError('')
+        setReviewPayload(null)
         setIsUploading(true)
         try {
             const data = await runTranscriptAudit(session, {
@@ -176,6 +178,36 @@ export default function Dashboard() {
                 concentration,
                 minor,
                 waivers,
+            })
+            if (data.status === 'review_required') {
+                setReviewPayload(data.review)
+                return
+            }
+            navigate(`/results/${data.scan_id}`)
+        } catch (err) {
+            setError(err.message)
+        } finally {
+            setIsUploading(false)
+        }
+    }
+
+    const handleReviewedSubmit = async () => {
+        if (!reviewPayload || !file) return
+        setError('')
+        setIsUploading(true)
+        try {
+            const data = await submitReviewedAudit(session, {
+                program,
+                input_type: reviewPayload.input_type,
+                file_name: file.name,
+                extracted_csv: reviewPayload.extracted_csv,
+                waivers,
+                level,
+                report,
+                concentration: concentration || null,
+                minor: minor || null,
+                extraction_mode: reviewPayload.extraction_mode,
+                warnings: reviewPayload.warnings || [],
             })
             navigate(`/results/${data.scan_id}`)
         } catch (err) {
@@ -223,7 +255,7 @@ export default function Dashboard() {
                             ref={fileInputRef}
                             className="hidden"
                             onChange={handleFileSelect}
-                            accept=".csv,.pdf,.png,.jpg,.jpeg"
+                            accept={`.csv,${SCANNED_EXTENSIONS.join(',')}`}
                         />
                         <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full border border-black/10 bg-white/70 shadow-sm transition-transform group-hover:scale-105">
                             {fileIcon}
@@ -231,12 +263,55 @@ export default function Dashboard() {
                         <p className="text-center text-base font-medium text-foreground">
                             {file ? file.name : 'Click or drag your transcript here'}
                         </p>
-                        <p className="mt-2 text-center text-xs text-muted">CSV, PDF, and transcript images are supported through the API.</p>
+                        <p className="mt-2 text-center text-xs text-muted">CSV, PDF, and transcript image uploads are supported through the API.</p>
                     </div>
 
                     {ocrStatus && !ocrStatus.ready && (
                         <div className="rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800">
                             OCR/PDF support is not fully ready on this API host yet. {ocrStatus.messages?.[0]}
+                        </div>
+                    )}
+
+                    {reviewPayload && (
+                        <div className="rounded-xl border border-amber-200 bg-amber-50/80 p-5">
+                            <p className="text-xs font-medium uppercase tracking-widest text-amber-800">Review Required</p>
+                            <div className="mt-3 space-y-2 text-sm text-amber-900">
+                                {(reviewPayload.warnings || []).map((warning) => (
+                                    <p key={warning}>{warning}</p>
+                                ))}
+                            </div>
+                            <div className="mt-4 overflow-auto rounded-xl border border-amber-200 bg-white/70">
+                                <table className="min-w-full divide-y divide-amber-100 text-sm">
+                                    <thead className="bg-amber-50 text-left text-xs uppercase tracking-widest text-amber-700">
+                                        <tr>
+                                            <th className="px-4 py-3 font-medium">Course</th>
+                                            <th className="px-4 py-3 font-medium">Credits</th>
+                                            <th className="px-4 py-3 font-medium">Grade</th>
+                                            <th className="px-4 py-3 font-medium">Semester</th>
+                                            <th className="px-4 py-3 font-medium">Confidence</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody className="divide-y divide-amber-100">
+                                        {(reviewPayload.extracted_preview_rows || []).map((row, index) => (
+                                            <tr key={`${row.course_code}-${index}`}>
+                                                <td className="px-4 py-3">{row.course_code}</td>
+                                                <td className="px-4 py-3">{row.credits}</td>
+                                                <td className="px-4 py-3">{row.grade}</td>
+                                                <td className="px-4 py-3">{row.semester}</td>
+                                                <td className="px-4 py-3">{Number(row.confidence || 0).toFixed(2)}</td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div className="mt-4 flex flex-wrap gap-3">
+                                <Button onClick={handleReviewedSubmit} disabled={isUploading}>
+                                    Run Audit With Extracted Rows
+                                </Button>
+                                <Button variant="ghost" onClick={() => setReviewPayload(null)} disabled={isUploading}>
+                                    Cancel Review
+                                </Button>
+                            </div>
                         </div>
                     )}
 

@@ -1,4 +1,5 @@
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000'
+export const SCANNED_EXTENSIONS = ['.pdf', '.png', '.jpg', '.jpeg', '.tif', '.tiff', '.bmp', '.webp', '.heic', '.heif', '.gif']
 
 async function parseResponse(response) {
     const data = await response.json().catch(() => ({}))
@@ -79,6 +80,15 @@ export async function runTranscriptAudit(session, formState) {
         return runCsvAudit(session, formState)
     }
     return runScannedAudit(session, formState)
+}
+
+export async function submitReviewedAudit(session, payload) {
+    const response = await fetch(`${API_URL}/audit/review`, {
+        method: 'POST',
+        headers: authHeaders(session, { 'Content-Type': 'application/json' }),
+        body: JSON.stringify(payload),
+    })
+    return parseResponse(response)
 }
 
 export async function fetchOcrStatus() {

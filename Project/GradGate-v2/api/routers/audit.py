@@ -1,8 +1,4 @@
-"""Audit router — runs transcript analysis through the GradGate engine.
-
-POST /audit/csv   — accepts a CSV file upload, runs all levels, saves to DB
-POST /audit/image — accepts an image/PDF, runs OCR + engine, saves to DB
-"""
+"""Audit router — runs transcript analysis through the GradGate engine."""
 
 from __future__ import annotations
 
@@ -21,8 +17,20 @@ sys.path.insert(0, str(Path(_root) / "cli"))
 
 from api.auth import CurrentUser
 from api.auth import TEST_MODE
-from api.models import AuditOptionsResponse, AuditResponse, OCRHealthResponse, SavedAuditRequest
-from api.services.ocr import OCRDependencyError, OCRError, extract_transcript_csv, get_ocr_status
+from api.models import (
+    AuditOptionsResponse,
+    AuditResponse,
+    OCRHealthResponse,
+    ReviewedAuditRequest,
+    SavedAuditRequest,
+)
+from api.services.document_ingestion import (
+    ALL_SUPPORTED_EXTENSIONS,
+    OCRDependencyError,
+    OCRError,
+    extract_transcript_document,
+    get_ocr_status,
+)
 from api.services.supabase_client import get_supabase
 from engine.audit import run_audit
 from engine.cgpa import compute_grade_distribution, compute_semester_progression
@@ -299,6 +307,53 @@ def _save_scan(user_id: str, program: str, input_type: str, file_name: str, resu
     return response.data[0]["id"]
 
 
+def _build_audit_response(
+    *,
+    program: str,
+    input_type: str,
+    result: dict[str, Any] | None = None,
+    review: dict[str, Any] | None = None,
+    scan_id: str | None = None,
+) -> AuditResponse:
+    status_value = "review_required" if review else "audited"
+    return AuditResponse(
+        status=status_value,
+        scan_id=scan_id,
+        program=program.upper(),
+        input_type=input_type,
+        result=result,
+        review=review,
+    )
+
+
+def _run_engine_from_csv_text(
+    csv_text: str,
+    program: str,
+    waivers_list: list[str],
+    *,
+    level: str,
+    report: str,
+    concentration: str | None,
+    minor: str | None,
+) -> dict[str, Any]:
+    with tempfile.NamedTemporaryFile(suffix=".csv", mode="w", delete=False) as tmp_csv:
+        tmp_csv.write(csv_text)
+        tmp_csv_path = tmp_csv.name
+
+    try:
+        return _run_engine(
+            tmp_csv_path,
+            program,
+            waivers_list,
+            level=level,
+            report=report,
+            concentration=concentration,
+            minor=minor,
+        )
+    finally:
+        Path(tmp_csv_path).unlink(missing_ok=True)
+
+
 @router.get("/options", response_model=AuditOptionsResponse, summary="Get web audit form options")
 def get_audit_options() -> AuditOptionsResponse:
     programs = load_all_programs(KNOWLEDGE_PATH)
@@ -391,7 +446,12 @@ async def audit_csv(
             result=result,
         )
 
-    return AuditResponse(scan_id=scan_id, program=program.upper(), input_type="csv", result=result)
+    return _build_audit_response(
+        scan_id=scan_id,
+        program=program,
+        input_type="csv",
+        result=result,
+    )
 
 
 @router.post("/image", response_model=AuditResponse, summary="Run audit from scanned transcript image")
@@ -409,7 +469,7 @@ async def audit_image(
 
     Returns the complete audit result and stores it in scan history.
     """
-    valid_extensions = (".png", ".jpg", ".jpeg", ".pdf")
+    valid_extensions = tuple(sorted(ALL_SUPPORTED_EXTENSIONS))
     if not file.filename or not any(file.filename.lower().endswith(ext) for ext in valid_extensions):
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
@@ -430,9 +490,9 @@ async def audit_image(
         tmp_img_path = tmp.name
 
     try:
-        # 1. OCR -> CSV string
+        # 1. Extract transcript rows from the scanned document
         try:
-            csv_str = extract_transcript_csv(tmp_img_path)
+            extraction = extract_transcript_document(tmp_img_path)
         except OCRDependencyError as e:
             raise HTTPException(
                 status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
@@ -447,29 +507,29 @@ async def audit_image(
                 detail=str(e),
             ) from e
 
-        # 2. Write CSV string to another temp file for the engine
-        with tempfile.NamedTemporaryFile(suffix=".csv", mode="w", delete=False) as tmp_csv:
-            tmp_csv.write(csv_str)
-            tmp_csv_path = tmp_csv.name
+        input_type = extraction.input_type
 
-        try:
-            # 3. Run audit engine
-            result = _run_engine(
-                tmp_csv_path,
-                program,
-                waivers_list,
-                level=level_value,
-                report=report_value,
-                concentration=concentration_value,
-                minor=minor_value,
+        if extraction.review_required:
+            return _build_audit_response(
+                program=program,
+                input_type=input_type,
+                review=extraction.review_payload(),
             )
-        finally:
-            Path(tmp_csv_path).unlink(missing_ok=True)
+
+        result = _run_engine_from_csv_text(
+            extraction.extracted_csv,
+            program,
+            waivers_list,
+            level=level_value,
+            report=report_value,
+            concentration=concentration_value,
+            minor=minor_value,
+        )
+        result.setdefault("metadata", {})
+        result["metadata"]["extraction"] = extraction.metadata()
 
     finally:
         Path(tmp_img_path).unlink(missing_ok=True)
-
-    input_type = "pdf" if ext == ".pdf" else "image"
 
     # Skip DB save in TEST_MODE (no real user in auth.users)
     if TEST_MODE:
@@ -484,7 +544,61 @@ async def audit_image(
             result=result,
         )
 
-    return AuditResponse(scan_id=scan_id, program=program.upper(), input_type=input_type, result=result)
+    return _build_audit_response(
+        scan_id=scan_id,
+        program=program,
+        input_type=input_type,
+        result=result,
+    )
+
+
+@router.post("/review", response_model=AuditResponse, summary="Run audit from reviewed OCR transcript rows")
+async def audit_review(
+    user_id: CurrentUser,
+    payload: ReviewedAuditRequest,
+) -> AuditResponse:
+    level_value = _normalise_level(payload.level)
+    report_value = _normalise_report_mode(payload.report)
+    concentration_value = payload.concentration.strip().upper() if payload.concentration else None
+    minor_value = _normalise_minor(payload.minor)
+
+    result = _run_engine_from_csv_text(
+        payload.extracted_csv,
+        payload.program,
+        [item.strip().upper() for item in payload.waivers if item.strip()],
+        level=level_value,
+        report=report_value,
+        concentration=concentration_value,
+        minor=minor_value,
+    )
+    result.setdefault("metadata", {})
+    result["metadata"]["extraction"] = {
+        "input_type": payload.input_type,
+        "extraction_mode": payload.extraction_mode,
+        "warnings": payload.warnings,
+        "review_required": False,
+        "review_accepted": True,
+    }
+
+    if TEST_MODE:
+        import uuid
+
+        scan_id = str(uuid.uuid4())
+    else:
+        scan_id = _save_scan(
+            user_id=user_id,
+            program=payload.program.upper(),
+            input_type=payload.input_type,
+            file_name=payload.file_name or "reviewed-transcript",
+            result=result,
+        )
+
+    return _build_audit_response(
+        scan_id=scan_id,
+        program=payload.program,
+        input_type=payload.input_type,
+        result=result,
+    )
 
 
 @router.post("/log", response_model=AuditResponse, summary="Save a locally computed audit result")
@@ -506,9 +620,9 @@ async def log_audit(
             result=payload.result,
         )
 
-    return AuditResponse(
+    return _build_audit_response(
         scan_id=scan_id,
-        program=payload.program.upper(),
+        program=payload.program,
         input_type=payload.input_type,
         result=payload.result,
     )
