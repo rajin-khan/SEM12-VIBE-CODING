@@ -10,3 +10,7 @@
 # Keys & certs (mobile keystores also covered per-subproject .gitignore)
 *.pem
 *.p12
+
+# Generated Python files
+__pycache__/
+*.py[cod]
