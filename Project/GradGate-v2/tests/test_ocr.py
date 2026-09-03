@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from pathlib import Path
 from types import SimpleNamespace
 from unittest.mock import MagicMock, patch
 
@@ -9,6 +10,55 @@ import pytest
 
 from api.services import document_ingestion as ingestion
 from api.services.ocr import COURSE_PATTERN, OCRDependencyError, OCRError, extract_transcript_csv, get_ocr_status
+
+REAL_NSU_TRANSCRIPT_PDF = Path("/Users/rajin/Downloads/gradgate demo/694300494-nsu.pdf")
+REAL_NSU_EXPECTED_ROWS = [
+    ("ACT201", "3.0", "F", "Spring 2007"),
+    ("ENG102", "3.0", "C", "Spring 2007"),
+    ("MIS105", "3.0", "B+", "Spring 2007"),
+    ("ACT201", "3.0", "A-", "Summer 2007"),
+    ("BUS101", "3.0", "A-", "Summer 2007"),
+    ("MIS205", "3.0", "A", "Summer 2007"),
+    ("ACT202", "3.0", "B-", "Fall 2007"),
+    ("MGT210", "3.0", "A", "Fall 2007"),
+    ("ECO101", "3.0", "A", "Spring 2008"),
+    ("ECO172", "3.0", "B+", "Spring 2008"),
+    ("ENG103", "3.0", "A-", "Spring 2008"),
+    ("MKT202", "3.0", "A-", "Spring 2008"),
+    ("ECO104", "3.0", "B-", "Summer 2008"),
+    ("ECO134", "3.0", "B+", "Summer 2008"),
+    ("ECO173", "3.0", "B-", "Summer 2008"),
+    ("FIN254", "3.0", "B+", "Summer 2008"),
+    ("LAW200", "3.0", "B", "Summer 2008"),
+    ("ECO249", "3.0", "C-", "Fall 2008"),
+    ("FIN444", "3.0", "B", "Fall 2008"),
+    ("FIN464", "3.0", "B", "Fall 2008"),
+    ("MGT321", "3.0", "A-", "Fall 2008"),
+    ("CHN101", "3.0", "A", "Spring 2009"),
+    ("ENV107", "3.0", "A", "Spring 2009"),
+    ("FIN440", "3.0", "B", "Spring 2009"),
+    ("MGT351", "3.0", "B", "Spring 2009"),
+    ("ECO203", "3.0", "C+", "Summer 2009"),
+    ("ECO204", "3.0", "C-", "Summer 2009"),
+    ("ECO244", "3.0", "C+", "Summer 2009"),
+    ("MGT372", "3.0", "B+", "Summer 2009"),
+    ("ACT330", "3.0", "C", "Fall 2009"),
+    ("BUS251", "3.0", "B-", "Fall 2009"),
+    ("ECO317", "3.0", "W", "Fall 2009"),
+    ("FIN433", "3.0", "B-", "Fall 2009"),
+    ("BIO103", "3.0", "A", "Spring 2010"),
+    ("BUS401", "3.0", "B", "Spring 2010"),
+    ("FIN435", "3.0", "B+", "Spring 2010"),
+    ("MGT314", "3.0", "B", "Spring 2010"),
+    ("ENG105", "3.0", "B+", "Summer 2010"),
+    ("INT101", "3.0", "B", "Summer 2010"),
+    ("MGT368", "3.0", "B", "Summer 2010"),
+    ("SOC101", "3.0", "A", "Summer 2010"),
+    ("ACT322", "3.0", "C+", "Fall 2010"),
+    ("FIN340", "3.0", "B+", "Fall 2010"),
+    ("MGT489", "3.0", "B", "Fall 2010"),
+    ("BUS498", "4.0", "B+", "Spring 2011"),
+]
 
 
 def test_course_pattern_regex_clean():
@@ -36,6 +86,22 @@ def test_extract_transcript_csv_mocked_image(tmp_path):
         "CSE115,3,A,Spring 2019",
         "MAT120,3,B+,Spring 2019",
     ]
+
+
+def test_real_nsu_scanned_pdf_extracts_all_visible_course_rows():
+    if not REAL_NSU_TRANSCRIPT_PDF.exists():
+        pytest.skip(f"Real NSU OCR fixture is not present at {REAL_NSU_TRANSCRIPT_PDF}")
+
+    result = ingestion.extract_transcript_document(REAL_NSU_TRANSCRIPT_PDF)
+    actual_rows = [
+        (row.course_code, row.credits, row.grade, row.semester)
+        for row in result.rows
+    ]
+
+    assert result.extraction_mode == "pdf_ocr"
+    assert result.input_type == "pdf"
+    assert result.rows_detected == len(REAL_NSU_EXPECTED_ROWS)
+    assert actual_rows == REAL_NSU_EXPECTED_ROWS
 
 
 def test_extract_transcript_document_text_pdf_first(tmp_path, monkeypatch):

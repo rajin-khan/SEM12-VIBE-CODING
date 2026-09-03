@@ -2,6 +2,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { SignOut, ClockCounterClockwise, Gauge, Flask } from '@phosphor-icons/react'
 import { useAuth } from '../lib/AuthContext'
 import { supabase } from '../lib/supabase'
+import emblem from '../assets/brand/gradgate-emblem-ui.png'
 
 export function Navbar() {
     const { session } = useAuth()
@@ -16,9 +17,7 @@ export function Navbar() {
         <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4 md:px-12 bg-background/80 backdrop-blur-md border-b border-black/5">
             {/* Logo */}
             <Link to="/" className="flex items-center gap-2.5 transition-opacity hover:opacity-70">
-                <div className="w-5 h-6 border-l-2 border-r-2 border-foreground/70 rounded-t-full flex items-center justify-center relative">
-                    <div className="w-2.5 h-2.5 bg-foreground/70 rounded-full absolute bottom-0.5"></div>
-                </div>
+                <img src={emblem} alt="" className="h-8 w-8 rounded-xl object-cover ring-1 ring-black/5" />
                 <span className="text-3xl font-display text-foreground">GradGate</span>
             </Link>
 

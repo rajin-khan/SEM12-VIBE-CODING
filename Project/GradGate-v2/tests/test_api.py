@@ -345,6 +345,118 @@ def test_audit_review_runs_engine_and_saves():
     assert body["result"]["metadata"]["extraction"]["review_accepted"] is True
 
 
+def test_audit_review_saves_pdf_as_legacy_image_input_type():
+    mocked_result = {
+        "program": "Computer Science & Engineering",
+        "program_alias": "CSE",
+        "metadata": {
+            "requested_level": "all",
+            "requested_level_label": "All Levels",
+            "report_mode": "normal",
+            "selected_concentration": None,
+            "selected_minor": None,
+            "program_alias": "CSE",
+        },
+        "non_nsu_courses_flagged": [],
+        "waivers_applied": [],
+        "credits": {"total_earned": 130, "course_statuses": []},
+        "cgpa": {"final": 3.5, "semesters": []},
+        "grade_distribution": {},
+        "audit": {"eligible": True, "reasons": [], "roadmap": []},
+    }
+    inserted_payload = {}
+
+    class CaptureTable:
+        def insert(self, payload):
+            inserted_payload.update(payload)
+            return self
+
+        def execute(self):
+            response = MagicMock()
+            response.data = [{"id": "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee"}]
+            return response
+
+    class CaptureSupabase:
+        def table(self, _name):
+            return CaptureTable()
+
+    with patch("api.routers.audit.TEST_MODE", False):
+        with patch("api.routers.audit._run_engine", return_value=mocked_result):
+            with patch(AUDIT_MOCK, return_value=CaptureSupabase()):
+                resp = client.post(
+                    "/audit/review",
+                    json={
+                        "program": "CSE",
+                        "input_type": "pdf",
+                        "file_name": "reviewed.pdf",
+                        "extracted_csv": "Course_Code,Credits,Grade,Semester\nENG102,3,A-,Spring 2019",
+                        "waivers": [],
+                        "level": "all",
+                        "report": "normal",
+                        "extraction_mode": "pdf_ocr",
+                        "warnings": ["foo"],
+                    },
+                    headers={"Authorization": "Bearer test-token"},
+                )
+
+    assert resp.status_code == 200, resp.text
+    body = resp.json()
+    assert body["input_type"] == "pdf"
+    assert body["result"]["metadata"]["extraction"]["input_type"] == "pdf"
+    assert inserted_payload["input_type"] == "image"
+
+
+def test_audit_review_reports_history_save_failure():
+    mocked_result = {
+        "program": "Computer Science & Engineering",
+        "program_alias": "CSE",
+        "metadata": {
+            "requested_level": "all",
+            "requested_level_label": "All Levels",
+            "report_mode": "normal",
+            "selected_concentration": None,
+            "selected_minor": None,
+            "program_alias": "CSE",
+        },
+        "non_nsu_courses_flagged": [],
+        "waivers_applied": [],
+        "credits": {"total_earned": 130, "course_statuses": []},
+        "cgpa": {"final": 3.5, "semesters": []},
+        "grade_distribution": {},
+        "audit": {"eligible": True, "reasons": [], "roadmap": []},
+    }
+
+    class BrokenTable:
+        def insert(self, _payload):
+            raise RuntimeError("relation scan_sessions does not exist")
+
+    class BrokenSupabase:
+        def table(self, _name):
+            return BrokenTable()
+
+    with patch("api.routers.audit.TEST_MODE", False):
+        with patch("api.routers.audit._run_engine", return_value=mocked_result):
+            with patch(AUDIT_MOCK, return_value=BrokenSupabase()):
+                resp = client.post(
+                    "/audit/review",
+                    json={
+                        "program": "CSE",
+                        "input_type": "pdf",
+                        "file_name": "reviewed.pdf",
+                        "extracted_csv": "Course_Code,Credits,Grade,Semester\nENG102,3,A-,Spring 2019",
+                        "waivers": [],
+                        "level": "all",
+                        "report": "normal",
+                        "extraction_mode": "pdf_ocr",
+                        "warnings": ["foo"],
+                    },
+                    headers={"Authorization": "Bearer test-token"},
+                )
+
+    assert resp.status_code == 502
+    assert "saving to Supabase history failed" in resp.json()["detail"]
+
+
 # ── History ───────────────────────────────────────────────────────────────────
 
 def test_list_history_empty():

@@ -3,6 +3,7 @@ import { GlassCard } from '../components/ui/GlassCard'
 import { Navigate } from 'react-router-dom'
 import { useAuth } from '../lib/AuthContext'
 import { GraduationCap } from '@phosphor-icons/react'
+import emblem from '../assets/brand/gradgate-emblem-ui.png'
 
 function GoogleG() {
     return (
@@ -40,9 +41,7 @@ export default function Login() {
                 {/* Logo */}
                 <div className="flex flex-col items-center mb-10 gap-4">
                     <div className="flex items-center gap-2.5">
-                        <div className="w-5 h-6 border-l-2 border-r-2 border-foreground/70 rounded-t-full flex items-center justify-center relative">
-                            <div className="w-2.5 h-2.5 bg-foreground/70 rounded-full absolute bottom-0.5"></div>
-                        </div>
+                        <img src={emblem} alt="" className="h-10 w-10 rounded-2xl object-cover ring-1 ring-black/5" />
                         <span className="text-3xl font-display text-foreground">GradGate</span>
                     </div>
                     <div className="flex items-center gap-2 px-3 py-1 rounded-full border border-black/10 bg-white/50 backdrop-blur-sm">

@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 import os
+from pathlib import Path
 from typing import Any
 
 import httpx
@@ -96,4 +97,78 @@ def post_audit_csv(
         require_token=True,
         files=files,
         data=data,
+    )
+
+
+def post_audit_document(
+    file_path: str,
+    program: str,
+    *,
+    waivers: str = "",
+    level: str = "all",
+    report: str = "normal",
+    concentration: str | None = None,
+    minor: str | None = None,
+) -> dict[str, Any]:
+    """POST /audit/image — multipart form for PDF/image transcript uploads."""
+    path = Path(file_path).expanduser()
+    if not path.is_file():
+        return {"ok": False, "error": f"File not found: {path}"}
+
+    data: dict[str, Any] = {
+        "program": program,
+        "waivers": waivers,
+        "level": level,
+        "report": report,
+    }
+    if concentration is not None and concentration != "":
+        data["concentration"] = concentration
+    if minor is not None and minor != "":
+        data["minor"] = minor
+
+    with path.open("rb") as handle:
+        files = {"file": (path.name, handle, "application/octet-stream")}
+        return request_json(
+            "POST",
+            "/audit/image",
+            require_token=True,
+            files=files,
+            data=data,
+        )
+
+
+def post_reviewed_audit(
+    *,
+    program: str,
+    input_type: str,
+    extracted_csv: str,
+    file_name: str | None = None,
+    waivers: list[str] | None = None,
+    level: str = "all",
+    report: str = "normal",
+    concentration: str | None = None,
+    minor: str | None = None,
+    extraction_mode: str | None = None,
+    warnings: list[str] | None = None,
+) -> dict[str, Any]:
+    """POST /audit/review — continue from reviewed OCR rows."""
+    payload = {
+        "program": program,
+        "input_type": input_type,
+        "file_name": file_name,
+        "extracted_csv": extracted_csv,
+        "waivers": waivers or [],
+        "level": level,
+        "report": report,
+        "concentration": concentration,
+        "minor": minor,
+        "extraction_mode": extraction_mode,
+        "warnings": warnings or [],
+    }
+    return request_json(
+        "POST",
+        "/audit/review",
+        require_token=True,
+        headers={"Content-Type": "application/json"},
+        json=payload,
     )

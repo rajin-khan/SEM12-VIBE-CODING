@@ -17,9 +17,9 @@ export default function TabsLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Upload',
+          title: 'Dashboard',
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="cloud-upload-outline" size={size} color={color} />
+            <Ionicons name="grid-outline" size={size} color={color} />
           ),
         }}
       />
@@ -33,11 +33,11 @@ export default function TabsLayout() {
         }}
       />
       <Tabs.Screen
-        name="testing"
+        name="more"
         options={{
-          title: 'Testing',
+          title: 'More',
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="flask-outline" size={size} color={color} />
+            <Ionicons name="ellipsis-horizontal-circle-outline" size={size} color={color} />
           ),
         }}
       />

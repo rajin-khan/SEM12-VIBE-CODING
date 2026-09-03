@@ -54,6 +54,10 @@ def get_api_url() -> str:
     return _env("GRADGATE_API_URL", "EXPO_PUBLIC_API_URL", "VITE_API_URL", default=DEFAULT_API_URL)
 
 
+def _is_test_mode() -> bool:
+    return _env("TEST_MODE", default="false").lower() == "true"
+
+
 class FileStorage:
     """Minimal storage adapter for Supabase PKCE/session persistence."""
 
@@ -124,6 +128,8 @@ def get_session():
 
 
 def get_current_user_email() -> str | None:
+    if _is_test_mode():
+        return "local-test-user"
     client, session = get_session()
     if not session:
         return None
@@ -245,10 +251,26 @@ def _auth_headers(access_token: str) -> dict[str, str]:
     }
 
 
-def _request_json(method: str, endpoint: str, payload: dict[str, Any] | None = None) -> Any:
-    _, session = get_session()
+def _access_token_or_raise(required_message: str) -> str:
+    if _is_test_mode():
+        return "test-token"
+
+    try:
+        _, session = get_session()
+    except Exception as exc:
+        raise RuntimeError(
+            "Could not refresh the Supabase cloud session. "
+            "Check internet/DNS and Supabase project status, run `python3 cli/gradgate.py --login`, "
+            "or set TEST_MODE=true for local API-only OCR testing."
+        ) from exc
+
     if not session:
-        raise RuntimeError("You are not signed in.")
+        raise RuntimeError(required_message)
+    return session.access_token
+
+
+def _request_json(method: str, endpoint: str, payload: dict[str, Any] | None = None) -> Any:
+    access_token = _access_token_or_raise("You are not signed in.")
 
     api_url = get_api_url().rstrip("/")
     url = f"{api_url}{endpoint}"
@@ -256,7 +278,7 @@ def _request_json(method: str, endpoint: str, payload: dict[str, Any] | None = N
     if payload is not None:
         data = json.dumps(payload).encode("utf-8")
 
-    request = Request(url, headers=_auth_headers(session.access_token), data=data, method=method)
+    request = Request(url, headers=_auth_headers(access_token), data=data, method=method)
     try:
         with urlopen(request) as response:
             return json.loads(response.read().decode("utf-8"))
@@ -276,9 +298,9 @@ def _request_multipart(
     file_path: str | Path,
     fields: dict[str, Any],
 ) -> Any:
-    _, session = get_session()
-    if not session:
-        raise RuntimeError("PDF and image upload through the API requires Google sign-in first.")
+    access_token = _access_token_or_raise(
+        "PDF and image upload through the API requires Google sign-in first."
+    )
 
     api_url = get_api_url().rstrip("/")
     url = f"{api_url}{endpoint}"
@@ -310,7 +332,7 @@ def _request_multipart(
     body.extend(f"\r\n--{boundary}--\r\n".encode("utf-8"))
 
     headers = {
-        "Authorization": f"Bearer {session.access_token}",
+        "Authorization": f"Bearer {access_token}",
         "Accept": "application/json",
         "Content-Type": f"multipart/form-data; boundary={boundary}",
     }

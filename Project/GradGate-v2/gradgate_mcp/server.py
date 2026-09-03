@@ -57,6 +57,58 @@ def gradgate_audit_csv(
 
 
 @mcp.tool()
+def gradgate_audit_document(
+    file_path: str,
+    program: str,
+    waivers: str = "",
+    level: str = "all",
+    report: str = "normal",
+    concentration: str | None = None,
+    minor: str | None = None,
+) -> dict:
+    """Run an audit from a local PDF/image transcript path. Requires GRADGATE_API_TOKEN."""
+    return api_client.post_audit_document(
+        file_path,
+        program,
+        waivers=waivers,
+        level=level,
+        report=report,
+        concentration=concentration,
+        minor=minor,
+    )
+
+
+@mcp.tool()
+def gradgate_audit_reviewed_document(
+    program: str,
+    input_type: str,
+    extracted_csv: str,
+    file_name: str | None = None,
+    waivers: list[str] | None = None,
+    level: str = "all",
+    report: str = "normal",
+    concentration: str | None = None,
+    minor: str | None = None,
+    extraction_mode: str | None = None,
+    warnings: list[str] | None = None,
+) -> dict:
+    """Continue an audit after a review_required OCR response. Requires GRADGATE_API_TOKEN."""
+    return api_client.post_reviewed_audit(
+        program=program,
+        input_type=input_type,
+        extracted_csv=extracted_csv,
+        file_name=file_name,
+        waivers=waivers,
+        level=level,
+        report=report,
+        concentration=concentration,
+        minor=minor,
+        extraction_mode=extraction_mode,
+        warnings=warnings,
+    )
+
+
+@mcp.tool()
 def gradgate_history_list() -> dict:
     """List past audit scans for the authenticated user (GET /history). Requires GRADGATE_API_TOKEN."""
     return api_client.request_json("GET", "/history", require_token=True)

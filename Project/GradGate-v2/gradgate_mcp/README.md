@@ -26,7 +26,9 @@ make serve-api
 
 Unauthenticated tools: `gradgate_health`, `gradgate_audit_options`, `gradgate_ocr_status`.
 
-Authenticated tools: `gradgate_audit_csv`, `gradgate_history_list`, `gradgate_history_get`.
+Authenticated tools: `gradgate_audit_csv`, `gradgate_audit_document`, `gradgate_audit_reviewed_document`, `gradgate_history_list`, `gradgate_history_get`.
+
+`gradgate_audit_document` accepts a local file path for the API host to upload through `/audit/image`, including PDF, PNG, JPG/JPEG, TIFF, BMP, WEBP, HEIC/HEIF, and GIF transcript files. If the API returns `review_required`, inspect the extracted rows and continue with `gradgate_audit_reviewed_document`.
 
 ## Run (stdio)
 

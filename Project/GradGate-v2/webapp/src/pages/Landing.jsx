@@ -6,6 +6,7 @@ import { GlassCard } from '../components/ui/GlassCard'
 import { AnimatedText } from '../components/ui/AnimatedText'
 import { AlgorithmicBackground } from '../components/AlgorithmicBackground'
 import { useAuth } from '../lib/AuthContext'
+import emblem from '../assets/brand/gradgate-emblem-ui.png'
 
 const features = [
     "CSE, BBA, EEE & ETE programs",
@@ -18,7 +19,7 @@ export default function Landing() {
     const ctaTarget = session ? '/dashboard' : '/login'
 
     return (
-        <div className="min-h-screen flex items-center pt-20 text-left pl-6 md:pl-16 lg:pl-32">
+        <div className="paper-hero min-h-screen flex items-center pt-20 text-left pl-6 md:pl-16 lg:pl-32">
 
             <div className="max-w-4xl z-10 w-full relative">
                 {/* Badge */}
@@ -28,7 +29,7 @@ export default function Landing() {
                     transition={{ duration: 0.6 }}
                 >
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-black/10 bg-white/60 backdrop-blur-sm mb-8">
-                        <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></div>
+                        <img src={emblem} alt="" className="h-5 w-5 rounded-lg object-cover ring-1 ring-black/5" />
                         <span className="text-xs font-medium text-muted tracking-wide">Intelligent Degree Auditing</span>
                     </div>
                 </motion.div>
@@ -100,6 +101,7 @@ export default function Landing() {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 1.8, duration: 1, type: "spring" }}
             >
+                <div className="brand-orb absolute -right-10 -top-12 h-40 w-40 rounded-full" />
                 <GlassCard className="shadow-2xl shadow-black/10">
                     <div className="flex justify-between items-center mb-5">
                         <h3 className="text-[11px] font-semibold uppercase tracking-widest text-muted">Sample Overview</h3>

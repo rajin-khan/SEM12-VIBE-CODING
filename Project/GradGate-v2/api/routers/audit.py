@@ -58,6 +58,7 @@ LEVEL_LABELS = {
 VALID_LEVELS = set(LEVEL_LABELS)
 VALID_REPORT_MODES = {"normal", "full"}
 VALID_MINORS = {"MATH", "PHYSICS"}
+DB_INPUT_TYPES = {"csv", "image"}
 
 
 def _normalise_level(level: str | None) -> str:
@@ -90,6 +91,14 @@ def _normalise_minor(minor: str | None) -> str | None:
             detail=f"Invalid minor '{minor}'. Valid: {', '.join(sorted(VALID_MINORS))}",
         )
     return minor_value
+
+
+def _scan_history_input_type(input_type: str) -> str:
+    """Map richer ingestion types onto the legacy scan_sessions constraint."""
+    normalized = (input_type or "image").strip().lower()
+    if normalized in DB_INPUT_TYPES:
+        return normalized
+    return "image"
 
 
 def _parse_waivers(waivers: str | None) -> list[str]:
@@ -290,21 +299,27 @@ def _run_engine(
 
 def _save_scan(user_id: str, program: str, input_type: str, file_name: str, result: dict[str, Any]) -> str:
     """Insert a scan_sessions row and return the new UUID."""
-    sb = get_supabase()
-    response = (
-        sb.table("scan_sessions")
-        .insert(
-            {
-                "user_id": user_id,
-                "program": program,
-                "input_type": input_type,
-                "file_name": file_name,
-                "result_json": json.dumps(result),
-            }
+    try:
+        sb = get_supabase()
+        response = (
+            sb.table("scan_sessions")
+            .insert(
+                {
+                    "user_id": user_id,
+                    "program": program,
+                    "input_type": _scan_history_input_type(input_type),
+                    "file_name": file_name,
+                    "result_json": json.dumps(result),
+                }
+            )
+            .execute()
         )
-        .execute()
-    )
-    return response.data[0]["id"]
+        return response.data[0]["id"]
+    except Exception as exc:
+        raise HTTPException(
+            status_code=status.HTTP_502_BAD_GATEWAY,
+            detail=f"Audit completed, but saving to Supabase history failed: {exc}",
+        ) from exc
 
 
 def _build_audit_response(

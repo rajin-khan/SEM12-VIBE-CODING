@@ -3,9 +3,10 @@ import { useAuth } from '../lib/AuthContext'
 import { Navigate, useNavigate } from 'react-router-dom'
 import { GlassCard } from '../components/ui/GlassCard'
 import { Button } from '../components/ui/Button'
-import { CaretDown, Cpu, FileCsv, FileImage, SlidersHorizontal, UploadSimple, X } from '@phosphor-icons/react'
+import { CaretDown, FileCsv, FileImage, SlidersHorizontal, UploadSimple, X } from '@phosphor-icons/react'
 import { defaultAuditOptions, levelLabel } from '../lib/auditConfig'
 import { SCANNED_EXTENSIONS, fetchAuditOptions, fetchOcrStatus, runTranscriptAudit, submitReviewedAudit } from '../lib/api'
+import emblem from '../assets/brand/gradgate-emblem-ui.png'
 
 function WaiverInput({ waivers, setWaivers, disabled }) {
     const [value, setValue] = useState('')
@@ -220,13 +221,13 @@ export default function Dashboard() {
     return (
         <div className="min-h-screen pt-28 px-6 flex flex-col items-center pb-24 bg-background">
             <div className="w-full max-w-3xl">
-                <div className="mb-10">
-                    <div className="flex items-center gap-2 mb-2">
-                        <Cpu size={14} weight="thin" className="text-muted" />
+                <div className="paper-hero mb-10 overflow-hidden rounded-[2rem] border border-black/8 p-6 shadow-2xl shadow-black/5 md:p-8">
+                    <div className="flex items-center gap-2 mb-5">
+                        <img src={emblem} alt="" className="h-9 w-9 rounded-xl object-cover ring-1 ring-black/5" />
                         <span className="text-xs uppercase tracking-widest text-muted font-medium">New Audit</span>
                     </div>
-                    <h1 className="text-4xl font-display text-foreground">Upload Transcript</h1>
-                    <p className="text-muted text-sm mt-1">Run the same audit logic as the CLI with CSV, PDF, and transcript image uploads.</p>
+                    <h1 className="text-4xl font-display text-foreground">Start a Degree Audit</h1>
+                    <p className="text-muted text-sm mt-1 max-w-md">Run the same audit logic as the CLI with CSV, PDF, and transcript image uploads.</p>
                 </div>
 
                 <GlassCard className="flex flex-col gap-8 shadow-xl shadow-black/6">

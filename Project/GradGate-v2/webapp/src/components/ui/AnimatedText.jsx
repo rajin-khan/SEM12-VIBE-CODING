@@ -16,7 +16,6 @@ export function AnimatedText({ text, className, delay = 0 }) {
         visible: {
             opacity: 1,
             y: 0,
-            filter: "blur(0px)",
             transition: {
                 type: "spring",
                 damping: 12,
@@ -26,7 +25,6 @@ export function AnimatedText({ text, className, delay = 0 }) {
         hidden: {
             opacity: 0,
             y: 20,
-            filter: "blur(10px)",
         },
     }
 

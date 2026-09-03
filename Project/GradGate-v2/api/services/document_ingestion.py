@@ -55,8 +55,8 @@ if pillow_heif is not None:
 
 CSV_HEADER = "Course_Code,Credits,Grade,Semester"
 MIN_TRANSCRIPT_ROWS = 3
-STRONG_MATCH_ROW_TARGET = 10
-STRONG_MATCH_CONFIDENCE_TARGET = 8.2
+STRONG_MATCH_ROW_TARGET = 40
+STRONG_MATCH_CONFIDENCE_TARGET = 32.0
 BASE_IMAGE_EXTENSIONS = {
     ".png",
     ".jpg",
@@ -71,15 +71,42 @@ HEIF_EXTENSIONS = {".heic", ".heif"}
 PDF_EXTENSIONS = {".pdf"}
 ALL_SUPPORTED_EXTENSIONS = BASE_IMAGE_EXTENSIONS | HEIF_EXTENSIONS | PDF_EXTENSIONS
 VALID_GRADES = {"A", "A-", "B+", "B", "B-", "C+", "C", "C-", "D+", "D", "F", "W", "I", "T", "P"}
+KNOWN_DEPARTMENT_PREFIXES = {
+    "ACT",
+    "BIO",
+    "BUS",
+    "CHN",
+    "CSE",
+    "ECO",
+    "ENG",
+    "ENV",
+    "FIN",
+    "INT",
+    "LAW",
+    "MAT",
+    "MGT",
+    "MIS",
+    "MKT",
+    "PHY",
+    "SOC",
+}
 SEMESTER_PATTERN = re.compile(r"\b(Spring|Summer|Fall|Autumn)\b", re.IGNORECASE)
 YEAR_PATTERN = re.compile(r"\b(19|20)\d{2}\b")
-COURSE_CODE_PATTERN = re.compile(r"\b([A-Z]{2,4})\s*-?\s*(\d{3})([A-Z]?)\b", re.IGNORECASE)
+COURSE_CODE_PATTERN = re.compile(
+    r"\b([A-Z]{2,4})\s*-?\s*([0-9IOl]{3})([A-Z]?)\b",
+    re.IGNORECASE,
+)
+GRADE_TOKEN = r"A-|A\+|A|B\+|B-|Bt|Br|B|C\+|C-|Ct|C|D\+|D|F|W|I|T|P|8\+|8-|8"
+GRADE_TOKEN_PATTERN = re.compile(
+    rf"(?<![A-Z0-9])({GRADE_TOKEN})(?![A-Z0-9+\-])",
+    re.IGNORECASE,
+)
 FULL_ROW_PATTERN = re.compile(
     r"(?P<course>[A-Z]{2,4}\s*-?\s*\d{3}\s*[A-Z]?)"
     r"(?:\s+|[|:])"
     r"(?P<credits>\d(?:\.\d)?)"
     r"(?:\s+|[|:])"
-    r"(?P<grade>A\+?|A-|B\+|B-|B|C\+|C-|C|D\+|D|F|W|I|T|P|8\+|8-|8)"
+    rf"(?P<grade>{GRADE_TOKEN})"
     r"(?:\s+|[|:])+"
     r"(?P<semester>Spring|Summer|Fall|Autumn)"
     r"(?:\s+|[|:])+(?P<year>(?:19|20)\d{2})",
@@ -244,15 +271,35 @@ def _raise_missing_for_text_pdf() -> None:
 
 
 def _normalise_course_code(token: str) -> str:
-    match = COURSE_CODE_PATTERN.search(token.upper().replace(" ", ""))
+    compact = token.upper().replace(" ", "").replace("-", "")
+    match = COURSE_CODE_PATTERN.search(compact)
     if not match:
         raise OCRError(f"Could not normalise course code from '{token}'")
-    return f"{match.group(1)}{match.group(2)}{match.group(3)}".upper()
+    prefix = match.group(1).replace("0", "O").replace("1", "I")
+    if len(prefix) == 4 and prefix.endswith("I"):
+        prefix = prefix[:3]
+    if len(prefix) == 4 and prefix[1:] in KNOWN_DEPARTMENT_PREFIXES:
+        prefix = prefix[1:]
+    digits = match.group(2).replace("O", "0").replace("I", "1").replace("L", "1")
+    return f"{prefix}{digits}{match.group(3)}".upper()
+
+
+def _normalise_credit_token(token: str) -> str | None:
+    cleaned = token.strip().replace(",", ".")
+    cleaned = cleaned.replace("O", "0").replace("o", "0")
+    if re.fullmatch(r"[1-6]0", cleaned):
+        cleaned = f"{cleaned[0]}.0"
+    if re.fullmatch(r"[1-6]\.\d", cleaned):
+        return cleaned
+    if re.fullmatch(r"[1-6]", cleaned):
+        return cleaned
+    return None
 
 
 def _normalise_grade(token: str) -> str | None:
     cleaned = token.upper().replace(" ", "")
     cleaned = cleaned.replace("8+", "B+").replace("8-", "B-").replace("8", "B")
+    cleaned = cleaned.replace("BT", "B+").replace("BR", "B+").replace("CT", "C+")
     cleaned = cleaned.replace("A+", "A")
     return cleaned if cleaned in VALID_GRADES else None
 
@@ -267,8 +314,15 @@ def _normalise_semester(semester: str, year: str) -> str:
 def _normalise_line(line: str) -> str:
     cleaned = line.strip()
     cleaned = cleaned.replace("|", " ")
+    cleaned = cleaned.replace("_", " ")
+    cleaned = cleaned.replace("—", " ")
+    cleaned = cleaned.replace("–", " ")
     cleaned = cleaned.replace("•", " ")
     cleaned = cleaned.replace("\t", " ")
+    cleaned = cleaned.replace("$OC", "SOC").replace("NENG", "ENG").replace("MENG", "ENG")
+    cleaned = cleaned.replace("ENGI0S5", "ENG105")
+    cleaned = cleaned.replace("ENGI0S", "ENG105").replace("ENGI05", "ENG105")
+    cleaned = cleaned.replace("BIOLO3", "BIO103").replace("BIOI03", "BIO103")
     cleaned = cleaned.replace("B +", "B+").replace("A -", "A-").replace("C +", "C+").replace("C -", "C-")
     cleaned = cleaned.replace("D +", "D+").replace("B -", "B-")
     cleaned = cleaned.replace("Sprlng", "Spring").replace("Fa11", "Fall").replace("Fali", "Fall")
@@ -295,13 +349,24 @@ def _extract_semester_headers(line: str) -> list[str]:
 
 
 def _extract_credit_token(remainder: str) -> str | None:
-    match = re.search(r"\b(\d(?:\.\d)?)\b", remainder)
-    if not match:
-        return None
-    credits = match.group(1)
-    if float(credits) > 6:
-        return None
-    return credits
+    for match in re.finditer(r"\b([1-6](?:[.,]\d)?|[1-6]0)\b", remainder):
+        credits = _normalise_credit_token(match.group(1))
+        if credits and float(credits) <= 6:
+            return credits
+    return None
+
+
+def _extract_credit_and_grade(remainder: str) -> tuple[str | None, str | None]:
+    pattern = re.compile(
+        rf"\b(?P<credits>[1-6](?:[.,]\d)?|[1-6]0)\s*[_'’]?\s*(?P<grade>{GRADE_TOKEN})(?![A-Z0-9+\-])",
+        re.IGNORECASE,
+    )
+    for match in pattern.finditer(remainder):
+        credits = _normalise_credit_token(match.group("credits"))
+        grade = _normalise_grade(match.group("grade"))
+        if credits and grade:
+            return credits, grade
+    return _extract_credit_token(remainder), None
 
 
 def _parse_line(line: str, current_semester: str | None) -> ParsedRow | None:
@@ -322,9 +387,10 @@ def _parse_line(line: str, current_semester: str | None) -> ParsedRow | None:
 
     course_code = _normalise_course_code(course_match.group(0))
     remainder = line[course_match.end():]
-    credits = _extract_credit_token(remainder)
-    grade_match = re.search(r"\b(A\+?|A-|B\+|B-|B|C\+|C-|C|D\+|D|F|W|I|T|P|8\+|8-|8)\b", remainder, re.IGNORECASE)
-    grade = _normalise_grade(grade_match.group(1)) if grade_match else None
+    credits, grade = _extract_credit_and_grade(remainder)
+    if not grade:
+        grade_match = GRADE_TOKEN_PATTERN.search(remainder)
+        grade = _normalise_grade(grade_match.group(1)) if grade_match else None
 
     line_semester = _extract_semester_header(line)
     semester = line_semester or current_semester
@@ -462,7 +528,7 @@ def _prepare_quick_image(img: Image.Image) -> Image.Image:
 
 def _image_layouts(img: Image.Image) -> list[list[Image.Image]]:
     layouts: list[list[Image.Image]] = []
-    if img.width > img.height * 1.08:
+    if img.width > img.height * 1.08 or (img.width >= 1000 and img.height > img.width * 1.15):
         gutter = max(10, img.width // 80)
         middle = img.width // 2
         left = img.crop((0, 0, middle + gutter, img.height))
@@ -527,6 +593,38 @@ def _quick_page_ocr_text(img: Image.Image) -> str:
     return best_text
 
 
+def _pdf_transcript_page_ocr_text(img: Image.Image) -> str:
+    base = ImageOps.exif_transpose(img) if ImageOps else img
+    if base.width > base.height:
+        base = base.rotate(270, expand=True)
+
+    if max(base.size) > 2600:
+        scale = 2600 / max(base.size)
+        base = base.resize((max(1, int(base.width * scale)), max(1, int(base.height * scale))))
+
+    candidates: list[str] = []
+    grayscale = base.convert("L")
+    candidates.append(pytesseract.image_to_string(grayscale, config="--oem 3 --psm 4"))
+
+    if base.width >= 1000 and base.height > base.width * 1.15:
+        width, height = base.size
+        middle = width // 2
+        gutter = max(10, width // 80)
+        left = base.crop((0, int(height * 0.20), middle + gutter, int(height * 0.88)))
+        right = base.crop((middle - gutter, int(height * 0.10), width, int(height * 0.72)))
+        left_text = pytesseract.image_to_string(left.convert("L"), config="--oem 3 --psm 4")
+        right_text = pytesseract.image_to_string(right.convert("L"), config="--oem 3 --psm 4")
+        candidates.append(f"{left_text}\n{right_text}")
+
+    return max(
+        candidates,
+        key=lambda text: (
+            len(_parse_rows(text, "image_ocr")[0]),
+            sum(row.confidence for row in _parse_rows(text, "image_ocr")[0]),
+        ),
+    )
+
+
 def _looks_like_transcript_page(text: str) -> bool:
     upper = text.upper()
     course_hits = len(COURSE_CODE_PATTERN.findall(upper))
@@ -557,11 +655,11 @@ def _extract_text_via_pdf_ocr(path: Path) -> tuple[str, int]:
     for page in pages:
         quick_text = _quick_page_ocr_text(page)
         quick_rows, _quick_warnings = _parse_rows(quick_text, "image_ocr")
-        if len(quick_rows) >= MIN_TRANSCRIPT_ROWS:
+        if len(quick_rows) >= STRONG_MATCH_ROW_TARGET:
             parts.append(quick_text)
             continue
         if _looks_like_transcript_page(quick_text):
-            parts.append(_best_ocr_text(page))
+            parts.append(_pdf_transcript_page_ocr_text(page))
     return "\n".join(parts).strip(), len(pages)
 
 

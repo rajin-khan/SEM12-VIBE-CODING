@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Alert,
   TextInput,
+  ImageBackground,
 } from 'react-native'
 import { useRouter } from 'expo-router'
 import * as ImagePicker from 'expo-image-picker'
@@ -26,6 +27,8 @@ import { Card } from '../../src/components/Card'
 import { PrimaryButton } from '../../src/components/PrimaryButton'
 import { SectionLabel } from '../../src/components/SectionLabel'
 import { colors, radius } from '../../src/theme'
+
+const heroBanner = require('../../assets/brand/gradgate-hero-banner.png')
 
 function ChipGroup({
   options,
@@ -54,7 +57,7 @@ function ChipGroup({
   )
 }
 
-export default function UploadScreen() {
+export default function DashboardScreen() {
   const { session } = useAuth()
   const router = useRouter()
   const [file, setFile] = useState<PickedTranscriptFile | null>(null)
@@ -236,10 +239,17 @@ export default function UploadScreen() {
       showsVerticalScrollIndicator={false}
     >
       <View style={styles.header}>
-        <SectionLabel>New Audit</SectionLabel>
-        <Text style={styles.heading}>Upload Transcript</Text>
-        <Text style={styles.sub}>Run the same GradGate audit flow as the CLI and webapp.</Text>
+        <SectionLabel>Dashboard</SectionLabel>
+        <Text style={styles.heading}>Start a Degree Audit</Text>
+        <Text style={styles.sub}>Upload CSV, PDF, or transcript images through the same GradGate flow as web and CLI.</Text>
       </View>
+
+      <ImageBackground source={heroBanner} style={styles.heroBanner} imageStyle={styles.heroBannerImage}>
+        <View style={styles.heroOverlay}>
+          <Text style={styles.heroEyebrow}>OCR + Degree Intelligence</Text>
+          <Text style={styles.heroTitle}>Transcript to audit, without the paperwork fog.</Text>
+        </View>
+      </ImageBackground>
 
       {apiError ? (
         <View style={styles.errorBox}>
@@ -420,6 +430,35 @@ const styles = StyleSheet.create({
   header: { gap: 4 },
   heading: { fontFamily: 'InstrumentSerif_400Regular', fontSize: 34, color: colors.foreground },
   sub: { fontFamily: 'DMSans_400Regular', fontSize: 14, color: colors.muted, marginTop: 2 },
+  heroBanner: {
+    minHeight: 150,
+    borderRadius: radius.card,
+    overflow: 'hidden',
+    borderWidth: 1,
+    borderColor: colors.stroke,
+  },
+  heroBannerImage: { borderRadius: radius.card },
+  heroOverlay: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    padding: 18,
+    backgroundColor: 'rgba(250,248,245,0.32)',
+  },
+  heroEyebrow: {
+    fontFamily: 'DMSans_600SemiBold',
+    fontSize: 10,
+    color: colors.muted,
+    textTransform: 'uppercase',
+    letterSpacing: 1,
+  },
+  heroTitle: {
+    maxWidth: 260,
+    marginTop: 5,
+    fontFamily: 'InstrumentSerif_400Regular',
+    fontSize: 25,
+    lineHeight: 27,
+    color: colors.foreground,
+  },
   card: { padding: 0, overflow: 'hidden' },
   dropZone: {
     alignItems: 'center',

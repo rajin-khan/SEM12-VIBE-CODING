@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Alert, Image } from 'react-native'
+import { ImageBackground, View, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native'
 import { useRouter } from 'expo-router'
 import * as WebBrowser from 'expo-web-browser'
 import { makeRedirectUri } from 'expo-auth-session'
@@ -9,6 +9,8 @@ import { PrimaryButton } from '../../src/components/PrimaryButton'
 import { colors, fonts, radius } from '../../src/theme'
 
 WebBrowser.maybeCompleteAuthSession()
+
+const paperGrid = require('../../assets/brand/gradgate-paper-grid.png')
 
 export default function LoginScreen() {
   const [loading, setLoading] = useState(false)
@@ -42,7 +44,7 @@ export default function LoginScreen() {
   }
 
   return (
-    <View style={styles.container}>
+    <ImageBackground source={paperGrid} style={styles.container} imageStyle={styles.backgroundImage}>
       <View style={styles.inner}>
         {/* Logo */}
         <LogoMark size="lg" />
@@ -76,7 +78,7 @@ export default function LoginScreen() {
           </Text>
         </View>
       </View>
-    </View>
+    </ImageBackground>
   )
 }
 
@@ -87,6 +89,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 24,
+  },
+  backgroundImage: {
+    opacity: 0.18,
   },
   inner: {
     width: '100%',
